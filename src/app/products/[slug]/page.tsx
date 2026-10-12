@@ -26,7 +26,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     <article className={styles.container}>
       {/* Breadcrumb */}
       <nav className={styles.breadcrumb}>
-        <Link href="/products/kitchen">Kitchen</Link>
+        <Link href={`/products/${product.category}`}>
+          {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
+        </Link>
         <span>/</span>
         <span>{product.name}</span>
       </nav>
@@ -107,7 +109,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       <section className={styles.related}>
         <h2>Similar Products</h2>
         <p className={styles.relatedDescription}>
-          Browse other Tier {product.tier} products in Kitchen
+          Browse other Tier {product.tier} products in {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
         </p>
       </section>
     </article>
