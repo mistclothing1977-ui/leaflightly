@@ -4,6 +4,7 @@ import styles from './home.module.css';
 export default function Home() {
   return (
     <div className={styles.container}>
+      {/* All 5 categories now live! */}
       {/* Hero */}
       <section className={styles.hero}>
         <div className={styles.heroContent}>
