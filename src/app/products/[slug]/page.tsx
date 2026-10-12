@@ -5,13 +5,13 @@ import styles from './page.module.css';
 
 interface ProductDetailPageProps {
   params: Promise<{
-    id: string;
+    slug: string;
   }>;
 }
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
-  const { id } = await params;
-  const product = products.find((p) => p.id === id);
+  const { slug } = await params;
+  const product = products.find((p) => p.id === slug);
 
   if (!product) {
     notFound();
