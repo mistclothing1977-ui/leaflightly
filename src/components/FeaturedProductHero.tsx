@@ -1,9 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { Product } from '@/data/products';
 import { products } from '@/data/products';
 import { tierLabels, certificationLabels } from '@/lib/product-labels';
 import styles from './FeaturedProductHero.module.css';
