@@ -1,34 +1,55 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './ReviewsSection.module.css';
 
 interface Review {
   id: string;
-  author: string;
+  userName: string;
   rating: number;
-  date: string;
+  createdAt: string;
   title: string;
   text: string;
   helpful: number;
-  verified: boolean;
 }
 
 interface ReviewsSectionProps {
+  productId: string;
   productName: string;
-  overallRating: number;
-  totalReviews: number;
-  reviews: Review[];
 }
 
 export default function ReviewsSection({
+  productId,
   productName,
-  overallRating,
-  totalReviews,
-  reviews,
 }: ReviewsSectionProps) {
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [overallRating, setOverallRating] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [sortBy, setSortBy] = useState<'helpful' | 'recent' | 'highest' | 'lowest'>('helpful');
   const [filterRating, setFilterRating] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [productId]);
+
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch(`/api/reviews/product?productId=${productId}`);
+      if (res.ok) {
+        const data = await res.json();
+        setReviews(data.reviews || []);
+        setOverallRating(data.averageRating || 0);
+      }
+    } catch (e) {
+      console.error('Failed to fetch reviews:', e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleReviewSubmitted = () => {
+    fetchReviews();
+  };
 
   // Filter reviews by rating
   const filteredReviews = filterRating
@@ -65,6 +86,17 @@ export default function ReviewsSection({
       </span>
     ));
   };
+
+  if (loading) {
+    return (
+      <section className={styles.section}>
+        <div className={styles.container}>
+          <h2 className={styles.title}>Customer Reviews</h2>
+          <p style={{ textAlign: 'center', color: '#8B8B7E' }}>Loading reviews...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.section}>
@@ -143,12 +175,9 @@ export default function ReviewsSection({
                       <div className={styles.reviewAuthor}>
                         <h4 className={styles.reviewTitle}>{review.title}</h4>
                         <div className={styles.reviewMeta}>
-                          <span className={styles.author}>{review.author}</span>
-                          {review.verified && (
-                            <span className={styles.verified}>✓ Verified Purchase</span>
-                          )}
+                          <span className={styles.author}>{review.userName}</span>
                           <span className={styles.date}>
-                            {new Date(review.date).toLocaleDateString('en-UK', {
+                            {new Date(review.createdAt).toLocaleDateString('en-UK', {
                               year: 'numeric',
                               month: 'short',
                               day: 'numeric',
