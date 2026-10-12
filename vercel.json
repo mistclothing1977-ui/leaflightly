@@ -1,16 +1,1 @@
-{
-  "buildCommand": "npm install --legacy-peer-deps && npm run build",
-  "installCommand": "npm install --legacy-peer-deps",
-  "env": {
-    "NEXT_PUBLIC_SUPABASE_URL": "@next_public_supabase_url",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@next_public_supabase_anon_key",
-    "SUPABASE_SERVICE_ROLE_KEY": "@supabase_service_role_key",
-    "SUPABASE_JWT_SECRET": "@supabase_jwt_secret",
-    "DATABASE_URL": "@database_url",
-    "RESEND_API_KEY": "@resend_api_key",
-    "UPSTASH_REDIS_REST_URL": "@upstash_redis_rest_url",
-    "UPSTASH_REDIS_REST_TOKEN": "@upstash_redis_rest_token",
-    "WEBHOOK_SECRET": "@webhook_secret",
-    "EMAIL_FROM": "@email_from"
-  }
-}
+{}
