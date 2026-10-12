@@ -1,15 +1,18 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Header.module.css';
 
 export default function Header() {
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.logoLink}>
-        <img
+        <Image
           src="/assets/logos/logo-mark.webp"
           alt="Leaf Lightly Logo"
+          width={50}
+          height={50}
           className={styles.logo}
         />
       </Link>
