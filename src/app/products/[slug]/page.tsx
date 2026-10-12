@@ -5,6 +5,8 @@ import RelatedProductsCarousel from '@/components/RelatedProductsCarousel';
 import CompareButton from '@/components/CompareButton';
 import AddToCartButton from '@/components/AddToCartButton';
 import ReviewForm from '@/components/ReviewForm';
+import { StructuredData } from '@/components/StructuredData';
+import { generateMetadata as generatePageMetadata, generateProductSchema, generateOrganizationSchema, generateBreadcrumbSchema } from '@/lib/seo';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import styles from './page.module.css';
@@ -13,6 +15,35 @@ interface ProductDetailPageProps {
   params: Promise<{
     slug: string;
   }>;
+}
+
+export async function generateMetadata({ params }: ProductDetailPageProps) {
+  const { slug } = await params;
+  const product = products.find((p) => p.id === slug);
+
+  if (!product) {
+    return {
+      title: 'Product Not Found',
+      description: 'This product could not be found.',
+    };
+  }
+
+  return generatePageMetadata({
+    title: `${product.name} | Leaf Lightly`,
+    description: `Buy sustainable ${product.name} by ${product.brand}. Tier ${product.tier} certified eco-friendly product. ⭐ ${product.rating} rating.`,
+    keywords: [
+      product.name,
+      product.brand,
+      product.category,
+      'sustainable',
+      'eco-friendly',
+      'organic',
+    ],
+    image: product.imageUrl,
+    imageAlt: product.name,
+    url: `https://leaflightly.com/products/${product.id}`,
+    type: 'product',
+  });
 }
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
@@ -27,8 +58,38 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
 
+  // Generate structured data
+  const productSchema = generateProductSchema({
+    id: product.id,
+    name: product.name,
+    description: `High-quality ${product.name} by ${product.brand}. Certified sustainable product.`,
+    price: product.price,
+    originalPrice: product.originalPrice,
+    image: product.imageUrl,
+    rating: product.rating,
+    reviewCount: product.reviewCount,
+    category: product.category,
+    brand: product.brand,
+    url: `https://leaflightly.com/products/${product.id}`,
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: 'https://leaflightly.com' },
+    {
+      name: product.category.charAt(0).toUpperCase() + product.category.slice(1),
+      url: `https://leaflightly.com/products/${product.category}`,
+    },
+    { name: product.name, url: `https://leaflightly.com/products/${product.id}` },
+  ]);
+
+  const organizationSchema = generateOrganizationSchema();
+
   return (
     <article className={styles.container}>
+      <StructuredData data={productSchema} />
+      <StructuredData data={breadcrumbSchema} />
+      <StructuredData data={organizationSchema} />
+
       {/* Breadcrumb */}
       <nav className={styles.breadcrumb}>
         <Link href={`/products/${product.category}`}>

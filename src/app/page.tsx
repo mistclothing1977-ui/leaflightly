@@ -1,14 +1,60 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import FeaturedProductHero from '@/components/FeaturedProductHero';
 import CuratedByCategory from '@/components/CuratedByCategory';
 import ProductCarousel from '@/components/ProductCarousel';
 import TierShowcase from '@/components/TierShowcase';
 import NewsletterModal from '@/components/NewsletterModal';
+import { StructuredData } from '@/components/StructuredData';
+import { generateOrganizationSchema, generateBreadcrumbSchema } from '@/lib/seo';
 import styles from './home.module.css';
 
+export const metadata: Metadata = {
+  title: 'Leaf Lightly — Discover the Good Stuff That Works',
+  description:
+    'An editorial discovery platform for sustainable, thoughtfully-made products across kitchen, fashion, home, beauty, and wellness. We vet every brand and product.',
+  keywords: [
+    'sustainable products',
+    'eco-friendly',
+    'organic',
+    'ethical brands',
+    'plastic-free',
+    'zero waste',
+    'eco-conscious',
+  ],
+  openGraph: {
+    title: 'Leaf Lightly — Discover Sustainable Products',
+    description: 'Curated sustainable products for a better lifestyle',
+    url: 'https://leaflightly.com',
+    type: 'website',
+    images: [
+      {
+        url: 'https://leaflightly.com/assets/images/hero-background.webp',
+        width: 1200,
+        height: 630,
+        alt: 'Leaf Lightly - Sustainable Products',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Leaf Lightly — Sustainable Products',
+    description: 'Discover eco-friendly, ethically-made products',
+    images: ['https://leaflightly.com/assets/images/hero-background.webp'],
+  },
+  canonical: 'https://leaflightly.com',
+};
+
 export default function Home() {
+  const organizationSchema = generateOrganizationSchema();
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: 'https://leaflightly.com' },
+  ]);
   return (
     <div className={styles.container}>
+      <StructuredData data={organizationSchema} />
+      <StructuredData data={breadcrumbSchema} />
+
       {/* Featured Product Hero */}
       <FeaturedProductHero copyVariant="variant1" />
 
