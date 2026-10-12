@@ -113,7 +113,8 @@ export async function POST(req: NextRequest) {
     if (err instanceof z.ZodError) {
       response = errorResponse("Invalid email address", "VALIDATION_ERROR", 400);
     } else {
-      response = errorResponse("Internal server error", "INTERNAL_ERROR", 500);
+      const errorMsg = err instanceof Error ? err.message : String(err);
+      response = errorResponse(errorMsg, "SERVER_ERROR", 500);
     }
 
     return withSecurityHeaders(withCORS(response));
