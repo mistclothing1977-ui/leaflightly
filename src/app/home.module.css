@@ -68,6 +68,12 @@
   margin: 0;
 }
 
+.heroRight {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .heroStats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -76,6 +82,20 @@
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.heroBadge {
+  display: inline-block;
+  background: #e8f4f2;
+  color: #2c7f6e;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+  width: fit-content;
 }
 
 .stat {
@@ -118,15 +138,34 @@
   border-radius: 8px;
   text-align: center;
   transition: all 0.2s;
+  position: relative;
 }
 
 .categoryCard:hover {
   background: #ede8e0;
 }
 
+.categoryBadge {
+  display: inline-block;
+  background: #2c7f6e;
+  color: white;
+  padding: 0.3rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 0.5rem;
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .categoryCard h3 {
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
+  margin-top: 0.5rem;
 }
 
 .status {
@@ -235,6 +274,10 @@
     gap: 3rem;
   }
 
+  .heroRight {
+    flex-direction: column;
+  }
+
   .heroStats {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -260,6 +303,10 @@
   .hero {
     padding: 2rem 1.5rem;
     gap: 2rem;
+  }
+
+  .heroRight {
+    flex-direction: column;
   }
 
   .hero h1 {
@@ -308,6 +355,10 @@
     gap: 1.5rem;
   }
 
+  .heroRight {
+    flex-direction: column;
+  }
+
   .hero h1 {
     font-size: 1.5rem;
   }
@@ -338,5 +389,10 @@
   .trustList li {
     padding-left: 1.5rem;
     font-size: 0.9rem;
+  }
+
+  .heroBadge {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.75rem;
   }
 }

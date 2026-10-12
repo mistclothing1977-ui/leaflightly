@@ -1,0 +1,286 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  padding: 2.5rem;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+  animation: slideUp 0.3s ease-in-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.closeButton {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #999;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.closeButton:hover {
+  background: #f5f3f0;
+  color: #333;
+}
+
+.closeButton:focus {
+  outline: 2px solid #2c7f6e;
+  outline-offset: 2px;
+}
+
+.title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c7f6e;
+  line-height: 1.3;
+}
+
+.subtitle {
+  margin: 0 0 1.5rem 0;
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.form {
+  margin-bottom: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.inputGroup input {
+  flex: 1;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+
+.inputGroup input:focus {
+  outline: none;
+  border-color: #2c7f6e;
+  box-shadow: 0 0 0 3px rgba(44, 127, 110, 0.1);
+}
+
+.inputGroup input:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  margin-top: -0.5rem;
+}
+
+.ctaButton {
+  width: 100%;
+  padding: 1rem;
+  background: #2c7f6e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(44, 127, 110, 0.15);
+}
+
+.ctaButton:hover:not(:disabled) {
+  background: #1f6557;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(44, 127, 110, 0.25);
+}
+
+.ctaButton:focus {
+  outline: 2px solid #2c7f6e;
+  outline-offset: 2px;
+}
+
+.ctaButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.finePrint {
+  font-size: 0.75rem;
+  color: #999;
+  text-align: center;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.link {
+  color: #2c7f6e;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.link:focus {
+  outline: 2px solid #2c7f6e;
+  outline-offset: 2px;
+}
+
+/* Success State */
+.success {
+  text-align: center;
+}
+
+.successIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: scaleIn 0.3s ease-in-out;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.successMessage {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modal {
+    padding: 2rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .successIcon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .backdrop {
+    padding: 0.5rem;
+  }
+
+  .modal {
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+
+  .closeButton {
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 1.25rem;
+  }
+
+  .title {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .form {
+    margin-bottom: 1rem;
+  }
+
+  .inputGroup input {
+    padding: 0.75rem 0.875rem;
+    font-size: 16px;
+  }
+
+  .ctaButton {
+    padding: 0.875rem;
+    font-size: 0.95rem;
+  }
+
+  .finePrint {
+    font-size: 0.7rem;
+  }
+
+  .successIcon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .success .title {
+    font-size: 1rem;
+  }
+
+  .successMessage {
+    font-size: 0.9rem;
+  }
+}

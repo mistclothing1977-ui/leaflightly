@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import TrustSignals from '@/components/TrustSignals';
+import NewsletterModal from '@/components/NewsletterModal';
 import styles from './home.module.css';
 
 export default function Home() {
@@ -15,23 +17,27 @@ export default function Home() {
           </p>
           <div className={styles.heroCtaGroup}>
             <Link href="/products/kitchen" className={styles.heroCta}>
-              Start Exploring →
+              Discover Sustainable Products →
             </Link>
             <p className={styles.heroSecondary}>Kitchen products now live. Fashion, home & wellness coming soon.</p>
           </div>
         </div>
-        <div className={styles.heroStats}>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>11+</div>
-            <div className={styles.statLabel}>Curated Products</div>
-          </div>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>5</div>
-            <div className={styles.statLabel}>Categories</div>
-          </div>
-          <div className={styles.stat}>
-            <div className={styles.statNumber}>100%</div>
-            <div className={styles.statLabel}>Transparent</div>
+        <div className={styles.heroRight}>
+          <div className={styles.heroBadge}>✓ Trusted by Sustainable Shoppers</div>
+          <TrustSignals />
+          <div className={styles.heroStats}>
+            <div className={styles.stat}>
+              <div className={styles.statNumber}>11+</div>
+              <div className={styles.statLabel}>Curated Products</div>
+            </div>
+            <div className={styles.stat}>
+              <div className={styles.statNumber}>5</div>
+              <div className={styles.statLabel}>Categories</div>
+            </div>
+            <div className={styles.stat}>
+              <div className={styles.statNumber}>100%</div>
+              <div className={styles.statLabel}>Transparent</div>
+            </div>
           </div>
         </div>
       </section>
@@ -41,13 +47,14 @@ export default function Home() {
         <h2>Browse by Category</h2>
         <div className={styles.categoryGrid}>
           {[
-            { name: 'Kitchen', href: '/products/kitchen', status: 'Live' },
-            { name: 'Fashion', href: '/products/fashion', status: 'Live' },
-            { name: 'Home', href: '/products/home', status: 'Live' },
-            { name: 'Beauty', href: '/products/beauty', status: 'Live' },
-            { name: 'Wellness', href: '/products/wellness', status: 'Live' },
+            { name: 'Kitchen', href: '/products/kitchen', status: 'Live', badge: 'Top Rated' },
+            { name: 'Fashion', href: '/products/fashion', status: 'Live', badge: 'NEW: 5 items just added' },
+            { name: 'Home', href: '/products/home', status: 'Live', badge: 'Customer Favorite' },
+            { name: 'Beauty', href: '/products/beauty', status: 'Live', badge: 'Just Launched' },
+            { name: 'Wellness', href: '/products/wellness', status: 'Live', badge: 'Trending This Week' },
           ].map((category) => (
             <div key={category.name} className={styles.categoryCard}>
+              {category.badge && <span className={styles.categoryBadge}>{category.badge}</span>}
               <h3>{category.name}</h3>
               <p className={styles.status}>{category.status}</p>
               <Link href={category.href} className={styles.categoryLink}>
@@ -91,6 +98,9 @@ export default function Home() {
           <li>UK-first focus on sustainable shopping</li>
         </ul>
       </section>
+
+      {/* Newsletter Modal */}
+      <NewsletterModal />
     </div>
   );
 }
