@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AIChat from "@/components/AIChat";
 import { CartProvider } from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
 import "./globals.css";
@@ -35,6 +36,7 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            <AIChat />
           </CartProvider>
         </AuthProvider>
       </body>
