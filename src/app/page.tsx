@@ -34,7 +34,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Curated From Every Category */}
+      {/* Curated From Every Category - Stage 3 */}
       <CuratedByCategory />
 
       {/* How It Works */}
