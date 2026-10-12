@@ -1,5 +1,7 @@
 import { products } from '@/data/products';
 import { certificationLabels, tierLabels } from '@/lib/product-labels';
+import { getReviewsForProduct, getAverageRating } from '@/data/reviews';
+import ReviewsSection from '@/components/ReviewsSection';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import styles from './page.module.css';
@@ -21,6 +23,10 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
+
+  // Get reviews for this product
+  const reviews = getReviewsForProduct();
+  const averageRating = getAverageRating(reviews);
 
   return (
     <article className={styles.container}>
@@ -112,6 +118,14 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           Browse other Tier {product.tier} products in {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
         </p>
       </section>
+
+      {/* Customer Reviews */}
+      <ReviewsSection
+        productName={product.name}
+        overallRating={averageRating}
+        totalReviews={product.reviewCount}
+        reviews={reviews}
+      />
     </article>
   );
 }
