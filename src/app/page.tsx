@@ -1,49 +1,77 @@
+import Link from 'next/link';
+import styles from './home.module.css';
+
 export default function Home() {
   return (
-    <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-      <section style={{ textAlign: "center", marginBottom: "3rem" }}>
-        <h1 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>
-          Discover the good stuff that works.
-        </h1>
-        <p style={{ fontSize: "1.1rem", color: "#666", maxWidth: "600px", margin: "0 auto" }}>
-          An editorial discovery platform for sustainable, thoughtfully-made products across kitchen, fashion, home, beauty, and wellness.
+    <div className={styles.container}>
+      {/* Hero */}
+      <section className={styles.hero}>
+        <h1>Discover the good stuff that works.</h1>
+        <p>
+          An editorial discovery platform for sustainable, thoughtfully-made products
+          across kitchen, fashion, home, beauty, and wellness.
         </p>
+        <Link href="/products/kitchen" className={styles.heroCta}>
+          Explore Kitchen →
+        </Link>
       </section>
 
-      <section style={{ marginBottom: "3rem" }}>
-        <h2>Featured Categories</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem" }}>
-          {["Kitchen", "Fashion", "Home", "Beauty", "Wellness"].map((cat) => (
-            <div
-              key={cat}
-              style={{
-                padding: "1rem",
-                border: "1px solid #ddd",
-                borderRadius: "4px",
-                cursor: "pointer",
-              }}
-            >
-              <h3>{cat}</h3>
-              <p style={{ color: "#999", fontSize: "0.9rem" }}>Coming soon</p>
+      {/* Category Grid */}
+      <section className={styles.categories}>
+        <h2>Browse by Category</h2>
+        <div className={styles.categoryGrid}>
+          {[
+            { name: 'Kitchen', href: '/products/kitchen', status: 'Live' },
+            { name: 'Fashion', href: '#', status: 'Coming Soon' },
+            { name: 'Home', href: '#', status: 'Coming Soon' },
+            { name: 'Beauty', href: '#', status: 'Coming Soon' },
+            { name: 'Wellness', href: '#', status: 'Coming Soon' },
+          ].map((category) => (
+            <div key={category.name} className={styles.categoryCard}>
+              <h3>{category.name}</h3>
+              <p className={styles.status}>{category.status}</p>
+              {category.status === 'Live' && (
+                <Link href={category.href} className={styles.categoryLink}>
+                  Browse →
+                </Link>
+              )}
             </div>
           ))}
         </div>
       </section>
 
-      <section style={{ backgroundColor: "#f9f9f9", padding: "2rem", borderRadius: "4px" }}>
-        <h2>Admin Area</h2>
-        <p style={{ marginBottom: "1rem" }}>
-          <a href="/admin/dashboard" style={{ color: "#6B8E5F", fontWeight: "bold" }}>
-            Go to Admin Dashboard →
-          </a>
-        </p>
-        <p style={{ fontSize: "0.9rem", color: "#666" }}>
-          (You'll need to log in with Supabase Auth)
-        </p>
+      {/* How It Works */}
+      <section className={styles.howItWorks}>
+        <h2>How It Works</h2>
+        <div className={styles.steps}>
+          <div className={styles.step}>
+            <span className={styles.stepNumber}>1</span>
+            <h3>Discover</h3>
+            <p>Browse carefully curated, sustainably-made products</p>
+          </div>
+          <div className={styles.step}>
+            <span className={styles.stepNumber}>2</span>
+            <h3>Learn</h3>
+            <p>Read real reviews and see certifications and standards</p>
+          </div>
+          <div className={styles.step}>
+            <span className={styles.stepNumber}>3</span>
+            <h3>Shop</h3>
+            <p>Buy directly from trusted retailers. We earn a small commission.</p>
+          </div>
+        </div>
       </section>
 
-      <section style={{ marginTop: "3rem", textAlign: "center", color: "#999" }}>
-        <p>This is a placeholder homepage. Full design coming with Phase 5.</p>
+      {/* Trust */}
+      <section className={styles.trust}>
+        <h2>Why Leaf Lightly?</h2>
+        <ul className={styles.trustList}>
+          <li>Only Tier A (Certified Eco), Tier B (Community Validated), or Tier C (Plastic-Free + Transparent) products</li>
+          <li>Real customer reviews and ratings from Amazon and Trustpilot</li>
+          <li>Transparent affiliate relationships — we disclose all partnerships</li>
+          <li>Editorial curation, not algorithmic — real humans choose these products</li>
+          <li>UK-first focus on sustainable shopping</li>
+        </ul>
       </section>
     </div>
   );
