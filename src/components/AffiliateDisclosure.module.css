@@ -1,0 +1,34 @@
+/* Affiliate Disclosure Banner */
+
+.disclosure {
+  background: #FFF3E0;
+  border-left: 4px solid #FF6B35;
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #5D4037;
+  line-height: 1.6;
+  margin: 1.5rem 0;
+}
+
+.disclosure strong {
+  color: #FF6B35;
+}
+
+.disclosure a {
+  color: #1a472a;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.disclosure a:hover {
+  color: #FF6B35;
+}
+
+@media (max-width: 480px) {
+  .disclosure {
+    padding: 0.875rem;
+    font-size: 0.85rem;
+  }
+}

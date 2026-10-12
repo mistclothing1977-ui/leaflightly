@@ -1,0 +1,109 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  line-height: 1.8;
+}
+
+h1 {
+  color: #1a472a;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid #FF6B35;
+  padding-bottom: 1rem;
+}
+
+section {
+  margin-bottom: 2.5rem;
+}
+
+h2 {
+  color: #1a472a;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  color: #2A2A26;
+  font-size: 1.1rem;
+  margin: 1rem 0 0.75rem 0;
+  font-weight: 600;
+}
+
+p {
+  color: #2A2A26;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+ul {
+  margin: 1rem 0 1rem 1.5rem;
+  color: #2A2A26;
+}
+
+li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+a {
+  color: #1a472a;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #FF6B35;
+}
+
+strong {
+  color: #1a472a;
+  font-weight: 700;
+}
+
+.legal {
+  background: #F8F6F3;
+  padding: 1.5rem;
+  border-left: 4px solid #C9B8A0;
+  border-radius: 4px;
+  margin-top: 2rem;
+  font-size: 0.95rem;
+}
+
+.legal h3 {
+  margin-top: 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+  }
+}

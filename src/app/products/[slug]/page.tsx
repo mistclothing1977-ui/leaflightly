@@ -3,10 +3,11 @@ import { certificationLabels, tierLabels } from '@/lib/product-labels';
 import ReviewsSection from '@/components/ReviewsSection';
 import RelatedProductsCarousel from '@/components/RelatedProductsCarousel';
 import CompareButton from '@/components/CompareButton';
-import AddToCartButton from '@/components/AddToCartButton';
-import ReviewForm from '@/components/ReviewForm';
+import BuyNowButton from '@/components/BuyNowButton';
+import AffiliateDisclosure from '@/components/AffiliateDisclosure';
 import { StructuredData } from '@/components/StructuredData';
 import { generateMetadata as generatePageMetadata, generateProductSchema, generateOrganizationSchema, generateBreadcrumbSchema } from '@/lib/seo';
+import { buildAmazonLink } from '@/lib/affiliateLinks';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import styles from './page.module.css';
@@ -161,13 +162,16 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
           {/* CTA */}
           <div className={styles.cta}>
-            <AddToCartButton product={product} />
-            <a href={product.productUrl} target="_blank" rel="noopener noreferrer" className={styles.ctaButton} style={{ marginTop: '1rem' }}>
-              View on Amazon
-            </a>
-            <p className={styles.disclosure}>
-              We earn a small affiliate commission if you purchase through this link — at no extra cost to you.
-            </p>
+            <BuyNowButton
+              retailers={[
+                {
+                  retailer: 'Amazon',
+                  url: buildAmazonLink(product.name),
+                  icon: '🛒',
+                },
+              ]}
+            />
+            <AffiliateDisclosure />
             <CompareButton productId={product.id} productName={product.name} />
           </div>
         </div>
@@ -180,9 +184,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
         tier={product.tier}
         allProducts={products}
       />
-
-      {/* Review Form */}
-      <ReviewForm productId={product.id} onReviewSubmitted={() => {}} />
 
       {/* Customer Reviews */}
       <ReviewsSection productId={product.id} productName={product.name} />

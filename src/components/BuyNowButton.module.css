@@ -1,0 +1,110 @@
+/* Buy Now Button */
+
+.singleButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #1a472a;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border: 2px solid #1a472a;
+  margin-top: 1rem;
+}
+
+.singleButton:hover {
+  background: #FF6B35;
+  border-color: #FF6B35;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.singleButton span {
+  font-size: 1.2rem;
+}
+
+/* Multiple retailers */
+.multipleOptions {
+  margin-top: 2rem;
+}
+
+.label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #2A2A26;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: white;
+  color: #1a472a;
+  padding: 0.75rem 1.25rem;
+  border: 2px solid #1a472a;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.button:hover {
+  background: #1a472a;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 71, 42, 0.3);
+}
+
+.button span {
+  font-size: 1rem;
+}
+
+.coupon {
+  display: inline-block;
+  background: #FF6B35;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-left: 0.25rem;
+  text-transform: uppercase;
+}
+
+.singleButton .coupon {
+  margin-left: auto;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .singleButton {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem 1.25rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .button {
+    width: 100%;
+    justify-content: center;
+  }
+}
