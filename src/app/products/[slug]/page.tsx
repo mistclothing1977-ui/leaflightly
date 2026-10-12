@@ -4,6 +4,7 @@ import { getReviewsForProduct, getAverageRating } from '@/data/reviews';
 import ReviewsSection from '@/components/ReviewsSection';
 import RelatedProductsCarousel from '@/components/RelatedProductsCarousel';
 import CompareButton from '@/components/CompareButton';
+import AddToCartButton from '@/components/AddToCartButton';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import styles from './page.module.css';
@@ -103,7 +104,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
           {/* CTA */}
           <div className={styles.cta}>
-            <a href={product.productUrl} target="_blank" rel="noopener noreferrer" className={styles.ctaButton}>
+            <AddToCartButton product={product} />
+            <a href={product.productUrl} target="_blank" rel="noopener noreferrer" className={styles.ctaButton} style={{ marginTop: '1rem' }}>
               View on Amazon
             </a>
             <p className={styles.disclosure}>
