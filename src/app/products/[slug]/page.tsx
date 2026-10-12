@@ -2,6 +2,7 @@ import { products } from '@/data/products';
 import { certificationLabels, tierLabels } from '@/lib/product-labels';
 import { getReviewsForProduct, getAverageRating } from '@/data/reviews';
 import ReviewsSection from '@/components/ReviewsSection';
+import RelatedProductsCarousel from '@/components/RelatedProductsCarousel';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import styles from './page.module.css';
@@ -112,12 +113,12 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       </div>
 
       {/* Related products */}
-      <section className={styles.related}>
-        <h2>Similar Products</h2>
-        <p className={styles.relatedDescription}>
-          Browse other Tier {product.tier} products in {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
-        </p>
-      </section>
+      <RelatedProductsCarousel
+        currentProductId={product.id}
+        category={product.category}
+        tier={product.tier}
+        allProducts={products}
+      />
 
       {/* Customer Reviews */}
       <ReviewsSection
