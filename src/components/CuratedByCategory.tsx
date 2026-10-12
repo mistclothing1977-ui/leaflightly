@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { products } from '@/data/products';
-import { tierLabels, certificationLabels } from '@/lib/product-labels';
+import { tierLabels } from '@/lib/product-labels';
 import styles from './CuratedByCategory.module.css';
 
 const CATEGORIES = ['kitchen', 'fashion', 'home', 'beauty', 'wellness'] as const;
