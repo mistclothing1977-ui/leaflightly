@@ -3,6 +3,7 @@ import { certificationLabels, tierLabels } from '@/lib/product-labels';
 import { getReviewsForProduct, getAverageRating } from '@/data/reviews';
 import ReviewsSection from '@/components/ReviewsSection';
 import RelatedProductsCarousel from '@/components/RelatedProductsCarousel';
+import CompareButton from '@/components/CompareButton';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import styles from './page.module.css';
@@ -108,6 +109,7 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             <p className={styles.disclosure}>
               We earn a small affiliate commission if you purchase through this link — at no extra cost to you.
             </p>
+            <CompareButton productId={product.id} productName={product.name} />
           </div>
         </div>
       </div>

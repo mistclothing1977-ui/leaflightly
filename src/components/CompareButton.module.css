@@ -1,0 +1,72 @@
+/* Compare Button */
+
+:root {
+  --color-primary: #1a472a;
+  --color-secondary: #C9B8A0;
+  --color-accent: #FF6B35;
+  --color-bg: #F8F6F3;
+  --color-text-primary: #2A2A26;
+  --color-text-secondary: #8B8B7E;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.button {
+  padding: 0.75rem 1.5rem;
+  background: white;
+  border: 2px solid #e8e3dd;
+  border-radius: 6px;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.button:hover {
+  border-color: var(--color-primary);
+  background: var(--color-bg);
+}
+
+.button.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.button.active:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.viewCompare {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-accent);
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.viewCompare:hover {
+  background: #ff5622;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .button,
+  .viewCompare {
+    font-size: 0.85rem;
+    padding: 0.65rem 1rem;
+  }
+}

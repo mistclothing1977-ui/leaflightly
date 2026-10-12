@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import SearchBar from './SearchBar';
 import styles from './Header.module.css';
 
 export default function Header() {
@@ -23,6 +24,7 @@ export default function Header() {
         <Link href="/products/beauty" className={styles.navLink}>Beauty</Link>
         <Link href="/products/wellness" className={styles.navLink}>Wellness</Link>
       </nav>
+      <SearchBar />
     </header>
   );
 }
