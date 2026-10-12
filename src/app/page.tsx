@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import FeaturedProductHero from '@/components/FeaturedProductHero';
 import CuratedByCategory from '@/components/CuratedByCategory';
+import ProductCarousel from '@/components/ProductCarousel';
 import TierShowcase from '@/components/TierShowcase';
 import NewsletterModal from '@/components/NewsletterModal';
 import styles from './home.module.css';
@@ -68,6 +69,9 @@ export default function Home() {
 
       {/* Tier Showcase */}
       <TierShowcase />
+
+      {/* Product Carousel */}
+      <ProductCarousel />
 
       {/* Newsletter Modal */}
       <NewsletterModal />
