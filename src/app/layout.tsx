@@ -14,12 +14,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "32x32" },
-      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
-      { url: "/assets/logos/logo-mark.webp", sizes: "256x256", type: "image/webp" },
-    ],
-    apple: "/apple-touch-icon.png",
+    icon: "/favicon.ico",
   },
 };
 
