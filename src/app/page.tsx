@@ -6,14 +6,33 @@ export default function Home() {
     <div className={styles.container}>
       {/* Hero */}
       <section className={styles.hero}>
-        <h1>Discover the good stuff that works.</h1>
-        <p>
-          An editorial discovery platform for sustainable, thoughtfully-made products
-          across kitchen, fashion, home, beauty, and wellness.
-        </p>
-        <Link href="/products/kitchen" className={styles.heroCta}>
-          Explore Kitchen →
-        </Link>
+        <div className={styles.heroContent}>
+          <h1>Discover the good stuff that works.</h1>
+          <p className={styles.heroSubtitle}>
+            Hand-curated sustainable products from brands that actually care.
+            Every item is verified for real impact — not just marketing.
+          </p>
+          <div className={styles.heroCtaGroup}>
+            <Link href="/products/kitchen" className={styles.heroCta}>
+              Start Exploring →
+            </Link>
+            <p className={styles.heroSecondary}>Kitchen products now live. Fashion, home & wellness coming soon.</p>
+          </div>
+        </div>
+        <div className={styles.heroStats}>
+          <div className={styles.stat}>
+            <div className={styles.statNumber}>11+</div>
+            <div className={styles.statLabel}>Curated Products</div>
+          </div>
+          <div className={styles.stat}>
+            <div className={styles.statNumber}>5</div>
+            <div className={styles.statLabel}>Categories</div>
+          </div>
+          <div className={styles.stat}>
+            <div className={styles.statNumber}>100%</div>
+            <div className={styles.statLabel}>Transparent</div>
+          </div>
+        </div>
       </section>
 
       {/* Category Grid */}

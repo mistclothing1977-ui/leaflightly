@@ -6,40 +6,94 @@
 
 /* Hero */
 .hero {
-  text-align: center;
-  margin-bottom: 4rem;
-  padding: 2rem 0;
+  margin-bottom: 6rem;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #f5f3f0 0%, #f9f7f5 100%);
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.heroContent {
+  z-index: 1;
 }
 
 .hero h1 {
-  font-size: 3rem;
+  font-size: 3.5rem;
   margin-bottom: 1rem;
   color: #2c7f6e;
+  line-height: 1.2;
+  font-weight: 700;
 }
 
-.hero p {
-  font-size: 1.1rem;
+.heroSubtitle {
+  font-size: 1.2rem;
   color: #666;
-  max-width: 600px;
-  margin: 0 auto 2rem;
+  margin-bottom: 2rem;
   line-height: 1.6;
+  max-width: 500px;
+}
+
+.heroCtaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-start;
 }
 
 .heroCta {
   display: inline-block;
   background: #2c7f6e;
   color: white;
-  padding: 1rem 2rem;
-  border-radius: 6px;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.2s;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transition: all 0.3s;
+  font-size: 1.05rem;
+  box-shadow: 0 4px 12px rgba(44, 127, 110, 0.15);
 }
 
 .heroCta:hover {
-  background: #82d4d8;
-  color: #2A2A26;
+  background: #1f6557;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(44, 127, 110, 0.25);
+}
+
+.heroSecondary {
+  font-size: 0.9rem;
+  color: #8B8B7E;
+  margin: 0;
+}
+
+.heroStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.stat {
+  text-align: center;
+}
+
+.statNumber {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c7f6e;
+  margin-bottom: 0.5rem;
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  color: #8B8B7E;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* Categories */
@@ -176,6 +230,19 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .heroStats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+  }
+
   .categoryGrid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -190,12 +257,27 @@
     padding: 1.5rem;
   }
 
+  .hero {
+    padding: 2rem 1.5rem;
+    gap: 2rem;
+  }
+
   .hero h1 {
     font-size: 2rem;
   }
 
-  .hero p {
+  .heroSubtitle {
     font-size: 1rem;
+  }
+
+  .heroStats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+
+  .statNumber {
+    font-size: 2rem;
   }
 
   .categoryGrid {
@@ -221,8 +303,32 @@
     padding: 1rem;
   }
 
+  .hero {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+
   .hero h1 {
     font-size: 1.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 0.95rem;
+  }
+
+  .heroStats {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+
+  .statNumber {
+    font-size: 1.8rem;
+  }
+
+  .heroCta {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
   }
 
   .categoryGrid {
