@@ -50,10 +50,45 @@ export default function CheckoutPage() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    clearCart();
+
+    try {
+      // Create order in database
+      const res = await fetch('/api/orders/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: items.map((item) => ({
+            productId: item.product.id,
+            productName: item.product.name,
+            brand: item.product.brand,
+            price: item.product.price,
+            quantity: item.quantity,
+          })),
+          subtotal,
+          tax,
+          shipping,
+          total,
+          shippingAddress: {
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            address: formData.address,
+            city: formData.city,
+            postcode: formData.postcode,
+          },
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error('Failed to create order');
+      }
+
+      setSubmitted(true);
+      clearCart();
+    } catch (error) {
+      console.error('Order creation failed:', error);
+    }
   };
 
   if (submitted) {
