@@ -1,0 +1,388 @@
+/* TierShowcase Component */
+
+:root {
+  --color-primary: #1a472a;
+  --color-secondary: #C9B8A0;
+  --color-accent: #FF6B35;
+  --color-neutral: #2A2A26;
+  --color-bg: #F8F6F3;
+  --color-bg-light: #f5f3f0;
+  --color-text-primary: #2A2A26;
+  --color-text-secondary: #8B8B7E;
+}
+
+.tierShowcase {
+  padding: 3rem 0;
+  margin: 4rem 0;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.header h2 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Tiers Grid */
+.tiersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.tierColumn {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.tierColumn:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+/* Tier Header */
+.tierHeader {
+  padding: 2rem 1.5rem;
+  border-top: 4px solid;
+  background: linear-gradient(135deg, #fafaf8 0%, #f5f3f0 100%);
+  text-align: center;
+}
+
+.tierBadge {
+  display: inline-block;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+}
+
+.tierName {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0.5rem 0 0;
+}
+
+.tierTagline {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin: 0.5rem 0 0;
+  font-weight: 500;
+}
+
+/* Products Container */
+.productsContainer {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex-grow: 1;
+}
+
+.productCardWrapper {
+  min-height: 0;
+}
+
+/* Tier Description */
+.tierDescription {
+  padding: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  background: #f9f9f9;
+}
+
+.tierDescription p {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Partner Logos */
+.partnerLogos {
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.logoLabel {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.3px;
+  margin-bottom: 0.75rem;
+}
+
+.logos {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--color-bg-light);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+/* View All Link */
+.viewAllLink {
+  display: block;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewAllLink:hover {
+  color: var(--color-accent);
+}
+
+/* Trust Statement */
+.trustStatement {
+  background: linear-gradient(135deg, var(--color-bg) 0%, #faf8f5 100%);
+  padding: 3rem;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.trustStatement h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 1.5rem 0;
+  text-align: center;
+}
+
+.trustList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.trustList li {
+  padding-left: 2rem;
+  position: relative;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.trustList li:before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .tiersGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .trustList {
+    grid-template-columns: 1fr;
+  }
+
+  .header h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tierShowcase {
+    margin: 3rem 0;
+  }
+
+  .header {
+    margin-bottom: 2rem;
+  }
+
+  .header h2 {
+    font-size: 1.8rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .tiersGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .tierHeader {
+    padding: 1.5rem 1rem;
+  }
+
+  .tierName {
+    font-size: 1.1rem;
+  }
+
+  .tierTagline {
+    font-size: 0.85rem;
+  }
+
+  .productsContainer {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .tierDescription {
+    padding: 1rem;
+  }
+
+  .tierDescription p {
+    font-size: 0.9rem;
+  }
+
+  .trustStatement {
+    padding: 2rem;
+  }
+
+  .trustStatement h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .trustList {
+    gap: 1.5rem;
+  }
+
+  .trustList li {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tierShowcase {
+    padding: 1.5rem 0;
+    margin: 2rem 0;
+  }
+
+  .header h2 {
+    font-size: 1.5rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .tiersGrid {
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .tierColumn {
+    border-radius: 8px;
+  }
+
+  .tierHeader {
+    padding: 1.25rem 1rem;
+  }
+
+  .tierBadge {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.75rem;
+  }
+
+  .tierName {
+    font-size: 1rem;
+  }
+
+  .tierTagline {
+    font-size: 0.8rem;
+  }
+
+  .productsContainer {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .tierDescription {
+    padding: 1rem 0.75rem;
+  }
+
+  .tierDescription p {
+    font-size: 0.85rem;
+  }
+
+  .partnerLogos {
+    padding: 1rem 0.75rem;
+  }
+
+  .logos {
+    gap: 0.5rem;
+  }
+
+  .logo {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .trustStatement {
+    padding: 1.5rem 1rem;
+    border-radius: 8px;
+  }
+
+  .trustStatement h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .trustList {
+    gap: 1rem;
+  }
+
+  .trustList li {
+    font-size: 0.85rem;
+    padding-left: 1.5rem;
+  }
+}

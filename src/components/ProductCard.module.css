@@ -1,3 +1,14 @@
+:root {
+  --color-primary: #1a472a;
+  --color-secondary: #C9B8A0;
+  --color-accent: #FF6B35;
+  --color-neutral: #2A2A26;
+  --color-bg: #F8F6F3;
+  --color-bg-light: #f5f3f0;
+  --color-text-primary: #2A2A26;
+  --color-text-secondary: #8B8B7E;
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -11,12 +22,12 @@
 }
 
 .card:hover {
-  box-shadow: 0 8px 16px rgba(44, 127, 110, 0.12);
+  box-shadow: 0 8px 16px rgba(26, 71, 42, 0.12);
   transform: translateY(-2px);
 }
 
 .card:focus-within {
-  box-shadow: 0 0 0 3px rgba(44, 127, 110, 0.2);
+  box-shadow: 0 0 0 3px rgba(26, 71, 42, 0.2);
 }
 
 /* Image Container */
@@ -25,7 +36,7 @@
   width: 100%;
   padding-bottom: 100%;
   overflow: hidden;
-  background: #f5f3f0;
+  background: var(--color-bg-light);
 }
 
 .image {
@@ -46,7 +57,7 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  background: #E53935;
+  background: var(--color-accent);
   color: white;
   padding: 4px 8px;
   border-radius: 4px;
@@ -67,7 +78,7 @@
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: #8B8B7E;
+  color: var(--color-text-secondary);
   margin-bottom: 0.25rem;
   letter-spacing: 0.5px;
 }
@@ -75,7 +86,7 @@
 .name {
   font-size: 1rem;
   font-weight: 500;
-  color: #2A2A26;
+  color: var(--color-text-primary);
   margin-bottom: 0.75rem;
   line-height: 1.4;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -92,13 +103,13 @@
 .current {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #2c7f6e;
+  color: var(--color-primary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .original {
   font-size: 0.875rem;
-  color: #8B8B7E;
+  color: var(--color-text-secondary);
   text-decoration: line-through;
 }
 
@@ -112,17 +123,17 @@
 }
 
 .stars {
-  color: #82d4d8;
+  color: var(--color-secondary);
   letter-spacing: 1px;
 }
 
 .ratingText {
   font-weight: 600;
-  color: #2A2A26;
+  color: var(--color-text-primary);
 }
 
 .reviews {
-  color: #8B8B7E;
+  color: var(--color-text-secondary);
 }
 
 /* Certifications */
@@ -135,8 +146,8 @@
 
 .badge {
   display: inline-block;
-  background: #f5f3f0;
-  color: #2c7f6e;
+  background: var(--color-bg-light);
+  color: var(--color-primary);
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
   font-size: 0.7rem;
@@ -149,7 +160,7 @@
 /* CTA Button */
 .cta {
   margin-top: auto;
-  background: #2c7f6e;
+  background: var(--color-primary);
   color: white;
   border: none;
   padding: 0.75rem 1rem;
@@ -162,12 +173,12 @@
 }
 
 .cta:hover {
-  background: #82d4d8;
-  color: #2A2A26;
+  background: var(--color-accent);
+  color: white;
 }
 
 .cta:active {
-  background: #2c7f6e;
+  background: var(--color-primary);
   color: white;
 }
 

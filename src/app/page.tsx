@@ -1,46 +1,14 @@
 import Link from 'next/link';
-import TrustSignals from '@/components/TrustSignals';
+import FeaturedProductHero from '@/components/FeaturedProductHero';
+import TierShowcase from '@/components/TierShowcase';
 import NewsletterModal from '@/components/NewsletterModal';
 import styles from './home.module.css';
 
 export default function Home() {
   return (
     <div className={styles.container}>
-      {/* All 5 categories now live! */}
-      {/* Hero */}
-      <section className={styles.hero}>
-        <div className={styles.heroContent}>
-          <h1>Discover the good stuff that works.</h1>
-          <p className={styles.heroSubtitle}>
-            Hand-curated sustainable products from brands that actually care.
-            Every item is verified for real impact — not just marketing.
-          </p>
-          <div className={styles.heroCtaGroup}>
-            <Link href="/products/kitchen" className={styles.heroCta}>
-              Discover Sustainable Products →
-            </Link>
-            <p className={styles.heroSecondary}>Kitchen products now live. Fashion, home & wellness coming soon.</p>
-          </div>
-        </div>
-        <div className={styles.heroRight}>
-          <div className={styles.heroBadge}>✓ Trusted by Sustainable Shoppers</div>
-          <TrustSignals />
-          <div className={styles.heroStats}>
-            <div className={styles.stat}>
-              <div className={styles.statNumber}>11+</div>
-              <div className={styles.statLabel}>Curated Products</div>
-            </div>
-            <div className={styles.stat}>
-              <div className={styles.statNumber}>5</div>
-              <div className={styles.statLabel}>Categories</div>
-            </div>
-            <div className={styles.stat}>
-              <div className={styles.statNumber}>100%</div>
-              <div className={styles.statLabel}>Transparent</div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Featured Product Hero */}
+      <FeaturedProductHero copyVariant="variant1" />
 
       {/* Category Grid */}
       <section className={styles.categories}>
@@ -71,33 +39,31 @@ export default function Home() {
         <div className={styles.steps}>
           <div className={styles.step}>
             <span className={styles.stepNumber}>1</span>
-            <h3>Discover</h3>
-            <p>Browse carefully curated, sustainably-made products</p>
+            <h3>We Vet</h3>
+            <p>We spend weeks researching each brand. We verify certifications against actual standards. We test products ourselves. Only the truly sustainable make our cut—because a green label isn't enough.</p>
           </div>
           <div className={styles.step}>
             <span className={styles.stepNumber}>2</span>
-            <h3>Learn</h3>
-            <p>Read real reviews and see certifications and standards</p>
+            <h3>You Discover</h3>
+            <p>Browse 50+ vetted brands across 5 categories. Read real reviews from real shoppers. Compare sustainability tiers. Find the product that matches your values and your life.</p>
           </div>
           <div className={styles.step}>
             <span className={styles.stepNumber}>3</span>
-            <h3>Shop</h3>
-            <p>Buy directly from trusted retailers. We earn a small commission.</p>
+            <h3>You Earn</h3>
+            <p>We earn a small commission when you shop—and we tell you that upfront. It keeps Leaf Lightly free and independent. Your purchase supports both the brand and our curation. Everyone wins.</p>
           </div>
+        </div>
+
+        {/* Stat callout */}
+        <div className={styles.statCallout}>
+          <p className={styles.statCalloutText}>
+            <strong>500+ curated products</strong> from <strong>200+ sustainable brands</strong>
+          </p>
         </div>
       </section>
 
-      {/* Trust */}
-      <section className={styles.trust}>
-        <h2>Why Leaf Lightly?</h2>
-        <ul className={styles.trustList}>
-          <li>Only Tier A (Certified Eco), Tier B (Community Validated), or Tier C (Plastic-Free + Transparent) products</li>
-          <li>Real customer reviews and ratings from Amazon and Trustpilot</li>
-          <li>Transparent affiliate relationships — we disclose all partnerships</li>
-          <li>Editorial curation, not algorithmic — real humans choose these products</li>
-          <li>UK-first focus on sustainable shopping</li>
-        </ul>
-      </section>
+      {/* Tier Showcase */}
+      <TierShowcase />
 
       {/* Newsletter Modal */}
       <NewsletterModal />

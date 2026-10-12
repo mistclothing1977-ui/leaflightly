@@ -1,0 +1,372 @@
+/* FeaturedProductHero Component */
+
+:root {
+  --color-primary: #1a472a;
+  --color-secondary: #C9B8A0;
+  --color-accent: #FF6B35;
+  --color-neutral: #2A2A26;
+  --color-bg: #F8F6F3;
+  --color-bg-light: #f5f3f0;
+  --color-text-primary: #2A2A26;
+  --color-text-secondary: #8B8B7E;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, var(--color-bg) 0%, #faf8f5 100%);
+  border-radius: 12px;
+  margin-bottom: 6rem;
+}
+
+.heroLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 1;
+}
+
+.heroTitle {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.heroSubtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 500px;
+}
+
+.heroCtaLink {
+  display: inline-block;
+  width: fit-content;
+  background: var(--color-primary);
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(26, 71, 42, 0.15);
+}
+
+.heroCtaLink:hover {
+  background: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.25);
+}
+
+.heroRight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Product Card */
+.productCard {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(26, 71, 42, 0.12);
+  transition: all 0.3s ease;
+  max-width: 340px;
+  width: 100%;
+}
+
+.productCard:hover {
+  box-shadow: 0 12px 32px rgba(26, 71, 42, 0.18);
+  transform: translateY(-4px);
+}
+
+/* Image Container */
+.imageContainer {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+  background: var(--color-bg-light);
+}
+
+.productImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.productCard:hover .productImage {
+  transform: scale(1.08);
+}
+
+.discountBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--color-accent);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.tierBadge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tierBadge[data-tier='A'] {
+  background: #2d5a3d;
+  color: white;
+}
+
+.tierBadge[data-tier='B'] {
+  background: #4a90c2;
+  color: white;
+}
+
+.tierBadge[data-tier='C'] {
+  background: #7a7a70;
+  color: white;
+}
+
+/* Product Content */
+.productContent {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-grow: 1;
+}
+
+.brand {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.productName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.current {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.original {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+}
+
+/* Rating */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.stars {
+  color: var(--color-secondary);
+  letter-spacing: 2px;
+}
+
+.ratingValue {
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.reviews {
+  color: var(--color-text-secondary);
+}
+
+/* Badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.tierBadgeLabel {
+  display: inline-block;
+  background: rgba(26, 71, 42, 0.1);
+  color: var(--color-primary);
+  padding: 0.375rem 0.875rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.certBadge {
+  display: inline-block;
+  background: var(--color-bg-light);
+  color: var(--color-primary);
+  padding: 0.375rem 0.875rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Shop Button */
+.shopButton {
+  display: block;
+  width: 100%;
+  background: var(--color-primary);
+  color: white;
+  padding: 0.875rem;
+  border-radius: 6px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.shopButton:hover {
+  background: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.shopButton:active {
+  transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 3rem 1.5rem;
+  }
+
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .productCard {
+    max-width: 380px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .heroTitle {
+    font-size: 1.8rem;
+  }
+
+  .heroSubtitle {
+    font-size: 0.95rem;
+  }
+
+  .productCard {
+    max-width: 100%;
+  }
+
+  .productContent {
+    padding: 1.25rem;
+  }
+
+  .productName {
+    font-size: 1rem;
+  }
+
+  .current {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    gap: 1.5rem;
+    padding: 1.5rem 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 0.9rem;
+  }
+
+  .heroCtaLink {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .productCard {
+    max-width: 100%;
+  }
+
+  .productContent {
+    padding: 1rem;
+  }
+
+  .productName {
+    font-size: 0.95rem;
+  }
+
+  .current {
+    font-size: 1.1rem;
+  }
+
+  .imageContainer {
+    padding-bottom: 120%;
+  }
+}

@@ -1,3 +1,14 @@
+:root {
+  --color-primary: #1a472a;
+  --color-secondary: #C9B8A0;
+  --color-accent: #FF6B35;
+  --color-neutral: #2A2A26;
+  --color-bg: #F8F6F3;
+  --color-bg-light: #f5f3f0;
+  --color-text-primary: #2A2A26;
+  --color-text-secondary: #8B8B7E;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -8,7 +19,7 @@
 .hero {
   margin-bottom: 6rem;
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, #f5f3f0 0%, #f9f7f5 100%);
+  background: linear-gradient(135deg, var(--color-bg) 0%, #faf8f5 100%);
   border-radius: 12px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -23,14 +34,14 @@
 .hero h1 {
   font-size: 3.5rem;
   margin-bottom: 1rem;
-  color: #2c7f6e;
+  color: var(--color-primary);
   line-height: 1.2;
   font-weight: 700;
 }
 
 .heroSubtitle {
   font-size: 1.2rem;
-  color: #666;
+  color: var(--color-text-secondary);
   margin-bottom: 2rem;
   line-height: 1.6;
   max-width: 500px;
@@ -45,7 +56,7 @@
 
 .heroCta {
   display: inline-block;
-  background: #2c7f6e;
+  background: var(--color-primary);
   color: white;
   padding: 1rem 2.5rem;
   border-radius: 8px;
@@ -53,18 +64,18 @@
   text-decoration: none;
   transition: all 0.3s;
   font-size: 1.05rem;
-  box-shadow: 0 4px 12px rgba(44, 127, 110, 0.15);
+  box-shadow: 0 4px 12px rgba(26, 71, 42, 0.15);
 }
 
 .heroCta:hover {
-  background: #1f6557;
+  background: var(--color-accent);
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(44, 127, 110, 0.25);
+  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.25);
 }
 
 .heroSecondary {
   font-size: 0.9rem;
-  color: #8B8B7E;
+  color: var(--color-text-secondary);
   margin: 0;
 }
 
@@ -86,8 +97,8 @@
 
 .heroBadge {
   display: inline-block;
-  background: #e8f4f2;
-  color: #2c7f6e;
+  background: rgba(26, 71, 42, 0.1);
+  color: var(--color-primary);
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.75rem;
@@ -105,13 +116,13 @@
 .statNumber {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #2c7f6e;
+  color: var(--color-primary);
   margin-bottom: 0.5rem;
 }
 
 .statLabel {
   font-size: 0.9rem;
-  color: #8B8B7E;
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -124,6 +135,9 @@
 .categories h2 {
   text-align: center;
   margin-bottom: 2rem;
+  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .categoryGrid {
@@ -134,7 +148,7 @@
 
 .categoryCard {
   padding: 2rem 1rem;
-  background: #f5f3f0;
+  background: var(--color-bg-light);
   border-radius: 8px;
   text-align: center;
   transition: all 0.2s;
@@ -143,11 +157,12 @@
 
 .categoryCard:hover {
   background: #ede8e0;
+  box-shadow: 0 4px 12px rgba(26, 71, 42, 0.1);
 }
 
 .categoryBadge {
   display: inline-block;
-  background: #2c7f6e;
+  background: var(--color-primary);
   color: white;
   padding: 0.3rem 0.75rem;
   border-radius: 12px;
@@ -166,11 +181,12 @@
   margin-bottom: 0.5rem;
   font-size: 1.1rem;
   margin-top: 0.5rem;
+  color: var(--color-text-primary);
 }
 
 .status {
   font-size: 0.8rem;
-  color: #8B8B7E;
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 1rem;
@@ -178,14 +194,14 @@
 
 .categoryLink {
   display: inline-block;
-  color: #2c7f6e;
+  color: var(--color-primary);
   font-weight: 600;
   text-decoration: none;
   transition: color 0.2s;
 }
 
 .categoryLink:hover {
-  color: #82d4d8;
+  color: var(--color-accent);
 }
 
 /* How It Works */
@@ -195,7 +211,10 @@
 
 .howItWorks h2 {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  color: var(--color-primary);
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .steps {
@@ -206,42 +225,86 @@
 
 .step {
   text-align: center;
+  position: relative;
+}
+
+.step:nth-child(1) .stepNumber {
+  background: #2d5a3d;
+}
+
+.step:nth-child(2) .stepNumber {
+  background: #4a90c2;
+}
+
+.step:nth-child(3) .stepNumber {
+  background: #7a7a70;
 }
 
 .stepNumber {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  background: #2c7f6e;
+  width: 3.5rem;
+  height: 3.5rem;
+  background: var(--color-primary);
   color: white;
   border-radius: 50%;
   font-size: 1.5rem;
   font-weight: 600;
-  margin: 0 auto 1rem;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 12px rgba(26, 71, 42, 0.2);
 }
 
 .step h3 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
 }
 
 .step p {
-  color: #666;
+  color: var(--color-text-secondary);
   font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.statCallout {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--color-bg) 0%, #faf8f5 100%);
+  border: 2px solid var(--color-primary);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.statCalloutText {
+  font-size: 1.1rem;
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.statCalloutText strong {
+  color: var(--color-primary);
+  font-weight: 700;
 }
 
 /* Trust */
 .trust {
   padding: 2rem;
-  background: #f5f3f0;
+  background: linear-gradient(135deg, var(--color-bg) 0%, #faf8f5 100%);
   border-radius: 8px;
   margin-bottom: 2rem;
+  border: 1px solid #e0e0e0;
 }
 
 .trust h2 {
   text-align: center;
   margin-bottom: 2rem;
+  color: var(--color-primary);
+  font-size: 1.8rem;
+  font-weight: 700;
 }
 
 .trustList {
@@ -255,7 +318,7 @@
   padding-left: 2rem;
   margin-bottom: 1rem;
   position: relative;
-  color: #666;
+  color: var(--color-text-secondary);
   line-height: 1.6;
 }
 
@@ -263,8 +326,9 @@
   content: '✓';
   position: absolute;
   left: 0;
-  color: #2c7f6e;
+  color: var(--color-primary);
   font-weight: 600;
+  font-size: 1.2rem;
 }
 
 /* Responsive */
@@ -343,6 +407,15 @@
   .howItWorks {
     margin-bottom: 3rem;
   }
+
+  .statCallout {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+  }
+
+  .statCalloutText {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -394,5 +467,14 @@
   .heroBadge {
     font-size: 0.7rem;
     padding: 0.4rem 0.75rem;
+  }
+
+  .statCallout {
+    margin-top: 2rem;
+    padding: 1.25rem 1rem;
+  }
+
+  .statCalloutText {
+    font-size: 0.9rem;
   }
 }
