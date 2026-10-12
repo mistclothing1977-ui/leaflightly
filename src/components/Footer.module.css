@@ -1,0 +1,179 @@
+:root {
+  --color-primary: #1a472a;
+  --color-accent: #FF6B35;
+  --color-text-primary: #2A2A26;
+  --color-text-secondary: #8B8B7E;
+  --color-bg: #F8F6F3;
+}
+
+.footer {
+  background: var(--color-bg);
+  border-top: 1px solid #e0e0e0;
+  padding: 3rem 2rem 1rem;
+  margin-top: 4rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.logoLink {
+  display: flex;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  width: fit-content;
+  transition: opacity 0.2s;
+}
+
+.logoLink:hover {
+  opacity: 0.8;
+}
+
+.logoLink:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.logo {
+  height: 50px;
+  width: auto;
+  display: block;
+}
+
+.tagline {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.section h3 {
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.links li {
+  margin: 0;
+}
+
+.links a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.links a:hover {
+  color: var(--color-primary);
+}
+
+.links a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.social {
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid #e0e0e0;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .footer {
+    padding: 2rem 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .footer {
+    padding: 1.5rem 1rem 1rem;
+    margin-top: 2rem;
+  }
+
+  .logo {
+    height: 40px;
+  }
+
+  .section h3 {
+    font-size: 0.95rem;
+  }
+
+  .tagline {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .footer {
+    padding: 1rem 0.75rem 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .logo {
+    height: 32px;
+  }
+
+  .section h3 {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .links {
+    gap: 0.5rem;
+  }
+
+  .links a {
+    font-size: 0.85rem;
+  }
+
+  .bottom {
+    padding-top: 1rem;
+    font-size: 0.8rem;
+  }
+}

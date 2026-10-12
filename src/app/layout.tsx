@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -11,6 +13,14 @@ export const metadata: Metadata = {
     siteName: "Leaf Lightly",
     type: "website",
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+      { url: "/assets/logos/logo-mark.webp", sizes: "256x256", type: "image/webp" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -21,15 +31,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <header style={{ padding: "1rem", borderBottom: "1px solid #ddd" }}>
-          <h1 style={{ margin: 0, fontSize: "1.5rem" }}>🌿 Leaf Lightly</h1>
-        </header>
+        <Header />
         <main style={{ padding: "2rem" }}>
           {children}
         </main>
-        <footer style={{ padding: "2rem", borderTop: "1px solid #ddd", textAlign: "center", color: "#666" }}>
-          <p>&copy; 2026 Leaf Lightly. All rights reserved.</p>
-        </footer>
+        <Footer />
       </body>
     </html>
   );
