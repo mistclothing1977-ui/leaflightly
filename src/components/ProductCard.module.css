@@ -1,0 +1,187 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  height: 100%;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(44, 127, 110, 0.12);
+  transform: translateY(-2px);
+}
+
+.card:focus-within {
+  box-shadow: 0 0 0 3px rgba(44, 127, 110, 0.2);
+}
+
+/* Image Container */
+.imageContainer {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: hidden;
+  background: #f5f3f0;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.discountBadge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #E53935;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Content */
+.content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.brand {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #8B8B7E;
+  margin-bottom: 0.25rem;
+  letter-spacing: 0.5px;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2A2A26;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Price */
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.current {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #2c7f6e;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.original {
+  font-size: 0.875rem;
+  color: #8B8B7E;
+  text-decoration: line-through;
+}
+
+/* Rating */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.stars {
+  color: #82d4d8;
+  letter-spacing: 1px;
+}
+
+.ratingText {
+  font-weight: 600;
+  color: #2A2A26;
+}
+
+.reviews {
+  color: #8B8B7E;
+}
+
+/* Certifications */
+.certifications {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.badge {
+  display: inline-block;
+  background: #f5f3f0;
+  color: #2c7f6e;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* CTA Button */
+.cta {
+  margin-top: auto;
+  background: #2c7f6e;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.cta:hover {
+  background: #82d4d8;
+  color: #2A2A26;
+}
+
+.cta:active {
+  background: #2c7f6e;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content {
+    padding: 0.875rem;
+  }
+
+  .name {
+    font-size: 0.9rem;
+  }
+
+  .current {
+    font-size: 1.1rem;
+  }
+}
