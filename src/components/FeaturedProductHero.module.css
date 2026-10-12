@@ -17,7 +17,12 @@
   gap: 3rem;
   align-items: center;
   padding: 4rem 2rem;
-  background: linear-gradient(135deg, var(--color-bg) 0%, #faf8f5 100%);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+    url('/assets/images/hero-background-compressed.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   border-radius: 12px;
   margin-bottom: 6rem;
 }
@@ -33,17 +38,19 @@
 .heroTitle {
   font-size: 2.8rem;
   font-weight: 700;
-  color: var(--color-primary);
+  color: white;
   line-height: 1.2;
   margin: 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .heroSubtitle {
   font-size: 1.1rem;
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.95);
   line-height: 1.6;
   margin: 0;
   max-width: 500px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .heroCtaLink {
