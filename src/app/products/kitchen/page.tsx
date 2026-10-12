@@ -1,5 +1,4 @@
-import { products } from '@/data/products';
-import ProductCard from '@/components/ProductCard';
+import ProductFilter from '@/components/ProductFilter';
 import styles from './page.module.css';
 
 export const metadata = {
@@ -35,13 +34,9 @@ export default function KitchenPage() {
         </div>
       </section>
 
-      {/* Grid */}
+      {/* Filtered Products */}
       <section className={styles.gridSection}>
-        <div className={styles.grid}>
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <ProductFilter category="kitchen" categoryName="Kitchen" />
       </section>
 
       {/* CTA */}

@@ -1,5 +1,4 @@
-import { getProductsByCategory } from '@/data/products';
-import ProductCard from '@/components/ProductCard';
+import ProductFilter from '@/components/ProductFilter';
 import styles from '../kitchen/page.module.css';
 
 export const metadata = {
@@ -8,8 +7,6 @@ export const metadata = {
 };
 
 export default function FashionPage() {
-  const products = getProductsByCategory('fashion');
-
   return (
     <div className={styles.container}>
       {/* Hero */}
@@ -37,13 +34,9 @@ export default function FashionPage() {
         </div>
       </section>
 
-      {/* Products Grid */}
+      {/* Products with Filtering */}
       <section className={styles.products}>
-        <div className={styles.productGrid}>
-          {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <ProductFilter category="fashion" categoryName="Fashion" />
       </section>
 
       {/* CTA */}
