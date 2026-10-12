@@ -1,6 +1,7 @@
 import {
   pgTable,
   serial,
+  integer,
   text,
   varchar,
   numeric,
@@ -105,7 +106,7 @@ export const products = pgTable(
     reviewed_at: timestamp("reviewed_at"),
 
     // Versioning
-    version: serial("version").default(1),
+    version: integer("version").default(1),
     draft_content: jsonb("draft_content"),
 
     // SEO
@@ -249,8 +250,8 @@ export const email_queue = pgTable(
     html: text("html").notNull(),
     type: varchar("type", { length: 50 }),
     status: varchar("status", { length: 20 }).default("pending"),
-    attempts: serial("attempts").default(0),
-    max_attempts: serial("max_attempts").default(5),
+    attempts: integer("attempts").default(0),
+    max_attempts: integer("max_attempts").default(5),
     next_retry_at: timestamp("next_retry_at"),
     error_message: text("error_message"),
     sent_at: timestamp("sent_at"),
@@ -274,7 +275,7 @@ export const webhook_events = pgTable(
     status: varchar("status", { length: 20 }).default("pending"),
     processed_at: timestamp("processed_at"),
     error_message: text("error_message"),
-    retry_count: serial("retry_count").default(0),
+    retry_count: integer("retry_count").default(0),
     received_at: timestamp("received_at").defaultNow(),
   },
   (table) => ({
