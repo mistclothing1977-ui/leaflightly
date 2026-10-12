@@ -1,4 +1,5 @@
 import { products } from '@/data/products';
+import { certificationLabels, tierLabels } from '@/lib/product-labels';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import styles from './page.module.css';
@@ -16,24 +17,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
   if (!product) {
     notFound();
   }
-
-  const certificationLabels: Record<string, string> = {
-    'b-corp': 'B Corp',
-    'fsc': 'FSC',
-    'pefc': 'PEFC',
-    'organic': 'Organic',
-    'compostable': 'Compostable',
-    'plastic-free': 'Plastic-Free',
-    'fair-trade': 'Fair Trade',
-    'carbon-neutral': 'Carbon Neutral',
-    'vegan': 'Vegan',
-  };
-
-  const tierLabels: Record<string, string> = {
-    A: 'Certified Eco',
-    B: 'Eco-Community Validated',
-    C: 'Plastic-Free + Material-Transparent',
-  };
 
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
@@ -110,9 +93,9 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
           {/* CTA */}
           <div className={styles.cta}>
-            <button className={styles.ctaButton}>
+            <a href={product.productUrl} target="_blank" rel="noopener noreferrer" className={styles.ctaButton}>
               View on Amazon
-            </button>
+            </a>
             <p className={styles.disclosure}>
               We earn a small affiliate commission if you purchase through this link — at no extra cost to you.
             </p>

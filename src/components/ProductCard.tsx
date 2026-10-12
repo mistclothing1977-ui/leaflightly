@@ -1,6 +1,7 @@
 'use client';
 
 import { Product } from '@/data/products';
+import { certificationLabels } from '@/lib/product-labels';
 import Link from 'next/link';
 import styles from './ProductCard.module.css';
 
@@ -9,18 +10,6 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const certificationLabels: Record<string, string> = {
-    'b-corp': 'B Corp',
-    'fsc': 'FSC',
-    'pefc': 'PEFC',
-    'organic': 'Organic',
-    'compostable': 'Compostable',
-    'plastic-free': 'Plastic-Free',
-    'fair-trade': 'Fair Trade',
-    'carbon-neutral': 'Carbon Neutral',
-    'vegan': 'Vegan',
-  };
-
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
