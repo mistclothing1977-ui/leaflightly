@@ -1,0 +1,54 @@
+.wishlistButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  color: #1a472a;
+  border: 2px solid #C9B8A0;
+  padding: 0.75rem 1.25rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.wishlistButton:hover:not(:disabled) {
+  border-color: #FF6B35;
+  color: #FF6B35;
+}
+
+.wishlistButton.wishlisted {
+  background: #FFE5D9;
+  border-color: #FF6B35;
+  color: #FF6B35;
+}
+
+.wishlistButton.wishlisted:hover {
+  background: #FF6B35;
+  color: white;
+}
+
+.wishlistButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.wishlistButton span:first-child {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 480px) {
+  .wishlistButton {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .wishlistButton span:last-child {
+    display: none;
+  }
+
+  .wishlistButton span:first-child {
+    font-size: 1.2rem;
+  }
+}
