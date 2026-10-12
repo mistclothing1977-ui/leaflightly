@@ -41,19 +41,17 @@ export default function Home() {
         <div className={styles.categoryGrid}>
           {[
             { name: 'Kitchen', href: '/products/kitchen', status: 'Live' },
-            { name: 'Fashion', href: '#', status: 'Coming Soon' },
-            { name: 'Home', href: '#', status: 'Coming Soon' },
-            { name: 'Beauty', href: '#', status: 'Coming Soon' },
-            { name: 'Wellness', href: '#', status: 'Coming Soon' },
+            { name: 'Fashion', href: '/products/fashion', status: 'Live' },
+            { name: 'Home', href: '/products/home', status: 'Live' },
+            { name: 'Beauty', href: '/products/beauty', status: 'Live' },
+            { name: 'Wellness', href: '/products/wellness', status: 'Live' },
           ].map((category) => (
             <div key={category.name} className={styles.categoryCard}>
               <h3>{category.name}</h3>
               <p className={styles.status}>{category.status}</p>
-              {category.status === 'Live' && (
-                <Link href={category.href} className={styles.categoryLink}>
-                  Browse →
-                </Link>
-              )}
+              <Link href={category.href} className={styles.categoryLink}>
+                Browse →
+              </Link>
             </div>
           ))}
         </div>
