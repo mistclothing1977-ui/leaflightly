@@ -1,59 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import { products as allProducts } from '@/data/products';
+import { tierLabels } from '@/lib/product-labels';
 import styles from './FeaturedProducts.module.css';
 
 export default function FeaturedProducts() {
-  const products = [
-    {
-      id: 1,
-      brand: 'Patagonia',
-      name: 'Organic Cotton T-Shirt',
-      story: 'Made from 100% organic cotton with zero synthetic dyes',
-      image: 'https://via.placeholder.com/400x400',
-      tier: 'Premium',
-    },
-    {
-      id: 2,
-      brand: 'Allbirds',
-      name: 'Wool Runners',
-      story: 'Sustainably sourced merino wool and sugarcane-based foam',
-      image: 'https://via.placeholder.com/400x400',
-      tier: 'Essential',
-    },
-    {
-      id: 3,
-      brand: 'Package Free Shop',
-      name: 'Bamboo Toothbrush',
-      story: 'Biodegradable handle with nylon bristles for zero waste',
-      image: 'https://via.placeholder.com/400x400',
-      tier: 'Essential',
-    },
-    {
-      id: 4,
-      brand: 'Pela',
-      name: 'Plant-Based Phone Case',
-      story: 'Flaxseed fibers blended with plant-based plastics',
-      image: 'https://via.placeholder.com/400x400',
-      tier: 'Premium',
-    },
-    {
-      id: 5,
-      brand: 'Everlane',
-      name: 'Recycled Nylon Backpack',
-      story: 'Made from 100% recycled ocean-bound plastic nylon',
-      image: 'https://via.placeholder.com/400x400',
-      tier: 'Essential',
-    },
-    {
-      id: 6,
-      brand: 'Rothy\'s',
-      name: 'Knit Ballet Flats',
-      story: 'Crafted from recycled plastic bottles with zero waste',
-      image: 'https://via.placeholder.com/400x400',
-      tier: 'Premium',
-    },
-  ];
+  const products = allProducts.filter((p) => p.featured);
 
   return (
     <section className={styles.featuredSection}>
@@ -71,8 +24,8 @@ export default function FeaturedProducts() {
               className={styles.productCard}
             >
               <div className={styles.productImage}>
-                <img src={product.image} alt={product.name} />
-                <span className={styles.tierBadge}>{product.tier}</span>
+                <img src={product.imageUrl} alt={`${product.brand} ${product.name}`} loading="lazy" />
+                <span className={styles.tierBadge}>{tierLabels[product.tier]}</span>
               </div>
               <div className={styles.productContent}>
                 <p className={styles.productBrand}>{product.brand}</p>

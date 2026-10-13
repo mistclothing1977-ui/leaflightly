@@ -8,19 +8,16 @@ export default function CustomerStories() {
       id: 1,
       name: 'Sarah M.',
       quote: 'I used to spend hours researching certifications. Now I trust Leaf Lightly to do that for me. I feel good about every purchase.',
-      image: 'https://via.placeholder.com/100x100',
     },
     {
       id: 2,
       name: 'James T.',
       quote: 'The transparency here is unreal. They tell you exactly where products come from and why they matter. That\'s the trust I was looking for.',
-      image: 'https://via.placeholder.com/100x100',
     },
     {
       id: 3,
       name: 'Emma L.',
       quote: 'Finally, a platform that respects both my values and my wallet. Quality sustainable products without the greenwashing.',
-      image: 'https://via.placeholder.com/100x100',
     },
   ];
 
@@ -37,7 +34,9 @@ export default function CustomerStories() {
             <div key={story.id} className={styles.storyCard}>
               <p className={styles.quote}>"{story.quote}"</p>
               <div className={styles.storyAuthor}>
-                <img src={story.image} alt={story.name} className={styles.authorImage} />
+                <span className={styles.authorImage} aria-hidden="true">
+                  {story.name.split(/\s+/).map((w) => w[0]).join('')}
+                </span>
                 <p className={styles.authorName}>{story.name}</p>
               </div>
             </div>

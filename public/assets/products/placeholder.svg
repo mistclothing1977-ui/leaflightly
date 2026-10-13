@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Product image coming soon">
+  <rect width="400" height="400" fill="#F3F0EA"/>
+  <g transform="translate(200 175)" fill="#1a472a" opacity="0.22">
+    <path d="M0 -62 L44 -20 L0 22 L-44 -20 Z"/>
+    <path d="M-50 -10 L-4 34 L-4 62 L-50 18 Z"/>
+    <path d="M50 -10 L4 34 L4 62 L50 18 Z"/>
+    <path d="M-2 62 L4 62 L-4 92 L-10 92 Z"/>
+  </g>
+  <text x="200" y="300" text-anchor="middle" font-family="-apple-system, Segoe UI, Inter, sans-serif" font-size="15" font-weight="600" letter-spacing="1.5" fill="#1a472a" opacity="0.55">IMAGE COMING SOON</text>
+</svg>
