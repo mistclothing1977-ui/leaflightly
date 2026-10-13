@@ -217,13 +217,15 @@
     padding: 0.75rem 1rem;
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
-    gap: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
     position: relative;
+    overflow: visible;
   }
 
   .logoLink {
     flex: 0 0 auto;
+    order: 0;
   }
 
   .logo {
@@ -239,12 +241,12 @@
   .hamburger {
     display: flex;
     flex-shrink: 0;
-    margin-left: auto;
+    order: 3;
   }
 
   .nav {
-    position: fixed;
-    top: 60px;
+    position: absolute;
+    top: 100%;
     left: 0;
     right: 0;
     width: 100%;
@@ -296,9 +298,21 @@
     display: none;
   }
 
+  /* Flatten so search, toggle and auth can be ordered as header items */
   .rightSection {
-    gap: 0.5rem;
-    flex-shrink: 0;
+    display: contents;
+  }
+
+  .rightSection > * {
+    order: 2;
+  }
+
+  .rightSection > :first-child {
+    order: 4;
+    flex: 1 0 100%;
+  }
+
+  .rightSection > :nth-child(2) {
     margin-left: auto;
   }
 
