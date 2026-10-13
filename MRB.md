@@ -1,8 +1,8 @@
 # 📋 Master Replication Blueprint: Affiliate Site Build
 ## Leaf Lightly — Production-Ready Sustainable Product Discovery Platform
 
-**Document Version:** 1.1  
-**Last Updated:** 2026-10-13  
+**Document Version:** 1.2  
+**Last Updated:** 2026-10-14  
 **Status:** PRODUCTION BUILD COMPLETE — see §7.4 for next steps  
 **Build Hash:** 0b8df35 (main branch)
 
@@ -1263,6 +1263,23 @@ Always read `git diff` before committing a scripted rewrite.
 
 ---
 
+#### **LM-016: Process Mistakes That Broke or Nearly Broke Deploys (2026-10-13/14)**
+
+Each of these happened during the logo/header/newsletter work. Follow the prevention steps every time.
+
+| # | What happened | Prevention |
+|---|---|---|
+| a | `git add src/db ...` aborted because `src/db` was already removed with `git rm`; only the staged deletions were committed (9d39930), so the deploy failed. | Never pass already-deleted paths to `git add`. Before every push run `git status --short` **and** `git show --stat HEAD`, and confirm every intended file is in the commit. |
+| b | A PowerShell here-string commit message (`-m @'…'@`) was split into separate arguments; git treated words as pathspecs and nothing was committed. | Write the message to a file and use `git commit -F <file>`. |
+| c | Every deploy since 42400c6 failed for hours (missing module, type errors, Resend key at import, invalid `vercel.json`) while local dev looked fine. | After each push, poll the commit status (`https://api.github.com/repos/mistclothing1977-ui/leaflightly/commits/<sha>/status`) until `success`. If `failure`, read logs with `npx vercel inspect <deployment-id> --logs`. Run `npm run build` locally before pushing. |
+| d | Vercel rejected `vercel.json` because cron entries had a `description` field. | `crons` entries may only have `path` and `schedule`. |
+| e | Local `npm run build` ran out of memory while `next dev` was also running. | `$env:NODE_OPTIONS='--max-old-space-size=4096'` before building. |
+| f | `src/lib/db/migrations/` is git-ignored, so migration SQL is local-only. | Apply schema changes with `npm run db:push` (reads `schema.ts` directly), or copy the generated SQL into the DB console. Don't assume a migration file reached the repo. |
+| g | Several file edits sent at once triggered overlapping permission prompts that aborted. | Send Edit/Write calls one at a time. |
+| h | Screenshots from a stale/cached page made fixes look broken (and broken things look fixed). | Verify with measurements, cache-busting query strings, and a fresh load — not thumbnails. |
+
+---
+
 ### 5.3 Architectural Lessons & Best Practices Extracted
 
 #### **L-001: Business Model → Code, Not Reverse**
@@ -1488,6 +1505,7 @@ If something breaks, revert with: `git revert <commit-hash>`
 | Version | Date | Change | Author | Status |
 |---------|------|--------|--------|--------|
 | 1.0 | 2026-10-13 | Initial MRB created | AI Agent (Lead Architect) | PRODUCTION |
+| 1.2 | 2026-10-14 | Videos re-encoded + lazy-loaded; social icons; product-image groundwork; favicon; docs archived; newsletter rebuilt (LM-015); process landmines (LM-016); home page locked | AI Agent + Owner | PRODUCTION |
 | 1.1 | 2026-10-13 | Logo background keyed out (`logo-mark.png` only); header locked via `CLAUDE.md` + `scripts/header-check.js`; root font 87.5%; LM-008–LM-014, L-006–L-011; next steps (§7.4) | AI Agent + Owner | PRODUCTION |
 
 ---
