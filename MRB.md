@@ -1243,13 +1243,13 @@ Always read `git diff` before committing a scripted rewrite.
 
 ---
 
-#### **LM-014: Desktop Mega Menus Clipped by Header `overflow: hidden`** — ⚠️ OPEN
+#### **LM-014: Desktop Mega Menus Clipped by Header `overflow: hidden`** — ✅ RESOLVED 2026-10-13
 
 **Issue:** Hovering Kitchen opens a 219px dropdown, but only 1px is visible (measured 2026-10-13 at 1440px).
 
 **Root Cause:** `.header { overflow: hidden }` on desktop clips the absolutely-positioned `.menuContainer`.
 
-**Planned fix:** Remove `overflow: hidden` from desktop `.header` (wrapping now prevents horizontal overflow), then run `scripts/header-check.js` at all widths and confirm the menu is fully visible. Header is locked (see `CLAUDE.md`), so this needs owner approval.
+**Fix (owner-approved):** Removed `overflow: hidden` from desktop `.header` — wrapping already prevents horizontal overflow. All five dropdowns now open fully (167–219px), sit on top of page content, stay on-screen, and stay open when the pointer moves into them. `scripts/header-check.js` passes at all 9 widths with a menu open and closed. (The check script was also corrected to ignore links inside an open dropdown, which have their own font size.)
 
 ---
 
@@ -1599,7 +1599,7 @@ npm run db:push
 
 In priority order. Items touching the header need owner approval and a passing `scripts/header-check.js` run (see `CLAUDE.md`).
 
-1. **Fix clipped desktop mega menus (LM-014).** Remove `overflow: hidden` from desktop `.header`; re-run the header check at all 9 widths; confirm each category dropdown is fully visible.
+1. ~~**Fix clipped desktop mega menus (LM-014).**~~ ✅ Done 2026-10-13.
 2. **Verify production after push.** Push pending commits, then check the live Vercel site: logo has no box, header passes the check at 1890/1440/1280/375, SEO logo URL `/assets/logos/logo-mark.png` returns 200.
 3. **Real product images.** Featured product cards still show grey "400 × 400" placeholders. Add real images (licensed/affiliate-provided) with `alt` text.
 4. **Real social icons in the footer.** Replace the letter badges (f, @, P, ♪) with proper SVG icons for Facebook, Instagram, Pinterest and TikTok.

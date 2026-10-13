@@ -30,7 +30,10 @@
     const r = e.getBoundingClientRect();
     return r.right > innerWidth + 0.5 || r.bottom > hb.bottom + 0.5;
   }).length;
-  const navSizes = [...new Set([...h.querySelectorAll('nav a, nav button')].map((e) => getComputedStyle(e).fontSize))];
+  // Top-level nav items only; links inside an open mega-menu dropdown have their own size.
+  const navSizes = [...new Set([...h.querySelectorAll('nav a, nav button')]
+    .filter((e) => !e.closest('[role="menu"]'))
+    .map((e) => getComputedStyle(e).fontSize))];
   const hScroll = document.documentElement.scrollWidth > innerWidth;
   const pass = !overlaps.length && !clipped && !hScroll && navSizes.length === 1;
   return `${pass ? 'PASS' : 'FAIL'} ${innerWidth}px: overlaps=${overlaps.join(', ') || 'none'} clipped=${clipped} navSizes=${navSizes} hScroll=${hScroll} headerH=${h.offsetHeight}`;
