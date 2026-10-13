@@ -1253,6 +1253,16 @@ Always read `git diff` before committing a scripted rewrite.
 
 ---
 
+#### **LM-015: Newsletter Pipeline Split Across Two Databases** — ✅ RESOLVED 2026-10-14
+
+**Issue (found in adversarial review):** Sign-up/confirm wrote to `newsletter_signups` (`src/lib/db`), but schedule/send/unsubscribe read `newsletterSubscribers` from a second, never-migrated schema (`src/db`). Result: subscribers would never be emailed and unsubscribe links would 500 (a legal requirement under PECR/GDPR). Also: confirm accepted any token; unsubscribe needed only `?email=`; every recipient in a batch got the *first* recipient's unsubscribe link and saw their address ("Sent to:"); batch offsets reset daily so the same people were emailed every day; cron routes were POST-only with an `x-cron-secret` header, but Vercel Cron sends GET with `Authorization: Bearer`. A stub `src/db/index.ts` added earlier only made it *compile*.
+
+**Fix:** One database (`src/lib/db`). New `newsletter_batches` table snapshots each day's recipients (migration `0001`). `src/lib/newsletter/security.ts`: HMAC-signed confirm/unsubscribe tokens (`NEWSLETTER_TOKEN_SECRET`, falls back to `NEXTAUTH_SECRET`) and fail-closed cron auth (`CRON_SECRET`). Send builds one email per recipient with their own unsubscribe link plus `List-Unsubscribe` / one-click headers; skips anyone who unsubscribed after scheduling; claims a batch before sending to prevent double sends. Schedule is idempotent per week. `src/db/` deleted (incl. unused SHA-256 password helper).
+
+**Lesson:** "It builds" ≠ "it works". When unblocking a build, trace the data flow end-to-end (write path → read path → schema → migration) before calling the feature done.
+
+---
+
 ### 5.3 Architectural Lessons & Best Practices Extracted
 
 #### **L-001: Business Model → Code, Not Reverse**
@@ -1607,6 +1617,7 @@ In priority order. Items touching the header need owner approval and a passing `
 6. ~~**Clean stale docs.**~~ ✅ Done 2026-10-14: six logo-rollout docs moved to `docs/archive/` (with README); `docs/BRAND_GUIDELINES.md` logo sections rewritten; new short `docs/INDEX.md`. Home page locked in `CLAUDE.md` at owner's request.
 7. **Tablet header polish (optional).** At 769–900px and 1030–1100px the header wraps to two rows. Consider switching to the hamburger layout up to ~1100px instead.
 8. **Persistence.** Move users/wishlists from in-memory stores to Neon PostgreSQL (§7.3) before real users sign up.
+9. **Newsletter go-live (owner actions).** Code fixed 2026-10-14 (LM-015). Before the first send: (a) apply migrations to the production DB: `npm run db:push` or run `src/lib/db/migrations/0001_*.sql`; (b) set `CRON_SECRET`, `NEWSLETTER_TOKEN_SECRET`, `NEXT_PUBLIC_BASE_URL`, `RESEND_API_KEY`, `EMAIL_FROM` in Vercel; (c) verify the sending domain in Resend.
 
 ---
 

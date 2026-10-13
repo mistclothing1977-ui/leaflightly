@@ -17,12 +17,14 @@ export async function sendEmail({
   html,
   from = 'newsletter@leaflightly.com',
   replyTo = 'hello@leaflightly.com',
+  headers,
 }: {
   to: string;
   subject: string;
   html: string;
   from?: string;
   replyTo?: string;
+  headers?: Record<string, string>;
 }) {
   try {
     const result = await getResend().emails.send({
@@ -31,6 +33,7 @@ export async function sendEmail({
       subject,
       html,
       reply_to: replyTo,
+      headers,
     });
 
     if (result.error) {

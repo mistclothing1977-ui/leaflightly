@@ -7,7 +7,7 @@ import { emailSchema } from "@/lib/validate";
 import { newsletterSignupRateLimit } from "@/lib/rateLimit";
 import { successResponse, errorResponse } from "@/lib/api/handler";
 import { withCORS, withSecurityHeaders } from "@/lib/api/middleware";
-import { sendConfirmationEmail, generateConfirmationToken } from "@/lib/email-confirmation";
+import { sendConfirmationEmail } from "@/lib/email-confirmation";
 
 export const dynamic = "force-dynamic";
 
@@ -72,8 +72,7 @@ export async function POST(req: NextRequest) {
         .where(eq(newsletter_signups.email, validated.email));
 
       // Send confirmation email (non-blocking)
-      const token = generateConfirmationToken();
-      sendConfirmationEmail(validated.email, token).catch((err) =>
+      sendConfirmationEmail(validated.email).catch((err) =>
         console.error("Failed to send confirmation email:", err)
       );
 
@@ -93,8 +92,7 @@ export async function POST(req: NextRequest) {
     });
 
     // Send confirmation email (non-blocking)
-    const token = generateConfirmationToken();
-    sendConfirmationEmail(validated.email, token).catch((err) =>
+    sendConfirmationEmail(validated.email).catch((err) =>
       console.error("Failed to send confirmation email:", err)
     );
 

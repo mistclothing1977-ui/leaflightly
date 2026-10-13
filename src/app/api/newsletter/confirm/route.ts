@@ -4,6 +4,7 @@ import { db } from "@/lib/db/client";
 import { newsletter_signups } from "@/lib/db/schema";
 import { successResponse, errorResponse } from "@/lib/api/handler";
 import { withCORS, withSecurityHeaders } from "@/lib/api/middleware";
+import { verifyNewsletterToken } from "@/lib/newsletter/security";
 
 export const dynamic = "force-dynamic";
 
@@ -22,8 +23,13 @@ export async function GET(req: NextRequest) {
       return withSecurityHeaders(withCORS(response));
     }
 
-    // Decode email
-    const decodedEmail = decodeURIComponent(email);
+    // searchParams already decodes; decoding again would corrupt addresses containing "%".
+    const decodedEmail = email;
+
+    if (!verifyNewsletterToken("confirm", decodedEmail, token)) {
+      let response = errorResponse("Invalid confirmation link", "INVALID_TOKEN", 400);
+      return withSecurityHeaders(withCORS(response));
+    }
 
     // Find subscriber
     const subscriber = await db

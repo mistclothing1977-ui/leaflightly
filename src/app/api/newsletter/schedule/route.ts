@@ -1,138 +1,97 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
-import { newsletterSubscribers, newsletterBatches } from '@/db/schema';
 import { eq } from 'drizzle-orm';
-import { v4 as uuidv4 } from 'uuid';
+import { db } from '@/lib/db/client';
+import { newsletter_signups, newsletter_batches } from '@/lib/db/schema';
 import { calculateBatchSchedule } from '@/lib/email/batch-calculator';
+import { isAuthorizedCron } from '@/lib/newsletter/security';
 import { products } from '@/data/products';
 
+export const dynamic = 'force-dynamic';
+
+const DAILY_LIMIT = 100; // Resend free tier
+const SEND_TIME_UTC = '09:00';
+
+function currentWeekStartUtc(now = new Date()): Date {
+  const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+  const daysSinceMonday = (d.getUTCDay() + 6) % 7;
+  d.setUTCDate(d.getUTCDate() - daysSinceMonday);
+  return d;
+}
+
 /**
- * POST /api/newsletter/schedule
- *
- * Creates weekly newsletter batches for all active subscribers.
- * Distributes across 7 days (100 emails/day max).
- *
- * Should be triggered by Vercel Cron on Mondays at 08:00 UTC
- * Add to vercel.json:
- * {
- *   "crons": [{
- *     "path": "/api/newsletter/schedule",
- *     "schedule": "0 8 * * 1"
- *   }]
- * }
+ * Creates this week's newsletter batches (one per day, max DAILY_LIMIT each) for all
+ * confirmed subscribers. Triggered by Vercel Cron, Mondays 08:00 UTC (see vercel.json).
+ * Idempotent: does nothing if this week's batches already exist.
  */
-export async function POST(request: NextRequest) {
+async function schedule(req: NextRequest) {
+  if (!isAuthorizedCron(req)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
-    // Verify secret to prevent unauthorized calls
-    const secret = request.headers.get('x-cron-secret');
-    if (secret !== process.env.CRON_SECRET) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    const weekStart = currentWeekStartUtc();
+
+    const existing = await db
+      .select({ id: newsletter_batches.id })
+      .from(newsletter_batches)
+      .where(eq(newsletter_batches.week_start, weekStart))
+      .limit(1);
+    if (existing.length > 0) {
+      return NextResponse.json({ message: 'Already scheduled for this week', batchesCreated: 0 });
     }
 
-    // Get all active subscribers
-    const activeSubscribers = await db
-      .select()
-      .from(newsletterSubscribers)
-      .where(eq(newsletterSubscribers.status, 'active'));
+    const subscribers = await db
+      .select({ email: newsletter_signups.email })
+      .from(newsletter_signups)
+      .where(eq(newsletter_signups.status, 'active'));
 
-    if (activeSubscribers.length === 0) {
-      return NextResponse.json({
-        message: 'No active subscribers',
-        batchesCreated: 0,
-      });
+    if (subscribers.length === 0) {
+      return NextResponse.json({ message: 'No active subscribers', batchesCreated: 0 });
     }
 
-    // Get curated products (top rated from each category)
-    const categories = ['kitchen', 'fashion', 'lifestyle', 'beauty', 'wellness'];
+    // Top-rated product from each category
+    const categories = ['kitchen', 'fashion', 'lifestyle', 'beauty', 'wellness'] as const;
     const curatedProducts = categories
-      .map((category) => {
-        return products
-          .filter((p) => p.category === category)
-          .sort((a, b) => b.rating - a.rating)
-          .slice(0, 1)[0];
-      })
+      .map((c) => products.filter((p) => p.category === c).sort((a, b) => b.rating - a.rating)[0])
       .filter(Boolean);
 
-    // Get subscriber emails
-    const subscriberEmails = activeSubscribers.map((s) => s.email);
-
-    // Calculate batch schedule (100/day x 7 days)
-    const weekStart = new Date();
-    weekStart.setDate(weekStart.getDate() - weekStart.getDay() + 1); // Monday
-    weekStart.setHours(0, 0, 0, 0);
-
-    const settings = await db.query.newsletterSettings.findFirst();
-    const scheduleTime = settings?.weeklyScheduleTime || '09:00';
-
-    const batchPlan = calculateBatchSchedule(
-      subscriberEmails,
+    const plan = calculateBatchSchedule(
+      subscribers.map((s) => s.email),
       weekStart,
-      scheduleTime,
-      100 // Daily limit
+      SEND_TIME_UTC,
+      DAILY_LIMIT
     );
 
-    // Create batches in database
-    const createdBatches = [];
-    for (const batch of batchPlan.batches) {
-      const batchId = uuidv4();
-      await db.insert(newsletterBatches).values({
-        id: batchId,
-        weekStart,
-        dayOfWeek: batch.dayOfWeek,
-        scheduledFor: batch.scheduledFor,
-        status: 'scheduled',
-        emailCount: batch.emailCount,
-        contentSnapshot: {
-          products: curatedProducts,
-          weekNumber: Math.ceil(
-            (new Date().getTime() - new Date(weekStart).getTime()) /
-              (7 * 24 * 60 * 60 * 1000)
-          ),
-        },
-      });
-
-      createdBatches.push({
-        id: batchId,
-        dayOfWeek: batch.dayOfWeek,
-        emailCount: batch.emailCount,
-        scheduledFor: batch.scheduledFor,
+    for (const batch of plan.batches) {
+      await db.insert(newsletter_batches).values({
+        week_start: weekStart,
+        day_of_week: batch.dayOfWeek,
+        scheduled_for: batch.scheduledFor,
+        recipients: batch.subscriberEmails,
+        content: { products: curatedProducts },
       });
     }
 
-    // Check if over capacity threshold
-    const subscriberCount = activeSubscribers.length;
-    const weeklyCapacity = 700; // 100 per day × 7 days
-    const upgradeThreshold = weeklyCapacity * 0.9; // 630
-
-    if (subscriberCount >= upgradeThreshold) {
-      console.warn(
-        `⚠️  Newsletter subscriber threshold reached: ${subscriberCount}/${weeklyCapacity}. Consider upgrading to paid Resend plan.`
-      );
-
-      // Send alert to admin (non-blocking)
-      // TODO: Implement admin alert email
+    const capacity = DAILY_LIMIT * 7;
+    const unscheduled = subscribers.length - plan.weeklyTotal;
+    if (subscribers.length >= capacity * 0.9) {
+      console.warn(`Newsletter at ${subscribers.length}/${capacity} weekly capacity — upgrade Resend plan.`);
     }
 
     return NextResponse.json({
-      message: 'Weekly batches scheduled successfully',
+      message: 'Weekly batches scheduled',
       weekStart,
-      subscriberCount,
-      batchesCreated: createdBatches.length,
-      totalEmails: batchPlan.weeklyTotal,
-      batches: createdBatches,
-      capacityAlert:
-        subscriberCount >= upgradeThreshold
-          ? `At ${Math.round((subscriberCount / weeklyCapacity) * 100)}% capacity`
-          : null,
+      subscriberCount: subscribers.length,
+      batchesCreated: plan.batches.length,
+      emailsScheduled: plan.weeklyTotal,
+      notScheduledOverCapacity: unscheduled > 0 ? unscheduled : 0,
     });
   } catch (error) {
     console.error('Newsletter schedule error:', error);
-    return NextResponse.json(
-      {
-        error: 'Failed to schedule batches',
-        details: error instanceof Error ? error.message : String(error),
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to schedule batches' }, { status: 500 });
   }
 }
+
+// Vercel Cron calls GET; POST kept for manual triggering.
+export const GET = schedule;
+export const POST = schedule;

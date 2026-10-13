@@ -201,6 +201,32 @@ export const newsletter_signups = pgTable(
 );
 
 // ============================================
+// NEWSLETTER BATCHES
+// One row per day's send. Recipients are snapshotted at schedule time so each
+// subscriber is emailed exactly once per week, regardless of later list changes.
+// ============================================
+export const newsletter_batches = pgTable(
+  "newsletter_batches",
+  {
+    id: serial("id").primaryKey(),
+    week_start: timestamp("week_start").notNull(),
+    day_of_week: integer("day_of_week").notNull(),
+    scheduled_for: timestamp("scheduled_for").notNull(),
+    status: varchar("status", { length: 20 }).default("scheduled").notNull(),
+    recipients: jsonb("recipients").$type<string[]>().notNull(),
+    content: jsonb("content"),
+    sent_count: integer("sent_count").default(0),
+    failed_count: integer("failed_count").default(0),
+    sent_at: timestamp("sent_at"),
+    created_at: timestamp("created_at").defaultNow(),
+  },
+  (table) => ({
+    statusScheduledIdx: index("newsletter_batches_status_sched_idx").on(table.status, table.scheduled_for),
+    weekIdx: index("newsletter_batches_week_idx").on(table.week_start),
+  })
+);
+
+// ============================================
 // ADMIN USERS
 // ============================================
 export const admin_users = pgTable(

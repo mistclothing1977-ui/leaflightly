@@ -1,162 +1,127 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/db';
-import {
-  newsletterBatches,
-  newsletterSubscribers,
-  emailLogs,
-} from '@/db/schema';
-import { and, eq, gte, lte } from 'drizzle-orm';
-import { v4 as uuidv4 } from 'uuid';
-import { sendEmailBatch } from '@/lib/email/resend';
+import { and, eq, lte, inArray } from 'drizzle-orm';
+import { db } from '@/lib/db/client';
+import { newsletter_batches, newsletter_signups } from '@/lib/db/schema';
+import { sendEmail } from '@/lib/email/resend';
 import { renderNewsletterEmail } from '@/lib/email/newsletter-template';
+import { isAuthorizedCron, siteUrl, unsubscribeUrl } from '@/lib/newsletter/security';
+import type { Product } from '@/data/products';
+
+export const dynamic = 'force-dynamic';
+export const maxDuration = 60;
+
+const SEND_DELAY_MS = 50;
+
+type NewsletterProduct = Parameters<typeof renderNewsletterEmail>[0]['curatedProducts'][number];
+
+// Email clients can't load site-relative paths, so make image URLs absolute.
+function toEmailProducts(products: Product[]): NewsletterProduct[] {
+  return products.map((p) => ({
+    ...p,
+    imageUrl: p.imageUrl.startsWith('/') ? `${siteUrl()}${p.imageUrl}` : p.imageUrl,
+  })) as unknown as NewsletterProduct[];
+}
 
 /**
- * POST /api/newsletter/send
- *
- * Sends scheduled newsletter batches.
- * Triggered by Vercel Cron daily at 09:00 UTC (or configurable time).
- *
- * Add to vercel.json:
- * {
- *   "crons": [{
- *     "path": "/api/newsletter/send",
- *     "schedule": "0 9 * * *"
- *   }]
- * }
+ * Sends every scheduled batch that is due. Triggered by Vercel Cron daily 09:00 UTC.
+ * Each recipient gets their own email with their own signed unsubscribe link.
+ * Recipients who unsubscribed after scheduling are skipped.
  */
-export async function POST(request: NextRequest) {
+async function send(req: NextRequest) {
+  if (!isAuthorizedCron(req)) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
-    // Verify cron secret
-    const secret = request.headers.get('x-cron-secret');
-    if (secret !== process.env.CRON_SECRET) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    // Find pending batches scheduled for now (within 1 hour window)
-    const now = new Date();
-    const oneHourFromNow = new Date(now.getTime() + 60 * 60 * 1000);
-
-    const pendingBatches = await db
+    const due = await db
       .select()
-      .from(newsletterBatches)
-      .where(
-        and(
-          eq(newsletterBatches.status, 'scheduled'),
-          gte(newsletterBatches.scheduledFor, now),
-          lte(newsletterBatches.scheduledFor, oneHourFromNow)
-        )
-      );
+      .from(newsletter_batches)
+      .where(and(eq(newsletter_batches.status, 'scheduled'), lte(newsletter_batches.scheduled_for, new Date())));
 
-    if (pendingBatches.length === 0) {
-      return NextResponse.json({
-        message: 'No batches to send',
-        batchesSent: 0,
-      });
+    if (due.length === 0) {
+      return NextResponse.json({ message: 'No batches due', batchesSent: 0 });
     }
 
-    // Process each batch
-    let totalEmailsSent = 0;
     const results = [];
 
-    for (const batch of pendingBatches) {
-      // Get subscriber emails in batch range
-      const batchSubscriberIds = await db
-        .select()
-        .from(newsletterSubscribers)
-        .where(eq(newsletterSubscribers.status, 'active'))
-        .limit(batch.emailCount)
-        .offset(
-          pendingBatches.indexOf(batch) * batch.emailCount
-        );
+    for (const batch of due) {
+      // Claim the batch first so an overlapping run can't send it twice.
+      const claimed = await db
+        .update(newsletter_batches)
+        .set({ status: 'sending' })
+        .where(and(eq(newsletter_batches.id, batch.id), eq(newsletter_batches.status, 'scheduled')))
+        .returning({ id: newsletter_batches.id });
+      if (claimed.length === 0) continue;
 
-      if (batchSubscriberIds.length === 0) {
-        continue;
-      }
+      const recipients = batch.recipients ?? [];
+      const stillActive =
+        recipients.length === 0
+          ? []
+          : (
+              await db
+                .select({ email: newsletter_signups.email })
+                .from(newsletter_signups)
+                .where(and(inArray(newsletter_signups.email, recipients), eq(newsletter_signups.status, 'active')))
+            ).map((r) => r.email);
 
-      const emails = batchSubscriberIds.map((s) => s.email);
+      const content = (batch.content ?? {}) as { products?: Product[] };
+      const curatedProducts = toEmailProducts(content.products ?? []);
+      const weekNumber = Math.ceil(
+        (batch.week_start.getTime() - Date.UTC(batch.week_start.getUTCFullYear(), 0, 1)) / (7 * 864e5)
+      ) + 1;
 
-      // Generate email HTML
-      const unsubscribeUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/api/newsletter/unsubscribe?email=${encodeURIComponent(emails[0])}`;
-      const emailHtml = renderNewsletterEmail({
-        recipientEmail: emails[0], // Template will show per recipient
-        curatedProducts: (batch.contentSnapshot as any)?.products || [],
-        unsubscribeUrl,
-        weekNumber: (batch.contentSnapshot as any)?.weekNumber || 1,
-      });
+      let sent = 0;
+      let failed = 0;
+      const sentTo: string[] = [];
 
-      // Send batch via Resend
-      const sendResults = await sendEmailBatch({
-        emails,
-        subject: `🌱 Leaf Lightly - Your Weekly Sustainable Picks`,
-        html: emailHtml,
-        delayMs: 50, // 50ms between emails to respect rate limits
-      });
-
-      // Log results in database
-      const successCount = sendResults.filter((r) => r.success).length;
-      const failedCount = sendResults.filter((r) => !r.success).length;
-
-      // Create email logs for each send
-      for (const result of sendResults) {
-        const subscriberId = batchSubscriberIds.find(
-          (s) => s.email === result.email
-        )?.id;
-
-        if (subscriberId) {
-          await db.insert(emailLogs).values({
-            id: uuidv4(),
-            batchId: batch.id,
-            subscriberId,
-            email: result.email,
-            status: result.success ? 'sent' : 'failed',
-            resendMessageId: result.messageId || null,
-            sentAt: new Date(),
-            bounceReason: result.success ? null : String(result.error),
-          });
+      for (const email of stillActive) {
+        const unsub = unsubscribeUrl(email);
+        const result = await sendEmail({
+          to: email,
+          subject: 'Leaf Lightly — Your Weekly Sustainable Picks',
+          html: renderNewsletterEmail({ recipientEmail: email, curatedProducts, unsubscribeUrl: unsub, weekNumber }),
+          headers: {
+            'List-Unsubscribe': `<${unsub}>`,
+            'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+          },
+        });
+        if (result.success) {
+          sent++;
+          sentTo.push(email);
+        } else {
+          failed++;
         }
+        await new Promise((r) => setTimeout(r, SEND_DELAY_MS));
       }
 
-      // Update batch status
-      await db
-        .update(newsletterBatches)
-        .set({
-          status: 'sent',
-          sentAt: new Date(),
-        })
-        .where(eq(newsletterBatches.id, batch.id));
-
-      // Update subscriber last email timestamp
-      for (const subscriber of batchSubscriberIds) {
+      if (sentTo.length > 0) {
         await db
-          .update(newsletterSubscribers)
-          .set({ lastEmailAt: new Date() })
-          .where(eq(newsletterSubscribers.id, subscriber.id));
+          .update(newsletter_signups)
+          .set({ last_email_sent: new Date() })
+          .where(inArray(newsletter_signups.email, sentTo));
       }
 
-      totalEmailsSent += successCount;
+      await db
+        .update(newsletter_batches)
+        .set({ status: 'sent', sent_at: new Date(), sent_count: sent, failed_count: failed })
+        .where(eq(newsletter_batches.id, batch.id));
+
       results.push({
         batchId: batch.id,
-        dayOfWeek: batch.dayOfWeek,
-        scheduled: batch.scheduledFor,
-        emailsSent: successCount,
-        emailsFailed: failedCount,
+        dayOfWeek: batch.day_of_week,
+        sent,
+        failed,
+        skippedUnsubscribed: recipients.length - stillActive.length,
       });
     }
 
-    return NextResponse.json({
-      message: 'Newsletter batches sent successfully',
-      batchesSent: results.length,
-      totalEmailsSent,
-      results,
-    });
+    return NextResponse.json({ message: 'Due batches sent', batchesSent: results.length, results });
   } catch (error) {
     console.error('Newsletter send error:', error);
-    return NextResponse.json(
-      {
-        error: 'Failed to send newsletter batches',
-        details: error instanceof Error ? error.message : String(error),
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to send newsletter batches' }, { status: 500 });
   }
 }
+
+// Vercel Cron calls GET; POST kept for manual triggering.
+export const GET = send;
+export const POST = send;

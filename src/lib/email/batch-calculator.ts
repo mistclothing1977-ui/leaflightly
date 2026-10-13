@@ -52,8 +52,8 @@ export function calculateBatchSchedule(
 
   for (let day = 0; day < daysAvailable; day++) {
     const scheduledFor = new Date(weekStart);
-    scheduledFor.setDate(scheduledFor.getDate() + day);
-    scheduledFor.setHours(hours, minutes, 0, 0);
+    scheduledFor.setUTCDate(scheduledFor.getUTCDate() + day);
+    scheduledFor.setUTCHours(hours, minutes, 0, 0);
 
     // Remaining emails to send
     const remaining = totalSubscribers - emailIndex;
