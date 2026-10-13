@@ -63,7 +63,7 @@ export default function Home() {
         subtitle="We've done the hard work of finding sustainable products. You just enjoy them."
         ctaText="Start Exploring"
         ctaHref="/products"
-        videoUrl="/assets/videos/hero-video.mp4"
+        videoUrl="/assets/videos/water-hero.mp4"
       />
 
       {/* 2. PROBLEM STATEMENT */}
@@ -72,12 +72,12 @@ export default function Home() {
       {/* 3. IMPACT COUNTER */}
       <ImpactCounter />
 
-      {/* 3.5. WATER VIDEO BLOCK */}
+      {/* 3.5. EARTH VIDEO BLOCK */}
       <VideoBlock
-        videoUrl="/assets/videos/water-hero.mp4"
-        element="water"
-        title="From Ocean to Home"
-        description="Sourced responsibly. Crafted sustainably."
+        videoUrl="/assets/videos/earth-hero.mp4"
+        element="earth"
+        title="Rooted in Nature"
+        description="Grown responsibly. Made to last."
       />
 
       {/* 4. OUR APPROACH */}
@@ -85,6 +85,14 @@ export default function Home() {
 
       {/* 5. TIER SYSTEM - Redesigned */}
       <TierSystemRedesigned />
+
+      {/* 5.5. AIR VIDEO BLOCK */}
+      <VideoBlock
+        videoUrl="/assets/videos/air-hero.mp4"
+        element="air"
+        title="Lighter Footprint"
+        description="Less waste. More of what matters."
+      />
 
       {/* 6. FEATURED PRODUCTS */}
       <FeaturedProducts />
