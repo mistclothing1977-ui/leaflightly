@@ -179,11 +179,11 @@
   border-radius: 50%;
 }
 
-.iconLabel {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  text-align: center;
+.iconSvg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
 }
 
 /* Divider */

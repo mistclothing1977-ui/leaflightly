@@ -1,14 +1,15 @@
 'use client';
 
 import Link from 'next/link';
+import { siFacebook, siInstagram, siPinterest, siTiktok } from 'simple-icons';
 import styles from './Footer.module.css';
 
 export default function Footer() {
   const socialLinks = [
-    { name: 'Facebook', label: 'f', url: 'https://facebook.com/leaflightly' },
-    { name: 'Instagram', label: '@', url: 'https://instagram.com/leaflightly' },
-    { name: 'Pinterest', label: 'P', url: 'https://pinterest.com/leaflightly' },
-    { name: 'TikTok', label: '♪', url: 'https://tiktok.com/@leaflightly' },
+    { name: 'Facebook', icon: siFacebook, url: 'https://facebook.com/leaflightly' },
+    { name: 'Instagram', icon: siInstagram, url: 'https://instagram.com/leaflightly' },
+    { name: 'Pinterest', icon: siPinterest, url: 'https://pinterest.com/leaflightly' },
+    { name: 'TikTok', icon: siTiktok, url: 'https://tiktok.com/@leaflightly' },
   ];
 
   return (
@@ -64,7 +65,9 @@ export default function Footer() {
                   aria-label={`Follow us on ${link.name}`}
                   title={link.name}
                 >
-                  <span className={styles.iconLabel}>{link.label}</span>
+                  <svg className={styles.iconSvg} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d={link.icon.path} />
+                  </svg>
                 </a>
               </li>
             ))}
