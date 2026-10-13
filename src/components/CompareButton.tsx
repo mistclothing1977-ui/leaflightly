@@ -9,7 +9,7 @@ interface CompareButtonProps {
   productName: string;
 }
 
-export default function CompareButton({ productId, productName }: CompareButtonProps) {
+export default function CompareButton({ productId, productName: _productName }: CompareButtonProps) {
   const [isAdded, setIsAdded] = useState(false);
   const [compareList, setCompareList] = useState<string[]>([]);
 

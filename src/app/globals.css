@@ -94,3 +94,7 @@ input:focus, textarea:focus, select:focus {
   box-shadow: 0 0 0 3px rgba(44, 127, 110, 0.1);
 }
 
+main.mainContent {
+  padding: 2rem;
+}
+

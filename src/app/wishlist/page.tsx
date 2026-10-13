@@ -7,6 +7,8 @@ import BuyNowButton from "@/components/BuyNowButton";
 import { buildAmazonLink } from "@/lib/affiliateLinks";
 import styles from "./page.module.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "My Wishlist — Leaf Lightly",
   description: "View your saved favorite sustainable products",
@@ -23,7 +25,7 @@ export default async function WishlistPage() {
 
   return (
     <div className={styles.container}>
-      <h1>My Wishlist</h1>
+      <h1 className={styles.heading}>My Wishlist</h1>
 
       {wishlistedProducts.length === 0 ? (
         <div className={styles.empty}>

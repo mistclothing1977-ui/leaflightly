@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
 import styles from './ReviewForm.module.css';
 
@@ -10,8 +9,7 @@ interface ReviewFormProps {
   onReviewSubmitted: () => void;
 }
 
-export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormProps) {
-  const { user, isAuthenticated } = useAuth();
+export default function ReviewForm({ productId }: ReviewFormProps) {
   const [rating, setRating] = useState(5);
   const [title, setTitle] = useState('');
   const [text, setText] = useState('');
@@ -58,7 +56,6 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
       setTitle('');
       setText('');
       setRating(5);
-      onReviewSubmitted();
 
       // Clear success message after 3 seconds
       setTimeout(() => setSuccess(''), 3000);
@@ -68,6 +65,8 @@ export default function ReviewForm({ productId, onReviewSubmitted }: ReviewFormP
       setLoading(false);
     }
   };
+
+  const isAuthenticated = false;
 
   if (!isAuthenticated) {
     return (

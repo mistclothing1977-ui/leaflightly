@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-        <main style={{ padding: "2rem" }}>
+        <main className="mainContent">
           {children}
         </main>
         <Footer />

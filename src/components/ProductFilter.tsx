@@ -20,7 +20,7 @@ const CERTIFICATIONS: { value: Certification; label: string }[] = [
   { value: 'fair-trade', label: 'Fair Trade' },
 ];
 
-export default function ProductFilter({ category, categoryName }: ProductFilterProps) {
+export default function ProductFilter({ category, categoryName: _categoryName }: ProductFilterProps) {
   // Filter state
   const [selectedTiers, setSelectedTiers] = useState<Tier[]>([]);
   const [selectedCertifications, setSelectedCertifications] = useState<Certification[]>([]);

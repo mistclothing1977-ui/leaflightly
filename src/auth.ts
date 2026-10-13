@@ -4,10 +4,21 @@ import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import { compare, hash } from "bcryptjs";
 
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      email?: string | null;
+      name?: string | null;
+      image?: string | null;
+    };
+  }
+}
+
 // Simple in-memory user store (replace with DB in production)
 const users: Record<string, { id: string; email: string; name: string; passwordHash?: string }> = {};
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
+const authConfig = {
   providers: [
     // Credentials provider (email/password)
     CredentialsProvider({
@@ -66,7 +77,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
 
   callbacks: {
-    async signIn({ user, account }) {
+    async signIn({ user, account }: { user?: any; account?: any }) {
       // Create user if doesn't exist (OAuth)
       if (account?.provider !== "credentials") {
         const existingUser = Object.values(users).find(
@@ -87,21 +98,31 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       return true;
     },
 
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: any; user?: any }) {
       if (user) {
         token.id = user.id;
       }
       return token;
     },
 
-    async session({ session, token }) {
+    async session({ session, token }: { session: any; token: any }) {
       if (session.user) {
         session.user.id = token.id as string;
       }
       return session;
     },
   },
-});
+};
+
+const nextAuthResult = NextAuth(authConfig);
+
+export const auth = nextAuthResult.auth;
+export const handlers = nextAuthResult.handlers;
+export const signIn = nextAuthResult.signIn;
+export const signOut = nextAuthResult.signOut;
+
+// Also export for route handler
+export { authConfig };
 
 // Helper to register user (credentials only)
 export async function registerUser(

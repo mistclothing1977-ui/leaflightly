@@ -9,79 +9,79 @@ export const metadata: Metadata = {
 export default function AffiliateDisclosure() {
   return (
     <div className={styles.container}>
-      <h1>Affiliate Disclosure</h1>
+      <h1 className={styles.heading}>Affiliate Disclosure</h1>
 
-      <section>
-        <h2>How We Work</h2>
-        <p>
+      <section className={styles.section}>
+        <h2 className={styles.subheading}>How We Work</h2>
+        <p className={styles.text}>
           Leaf Lightly is a curation platform dedicated to helping you discover genuinely sustainable,
           thoughtfully-made products. We don't sell products directly — we link you to trusted brands
           and retailers where you can purchase them.
         </p>
       </section>
 
-      <section>
-        <h2>Affiliate Partnerships</h2>
-        <p>
+      <section className={styles.section}>
+        <h2 className={styles.subheading}>Affiliate Partnerships</h2>
+        <p className={styles.text}>
           When you click a "Buy Now" link on Leaf Lightly and make a purchase, we may earn a small
-          commission from the retailer or brand. <strong>This does not affect the price you pay.</strong>
+          commission from the retailer or brand. <strong className={styles.bold}>This does not affect the price you pay.</strong>
         </p>
 
-        <h3>Our Affiliate Programs:</h3>
-        <ul>
-          <li>
-            <strong>Amazon Associates:</strong> Affiliate links to products available on Amazon.co.uk
+        <h3 className={styles.tertiaryHeading}>Our Affiliate Programs:</h3>
+        <ul className={styles.list}>
+          <li className={styles.listItem}>
+            <strong className={styles.bold}>Amazon Associates:</strong> Affiliate links to products available on Amazon.co.uk
             (commission varies by product category, typically 4-5%)
           </li>
-          <li>
-            <strong>Direct Brand Partnerships:</strong> Affiliate agreements with individual sustainable
+          <li className={styles.listItem}>
+            <strong className={styles.bold}>Direct Brand Partnerships:</strong> Affiliate agreements with individual sustainable
             brands (commission rates vary)
           </li>
         </ul>
       </section>
 
-      <section>
-        <h2>Our Promise</h2>
-        <p>
+      <section className={styles.section}>
+        <h2 className={styles.subheading}>Our Promise</h2>
+        <p className={styles.text}>
           The affiliate commission model lets us keep Leaf Lightly completely free and ad-free.
           In exchange:
         </p>
-        <ul>
-          <li>✅ We only recommend products we genuinely believe in</li>
-          <li>✅ We thoroughly vet brands for sustainability credibility</li>
-          <li>✅ We provide honest ratings and reviews</li>
-          <li>✅ We disclose our affiliate relationships clearly</li>
-          <li>✅ We never recommend a product just because it pays the highest commission</li>
+        <ul className={styles.list}>
+          <li className={styles.listItem}>✅ We only recommend products we genuinely believe in</li>
+          <li className={styles.listItem}>✅ We thoroughly vet brands for sustainability credibility</li>
+          <li className={styles.listItem}>✅ We provide honest ratings and reviews</li>
+          <li className={styles.listItem}>✅ We disclose our affiliate relationships clearly</li>
+          <li className={styles.listItem}>✅ We never recommend a product just because it pays the highest commission</li>
         </ul>
       </section>
 
-      <section>
-        <h2>Transparency</h2>
-        <p>
+      <section className={styles.section}>
+        <h2 className={styles.subheading}>Transparency</h2>
+        <p className={styles.text}>
           Every product page displays an affiliate disclosure notice. When you click a "Buy Now" button,
           you'll be taken directly to the retailer's site where you can complete your purchase.
         </p>
-        <p>
-          <strong>We never:</strong>
+        <p className={styles.text}>
+          <strong className={styles.bold}>We never:</strong>
         </p>
-        <ul>
-          <li>Collect payment information (retailers handle that)</li>
-          <li>Track your purchases beyond what's needed for commission verification</li>
-          <li>Sell your data to third parties</li>
+        <ul className={styles.list}>
+          <li className={styles.listItem}>Collect payment information (retailers handle that)</li>
+          <li className={styles.listItem}>Track your purchases beyond what's needed for commission verification</li>
+          <li className={styles.listItem}>Sell your data to third parties</li>
         </ul>
       </section>
 
-      <section>
-        <h2>Questions?</h2>
-        <p>
+      <section className={styles.section}>
+        <h2 className={styles.subheading}>Questions?</h2>
+        <p className={styles.text}>
           If you have questions about our affiliate partnerships or our business model,
-          please <a href="/">contact us</a>.
+          please <a href="/" className={styles.link}>contact us</a>.
         </p>
       </section>
 
       <section className={styles.legal}>
-        <h3>Legal Compliance</h3>
-        <p>
+        <h3 className={styles.tertiaryHeading}>Legal Compliance</h3>
+        <p className={styles.text}>
           Leaf Lightly complies with the Federal Trade Commission (FTC) Guides Concerning the Use of
           Endorsements and Testimonials in Advertising, as well as relevant UK advertising standards
           (ASA, PECR).

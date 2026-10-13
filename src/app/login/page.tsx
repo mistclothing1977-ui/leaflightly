@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import LoginForm from "@/components/LoginForm";
 import styles from "./page.module.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Login — Leaf Lightly",
   description: "Sign in to your Leaf Lightly account",

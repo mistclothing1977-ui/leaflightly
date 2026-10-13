@@ -15,12 +15,11 @@ interface Review {
 
 interface ReviewsSectionProps {
   productId: string;
-  productName: string;
+  productName?: string;
 }
 
 export default function ReviewsSection({
   productId,
-  productName,
 }: ReviewsSectionProps) {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [overallRating, setOverallRating] = useState(0);
@@ -47,9 +46,6 @@ export default function ReviewsSection({
     }
   };
 
-  const handleReviewSubmitted = () => {
-    fetchReviews();
-  };
 
   // Filter reviews by rating
   const filteredReviews = filterRating
@@ -62,7 +58,7 @@ export default function ReviewsSection({
       case 'helpful':
         return b.helpful - a.helpful;
       case 'recent':
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       case 'highest':
         return b.rating - a.rating;
       case 'lowest':
@@ -112,7 +108,7 @@ export default function ReviewsSection({
                 {renderStars(Math.round(overallRating))}
               </div>
               <div className={styles.ratingLabel}>
-                Based on {totalReviews.toLocaleString()} reviews
+                Based on {reviews.length.toLocaleString()} reviews
               </div>
             </div>
 

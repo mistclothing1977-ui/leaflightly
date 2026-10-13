@@ -21,6 +21,6 @@ export function generateOrderNumber(): string {
 }
 
 // Create session token
-export function createSessionToken(userId: string): string {
+export function createSessionToken(_userId: string): string {
   return crypto.randomBytes(32).toString('hex');
 }

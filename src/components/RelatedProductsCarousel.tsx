@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Product } from '@/data/products';
-import { tierLabels } from '@/lib/product-labels';
 import styles from './RelatedProductsCarousel.module.css';
 
 interface RelatedProductsCarouselProps {

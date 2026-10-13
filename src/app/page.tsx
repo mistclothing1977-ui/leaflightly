@@ -42,7 +42,6 @@ export const metadata: Metadata = {
     description: 'Discover eco-friendly, ethically-made products',
     images: ['https://leaflightly.com/assets/images/hero-background.webp'],
   },
-  canonical: 'https://leaflightly.com',
 };
 
 export default function Home() {

@@ -25,8 +25,6 @@ export function generateMetadata(config: SEOConfig): Metadata {
     imageAlt = 'Leaf Lightly',
     url,
     type = 'website',
-    publishedDate,
-    modifiedDate,
   } = config;
 
   return {
@@ -37,7 +35,7 @@ export function generateMetadata(config: SEOConfig): Metadata {
       title,
       description,
       url,
-      type: type as 'website' | 'product' | 'article',
+      type: type === 'product' ? 'website' : (type as 'website' | 'article'),
       images: [
         {
           url: image,
@@ -53,7 +51,6 @@ export function generateMetadata(config: SEOConfig): Metadata {
       description,
       images: [image],
     },
-    canonical: url,
     alternates: {
       canonical: url,
     },

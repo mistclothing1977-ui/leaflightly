@@ -62,6 +62,7 @@ export default function WishlistButton({ productId }: WishlistButtonProps) {
       disabled={isLoading}
       className={`${styles.wishlistButton} ${isWishlisted ? styles.wishlisted : ''}`}
       title={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+      aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
     >
       <span>{isWishlisted ? '❤️' : '🤍'}</span>
       <span>{isWishlisted ? 'Wishlisted' : 'Add to Wishlist'}</span>
