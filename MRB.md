@@ -1635,7 +1635,11 @@ In priority order. Items touching the header need owner approval and a passing `
 6. ~~**Clean stale docs.**~~ ✅ Done 2026-10-14: six logo-rollout docs moved to `docs/archive/` (with README); `docs/BRAND_GUIDELINES.md` logo sections rewritten; new short `docs/INDEX.md`. Home page locked in `CLAUDE.md` at owner's request.
 7. **Tablet header polish (optional).** At 769–900px and 1030–1100px the header wraps to two rows. Consider switching to the hamburger layout up to ~1100px instead.
 8. **Persistence.** Move users/wishlists from in-memory stores to Neon PostgreSQL (§7.3) before real users sign up.
-9. **Newsletter go-live (owner actions).** Code fixed 2026-10-14 (LM-015). Before the first send: (a) apply migrations to the production DB: `npm run db:push` or run `src/lib/db/migrations/0001_*.sql`; (b) set `CRON_SECRET`, `NEWSLETTER_TOKEN_SECRET`, `NEXT_PUBLIC_BASE_URL`, `RESEND_API_KEY`, `EMAIL_FROM` in Vercel; (c) verify the sending domain in Resend.
+9. **Newsletter go-live.** Code fixed 2026-10-14 (LM-015).
+   - (a) ✅ `newsletter_batches` table created in the Neon DB (the one with the live `newsletter_signups` rows) inside a transaction. **Do not use `npm run db:push`**: `drizzle.config.ts` has `tablesFilter: ["public.*"]`, which doesn't match plain table names, so push thinks the DB is empty and tries to recreate every table (fails on "already exists"). Fix the filter (e.g. remove it) before relying on push.
+   - (b) ✅ Vercel production now has `CRON_SECRET`, `NEWSLETTER_TOKEN_SECRET` (random 32-byte hex, not stored anywhere else) and `NEXT_PUBLIC_BASE_URL=https://leaflightly.vercel.app`; `RESEND_API_KEY`, `EMAIL_FROM`, `DATABASE_URL` were already set. Redeployed; live cron routes return 401 without the secret. **Gotcha:** piping values from PowerShell into `vercel env add` adds a BOM — set values from Node (`spawnSync(..., { input })`) instead.
+   - (c) ⏳ **Owner:** `leaflightly.com` has no DNS records (doesn't resolve), so Resend can't verify it. Point the domain at Vercel and add Resend's DNS records (SPF/DKIM), then change `NEXT_PUBLIC_BASE_URL` to `https://leaflightly.com` and redeploy. Until then confirmation emails from `@leaflightly.com` will not send.
+   - Also noted: Vercel production has no `NEXTAUTH_SECRET`/`NEXTAUTH_URL`; NextAuth needs a secret in production (sign-in may fail). Not changed — owner to confirm.
 
 ---
 
