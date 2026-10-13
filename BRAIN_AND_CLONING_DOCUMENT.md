@@ -1,8 +1,8 @@
 # LEAF LIGHTLY: BRAIN AND CLONING DOCUMENT
 ## Master Project DNA & New Project Bootstrap Guide
 
-**Version:** 1.0  
-**Last Updated:** 2026-10-13  
+**Version:** 1.1  
+**Last Updated:** 2026-10-13 (v1.1: asset & header guardrails, root scale)  
 **Purpose:** Preserve and replicate Leaf Lightly's design standards, processes, and premium positioning across new projects  
 **For:** New designers, new projects, post-rollout quality gates, architecture decisions
 
@@ -48,6 +48,13 @@ Desktop:   >1024px
 Tablet:    768px-1024px
 Mobile:    <768px
 ```
+
+**Header behaviour by width (locked — see `CLAUDE.md`):**
+- **>1024px:** one row — logo + wordmark, nav, search (shrinks 400px → 140px), theme toggle, auth.
+- **769–1024px:** wordmark hidden; if it still can't fit, the header wraps to a second row rather than overlapping.
+- **≤768px:** two rows — logo, theme toggle, auth, menu / full-width search. Nav opens as a scrollable row below.
+
+**Verify every header change** with `scripts/header-check.js` at 1890, 1440, 1280, 1100, 1024, 900, 800, 769 and 375px. All must print `PASS`.
 
 ### Color Palette
 ```
@@ -302,6 +309,10 @@ font-family: "Inter", "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", "
 | H3 | clamp(1.25rem, 2vw, 1.75rem) | 700 | 1.25 | 0 |
 | Body | 1rem | 400 | 1.6 | 0 |
 | Small | 0.875rem | 500 | 1.5 | 0 |
+
+**Root scale:** `html { font-size: 87.5%; }` (14px at browser default). All `rem` sizes above scale from this. Change site-wide density here, never per component. Use `%`, not `px`, so users' browser font settings still apply. Fixed `px` items (logo heights, header min-height, icon sizes) don't follow the root — adjust them deliberately.
+
+**Nav text:** one variable, `--nav-font-size` on `.header` (1.05rem desktop / 0.95rem ≤1024px / 0.85rem ≤768px), read by every nav link. Never hard-code nav font sizes in individual components.
 
 ### Why This Stack Matters
 
@@ -659,6 +670,8 @@ Always ask:
 ### Keep in Git
 These files belong in version control:
 - BRAIN_AND_CLONING_DOCUMENT.md
+- CLAUDE.md (locked rules every AI session reads) and scripts/header-check.js
+- MRB.md (replication blueprint — landmines LM-001–LM-014, lessons, next steps §7.4)
 - DESIGN_AUDIT_PROTOCOL.md
 - DESIGN_AUDIT_PREMIUM_OVERHAUL.md (reference)
 - `/docs/audits/audit_*.md` (completed audit reports)
@@ -684,6 +697,27 @@ These files belong in version control:
 - ❌ Skipping accessibility (fails WCAG, blocks users)
 - ❌ Over-animating (annoying, affects performance)
 - ❌ Spotlight effects on mobile (pointer events are disruptive)
+- ❌ Trusting a file named "transparent" — check its alpha channel first
+- ❌ Fixing image problems with CSS (blend modes, background colours) when the problem is in the pixels
+- ❌ Overwriting an asset in place and judging the fix from a cached page — use a new filename
+- ❌ The same visual value (e.g. nav font size) hard-coded in two components
+- ❌ Judging layout from a small screenshot — measure overlap and clipping at every breakpoint
+- ❌ `overflow: hidden` on a container that holds dropdowns/menus (it clips them)
+- ❌ Rewriting source files with Windows PowerShell 5.1 `Get-Content`/`Set-Content` (corrupts `£`, adds BOM)
+
+### Asset & Layout Guardrails (learned 2026-10-13)
+
+**Logo assets**
+- One visible logo file: `public/assets/logos/logo-mark.png` — the leaf mark with a genuinely transparent background (keyed out from pixels). Used by header, footer and SEO structured data.
+- Before using any logo, verify it: alpha extrema must not be `(255, 255)`; composite it on magenta and confirm no box or halo.
+- Logo sizes: 48px desktop, 40px ≤768px, 32px ≤480px; footer 88 / 72 / 56px.
+- No WebP for the visible logo (owner decision).
+
+**Process for any visual bug**
+1. Diagnose first: inspect the asset data or measure the layout; state the root cause.
+2. Fix at the source of truth (the image pixels, the shared variable), not with overrides.
+3. Verify with measurements at all breakpoints, then show the results.
+4. If an area breaks repeatedly, lock it in `CLAUDE.md` with an automated check.
 
 ---
 

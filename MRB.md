@@ -1,10 +1,10 @@
 # 📋 Master Replication Blueprint: Affiliate Site Build
 ## Leaf Lightly — Production-Ready Sustainable Product Discovery Platform
 
-**Document Version:** 1.0  
+**Document Version:** 1.1  
 **Last Updated:** 2026-10-13  
-**Status:** PRODUCTION BUILD COMPLETE  
-**Build Hash:** 26c8070 (main branch)
+**Status:** PRODUCTION BUILD COMPLETE — see §7.4 for next steps  
+**Build Hash:** 0b8df35 (main branch)
 
 ---
 
@@ -1165,6 +1165,94 @@ NextAuth v4 callbacks have complex, nested types. Rather than spend 30 min figur
 
 ---
 
+#### **LM-008: "Transparent" Logo PNGs Were Not Transparent**
+
+**Issue:** The logo showed a cream box (or a grey checkerboard) behind it in the header and footer. Many rounds of CSS changes (`mix-blend-mode`, background colours, `background-image`, `<img>` vs `next/image`, SVG wrappers) all failed.
+
+**Root Cause:** Every source PNG was fully opaque (alpha = 255 on every pixel). `logo master favicon.png` has a cream background baked in. `logo transparent.png`, `logo master transparent 1.png` and `logo x 2.png` have a *painted* checkerboard — grey and white pixels, not real transparency. Pasting an opaque image onto a transparent canvas keeps the box. No CSS can remove pixels that are in the image.
+
+**Diagnosis (2 minutes — do this first):**
+```python
+from PIL import Image
+im = Image.open('logo.png').convert('RGBA')
+print(im.split()[-1].getextrema())   # (255, 255) = no transparency at all
+print(im.getpixel((0, 0)))           # corner colour = baked-in background
+```
+
+**Solution:** Key the background out of the pixels: alpha from luminance (cream → 0, dark green → 1), un-premultiply edge colours against the known background colour, trim to the leaf, save as a new file (`public/assets/logos/logo-mark.png`). Verify by compositing onto magenta — any box or halo is obvious.
+
+**Lesson:** When CSS "can't" fix an image, inspect the image data before writing more CSS.
+
+---
+
+#### **LM-009: Replaced Asset Served Stale From Cache**
+
+**Issue:** After overwriting `logo-clean.png` several times, screenshots kept showing an older version (one still had the "LEAF LIGHTLY" wordmark), so fixes looked like they hadn't worked.
+
+**Root Cause:** Same URL, cached response.
+
+**Solution:** Give a changed asset a new filename (`logo-mark.png`) and update references. Never judge a visual fix from a page that may be serving a cached asset.
+
+---
+
+#### **LM-010: Nav Font Sizes Drifted Between Two Components**
+
+**Issue:** Home and Wishlist rendered at 13.3px while Kitchen–Wellness rendered at 16.1px. The header "kept breaking" after unrelated edits.
+
+**Root Cause:** Home/Wishlist are `.navLink` in `Header.module.css`; the categories are `.link` in `NavWithMegaMenu.module.css`. Each file set its own `font-size` at each breakpoint, so any change to one desynchronised them.
+
+**Solution:** One CSS custom property, `--nav-font-size`, set on `.header` per breakpoint. Both `.navLink` and `.link` read it. Never set nav font-size directly in either file.
+
+---
+
+#### **LM-011: Search Box Silently Overlapped Nav Links (< ~1300px)**
+
+**Issue:** Below roughly 1300px wide, the search box sat on top of Fashion → Wishlist. Checks for "anything off-screen" and "horizontal scroll" passed, because nothing left the viewport — elements overlapped *inside* it.
+
+**Root Cause:** `.nav` was `flex-shrink: 1; min-width: 0` and `.rightSection` was `flex-shrink: 0`, so the nav squeezed and its links spilled under the 400px search box.
+
+**Solution:** `.nav { flex: 0 0 auto }` (never shrinks); search container `flex: 0 1 400px; min-width: 140px` absorbs width; `.header { flex-wrap: wrap }` so an impossible width wraps to a second row instead of overlapping. Wordmark hidden at 769–1024px.
+
+**Prevention:** `scripts/header-check.js` tests pairwise overlap, clipping, horizontal scroll and a single nav font size. Run at 1890/1440/1280/1100/1024/900/800/769/375.
+
+---
+
+#### **LM-012: Mobile Header Clipped Search, Theme Toggle and Auth**
+
+**Issue:** At phone width the right-hand controls were cut off.
+
+**Root Cause:** Everything on one flex line with `overflow: hidden`.
+
+**Solution (≤768px):** two rows — logo, theme toggle, auth, menu / full-width search. `.rightSection { display: contents }` so its children can be ordered as header items; nav dropdown `position: absolute; top: 100%` instead of a fixed `top: 60px`.
+
+---
+
+#### **LM-013: Windows PowerShell 5.1 Corrupts Encoding on Rewrite**
+
+**Issue:** A `Get-Content | -replace | Set-Content` edit turned `£` into `Â£` in `src/lib/aeo.ts` (caught before commit). Earlier rewrites with `Set-Content -Encoding utf8` added a UTF-8 BOM to six CSS files.
+
+**Root Cause:** PowerShell 5.1 reads files as the system ANSI codepage by default, and its `utf8` encoding writes a BOM.
+
+**Solution:** Use the editor/Edit tool for source changes. If a script must rewrite files, use .NET with an explicit BOM-less encoding:
+```powershell
+$enc = New-Object System.Text.UTF8Encoding($false)
+$t = [IO.File]::ReadAllText($p, [Text.Encoding]::UTF8)
+[IO.File]::WriteAllText($p, $t, $enc)
+```
+Always read `git diff` before committing a scripted rewrite.
+
+---
+
+#### **LM-014: Desktop Mega Menus Clipped by Header `overflow: hidden`** — ⚠️ OPEN
+
+**Issue:** Hovering Kitchen opens a 219px dropdown, but only 1px is visible (measured 2026-10-13 at 1440px).
+
+**Root Cause:** `.header { overflow: hidden }` on desktop clips the absolutely-positioned `.menuContainer`.
+
+**Planned fix:** Remove `overflow: hidden` from desktop `.header` (wrapping now prevents horizontal overflow), then run `scripts/header-check.js` at all widths and confirm the menu is fully visible. Header is locked (see `CLAUDE.md`), so this needs owner approval.
+
+---
+
 ### 5.3 Architectural Lessons & Best Practices Extracted
 
 #### **L-001: Business Model → Code, Not Reverse**
@@ -1215,6 +1303,30 @@ npm install
 npm run build    # Must succeed with 0 errors
 npm start        # Verify page loads
 ```
+
+#### **L-006: Diagnose Before Fixing**
+
+The logo took 20+ attempts because each round changed CSS without checking the asset. A two-minute data check (alpha channel, corner pixels) would have found the root cause first time. Before any visual fix: inspect the asset or measure the layout, state the root cause, then change code.
+
+#### **L-007: Measure, Don't Eyeball**
+
+Screenshots from a small preview pane hid real bugs (stale logo, overlapping nav). Verify layout with scripted measurements (bounding boxes, computed styles) at a fixed matrix of widths, not by looking at a thumbnail. "Nothing off-screen" ≠ "nothing overlapping" — test overlap explicitly.
+
+#### **L-008: One Source of Truth for Shared Visual Values**
+
+If two components must look the same (e.g. nav links from two modules), drive them from one CSS custom property set on a common ancestor. Separate hard-coded values *will* drift.
+
+#### **L-009: Lock and Verify Regression-Prone Areas**
+
+When an area breaks repeatedly, write its rules down where every session reads them (`CLAUDE.md`) and ship an automated check (`scripts/header-check.js`). Require the check to pass — with results shown — before reporting a fix.
+
+#### **L-010: Scale With the Root, Not Per Component**
+
+Global sizing is `html { font-size: 87.5% }` (14px) with `rem` everywhere, so one change scales text and spacing proportionally and still respects browser font settings. Fixed `px` items (logo heights, header min-height, icon sizes) don't follow — update them deliberately alongside.
+
+#### **L-011: Pin Down Ambiguous References Before Building**
+
+"Use option 1" referred to images that were never mapped to filenames; hours went into the wrong files. Ask which exact file/screen/state is meant before acting.
 
 ---
 
@@ -1366,7 +1478,7 @@ If something breaks, revert with: `git revert <commit-hash>`
 | Version | Date | Change | Author | Status |
 |---------|------|--------|--------|--------|
 | 1.0 | 2026-10-13 | Initial MRB created | AI Agent (Lead Architect) | PRODUCTION |
-| 1.1 | [TBD] | [Planned update] | [Name] | PENDING |
+| 1.1 | 2026-10-13 | Logo background keyed out (`logo-mark.png` only); header locked via `CLAUDE.md` + `scripts/header-check.js`; root font 87.5%; LM-008–LM-014, L-006–L-011; next steps (§7.4) | AI Agent + Owner | PRODUCTION |
 
 ---
 
@@ -1482,6 +1594,19 @@ npm run db:push
 - Track product views (for recommendation engine)
 - Track affiliate link clicks (for ROI analysis)
 - Track user demographics (for marketing)
+
+### 7.4 Next Steps (as of v1.1, 2026-10-13)
+
+In priority order. Items touching the header need owner approval and a passing `scripts/header-check.js` run (see `CLAUDE.md`).
+
+1. **Fix clipped desktop mega menus (LM-014).** Remove `overflow: hidden` from desktop `.header`; re-run the header check at all 9 widths; confirm each category dropdown is fully visible.
+2. **Verify production after push.** Push pending commits, then check the live Vercel site: logo has no box, header passes the check at 1890/1440/1280/375, SEO logo URL `/assets/logos/logo-mark.png` returns 200.
+3. **Real product images.** Featured product cards still show grey "400 × 400" placeholders. Add real images (licensed/affiliate-provided) with `alt` text.
+4. **Real social icons in the footer.** Replace the letter badges (f, @, P, ♪) with proper SVG icons for Facebook, Instagram, Pinterest and TikTok.
+5. **Favicon from the new mark.** Generate `favicon.ico` / `apple-touch-icon.png` from `logo-mark.png` and confirm `layout.tsx` metadata points at them.
+6. **Clean stale docs.** `docs/BRAND_GUIDELINES.md`, `docs/FAVICON_SETUP.md`, `docs/INDEX.md`, `docs/DEPLOYMENT_SUMMARY.md`, `docs/AGENT_LOGO_HANDOFF.md` and `docs/LOGO_DEPLOYMENT_CHECKLIST.md` still reference deleted WebP logos; `LOGO_ADVERSARIAL_ANALYSIS.md` describes a "deadlock" that is now resolved. Update or archive.
+7. **Tablet header polish (optional).** At 769–900px and 1030–1100px the header wraps to two rows. Consider switching to the hamburger layout up to ~1100px instead.
+8. **Persistence.** Move users/wishlists from in-memory stores to Neon PostgreSQL (§7.3) before real users sign up.
 
 ---
 
