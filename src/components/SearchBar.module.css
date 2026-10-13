@@ -11,7 +11,8 @@
 
 .container {
   position: relative;
-  flex: 1;
+  flex: 0 1 400px;
+  min-width: 140px;
   max-width: 400px;
 }
 

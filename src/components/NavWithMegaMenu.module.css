@@ -12,7 +12,7 @@
   color: var(--color-text-primary);
   text-decoration: none !important;
   font-weight: 600;
-  font-size: 1.15rem;
+  font-size: var(--nav-font-size, 1.05rem);
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
   padding: 0.75rem 0;
@@ -76,11 +76,6 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
-  .link {
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
-
   .menuContainer {
     display: none;
   }
