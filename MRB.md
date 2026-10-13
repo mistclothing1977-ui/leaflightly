@@ -1604,7 +1604,7 @@ In priority order. Items touching the header need owner approval and a passing `
 3. **Real product images.** ✅ Groundwork done 2026-10-14: local branded placeholder (`PRODUCT_IMAGE_PLACEHOLDER`), featured grid reads `featured: true` from `products.ts`. **Remaining:** paste affiliate-supplied image URLs (Amazon SiteStripe/PA-API, Awin feed) into each product's `imageUrl`. Never use brand-site images without usage rights.
 4. ~~**Real social icons in the footer.**~~ ✅ Done 2026-10-14 (simple-icons SVGs). Profile URLs are still placeholders (`leaflightly`) until the owner confirms them.
 5. ~~**Favicon from the new mark.**~~ ✅ Done 2026-10-14: `favicon.ico` (16–64px), `apple-touch-icon.png` (180px, cream background), `icon-512.png`; wired in `layout.tsx` metadata.
-6. **Clean stale docs.** `docs/BRAND_GUIDELINES.md`, `docs/FAVICON_SETUP.md`, `docs/INDEX.md`, `docs/DEPLOYMENT_SUMMARY.md`, `docs/AGENT_LOGO_HANDOFF.md` and `docs/LOGO_DEPLOYMENT_CHECKLIST.md` still reference deleted WebP logos; `LOGO_ADVERSARIAL_ANALYSIS.md` describes a "deadlock" that is now resolved. Update or archive.
+6. ~~**Clean stale docs.**~~ ✅ Done 2026-10-14: six logo-rollout docs moved to `docs/archive/` (with README); `docs/BRAND_GUIDELINES.md` logo sections rewritten; new short `docs/INDEX.md`. Home page locked in `CLAUDE.md` at owner's request.
 7. **Tablet header polish (optional).** At 769–900px and 1030–1100px the header wraps to two rows. Consider switching to the hamburger layout up to ~1100px instead.
 8. **Persistence.** Move users/wishlists from in-memory stores to Neon PostgreSQL (§7.3) before real users sign up.
 

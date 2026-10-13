@@ -21,69 +21,28 @@ To curate the world's most sustainably beautiful products—removing the guesswo
 
 ## Visual Identity System
 
-### Logo System
+### Logo System (current — locked, see `CLAUDE.md`)
 
-#### 1. **Logo Mark** (`logo-mark.webp`)
-- **Use**: Favicon, app icons, social avatars, small spaces (32px+)
-- **Dimensions**: 256x256px minimum (responsive scaling)
-- **Background**: Transparent background
-- **Colors**: Forest Green (#1a472a)
-- **Spacing**: Minimum 8px clear space on all sides
+There is **one** visible logo file: `public/assets/logos/logo-mark.png` — the green isometric leaf mark, no wordmark, on a genuinely transparent background (keyed out from pixels; see MRB LM-008). The "Leaf Lightly" wordmark beside it in the header is live text, not an image.
 
-#### 2. **Full Logo - Standard** (`logo-full.webp` / `logo-standard.webp`)
-- **Use**: Primary website header, print materials, standard applications
-- **Dimensions**: 1200x400px (3:1 ratio)
-- **Background**: Light backgrounds (off-white #F8F6F3, white)
-- **Colors**: Forest Green (#1a472a) with white wordmark negative space
-- **Minimum Size**: 120px wide on web
+- **Colours**: Forest Green (#1a472a) tones
+- **Format**: PNG with real alpha. No WebP for the visible logo (owner decision).
+- **Before using any new logo file**: check the alpha channel isn't fully opaque, and composite it on magenta to confirm no box or halo.
 
-#### 3. **Full Logo - Orange Accent** (`logo-accent-orange.webp`)
-- **Use**: CTAs, promotional materials, energy moments, seasonal campaigns
-- **Dimensions**: 1200x400px (3:1 ratio)
-- **Background**: Light backgrounds preferred
-- **Colors**: Forest Green (#1a472a) + Orange accent (#FF6B35)
-- **When to Use**: 
-  - Primary CTA sections
-  - Product launch banners
-  - Newsletter/promotional emails
-  - Social media campaign posts
-- **Frequency**: Use sparingly (1-2x per page max)
-
-#### 4. **Dark Theme** (`logo-dark-inverted.webp`)
-- **Use**: Dark backgrounds, dark mode layouts, dark headers with imagery
-- **Dimensions**: 1200x400px (3:1 ratio)
-- **Background**: Charcoal (#2A2A26), dark navy, or dark photography
-- **Colors**: White wordmark and mark
-- **Contrast Ratio**: WCAG AAA compliant (minimum 7:1)
+The old five-variant WebP system (full, standard, orange accent, dark inverted) was retired on 2026-10-13. Its rollout docs are in `docs/archive/`.
 
 ### Logo Placement Rules
 
-**Header Navigation**
-- Position: Left side, before navigation items
-- Size: 40-50px height (responsive)
-- Logo: `logo-mark.webp` (icon-only) or `logo-full.webp` (if space)
-- Spacing: 1rem left margin, 2rem right margin
+| Where | File | Size |
+|---|---|---|
+| Header (left, before nav) | `logo-mark.png` + "Leaf Lightly" text wordmark | 48px desktop / 40px ≤768px / 32px ≤480px; wordmark hidden 769–1024px and ≤768px |
+| Footer (brand column) | `logo-mark.png` | 88px / 72px ≤768px / 56px ≤480px |
+| SEO structured data | `https://leaflightly.com/assets/logos/logo-mark.png` | — |
 
-**Homepage Hero**
-- Position: Top-center or top-left integrated into hero section
-- Size: 80-120px mark size
-- Logo: `logo-full.webp` or `logo-accent-orange.webp`
-- Background: Light hero background (#F8F6F3 gradient)
-
-**Footer**
-- Position: Left corner or center
-- Size: 40-60px mark, or 120px full logo
-- Logo: `logo-standard.webp`
-- Spacing: 2rem padding from edges
-
-**Dark Sections/Headers**
-- Logo: `logo-dark-inverted.webp` (white)
-- Minimum contrast ratio: 7:1 against background
-
-**Favicon**
-- Asset: `logo-mark.webp` (256x256px)
-- Format: SVG or 32x32px PNG for best quality
-- Placement: `<head>` as `favicon.ico`
+**Favicon** (generated from `logo-mark.png`, declared in `src/app/layout.tsx`):
+- `public/favicon.ico` — 16/32/48/64px, transparent, tight crop
+- `public/apple-touch-icon.png` — 180px on cream (#F8F6F3); iOS renders transparency as black
+- `public/icon-512.png` — Android / search results
 
 ---
 
@@ -193,10 +152,10 @@ hover: background: rgba(26, 71, 42, 0.05);
 
 ### Logo Sizing (Responsive)
 ```
-Mobile (<768px):     32px height
-Tablet (768-1024px): 40px height
-Desktop (1024px+):   50px height
+Header:  48px desktop  |  40px ≤768px  |  32px ≤480px
+Footer:  88px desktop  |  72px ≤768px  |  56px ≤480px
 ```
+Root font size is 87.5% (14px); see `BRAIN_AND_CLONING_DOCUMENT.md` §2 for header behaviour per width.
 
 ---
 
@@ -257,15 +216,14 @@ Desktop (1024px+):   50px height
 - [ ] Favicon configured and deployed
 - [ ] Logo responsive sizing tested (375px - 1920px)
 - [ ] Contrast ratios verified (WCAG AA minimum)
-- [ ] Dark mode logo variants tested
+- [ ] `scripts/header-check.js` passes at all 9 widths (see `CLAUDE.md`)
 
 ### QA Agent
-- [ ] Logo displays correctly on all breakpoints
+- [ ] Logo displays correctly on all breakpoints, with no box or halo
 - [ ] Favicon appears in browser tab
 - [ ] Color contrast tested with WAVE tool
 - [ ] Logo placement consistent across pages
-- [ ] Orange accent variant renders correctly
-- [ ] Dark theme logos visible on dark backgrounds
+- [ ] Logo visible in dark mode
 - [ ] Logo files optimized and loading fast (<100ms)
 
 ### Copy Agent
@@ -278,16 +236,13 @@ Desktop (1024px+):   50px height
 
 ## Stage Rollout
 
-### Stage 2 (Current)
-- ✅ Logo system finalized
-- ✅ Brand guidelines documented
-- [ ] Integration into header (In Progress)
-- [ ] Favicon deployment
-- [ ] Homepage hero with logo
+### Status (2026-10-14)
+- ✅ Single transparent logo mark in header, footer and SEO data
+- ✅ Favicon set deployed
+- ✅ Header locked with automated check (`CLAUDE.md`, `scripts/header-check.js`)
 
-### Stage 3 (Planned)
-- Logo animation variants (optional)
-- Secondary mark variations
+### Possible later work
+- Dark-background version of the mark (only if a dark section needs it)
 - Social media asset pack
 
 ---
@@ -297,11 +252,11 @@ Desktop (1024px+):   50px height
 ### Logo Assets Location
 ```
 /public/assets/logos/
-├── logo-mark.webp              (Favicon, small spaces)
-├── logo-full.webp              (Primary, light backgrounds)
-├── logo-standard.webp          (Standard variant)
-├── logo-accent-orange.webp     (CTAs, promotional)
-└── logo-dark-inverted.webp     (Dark backgrounds)
+└── logo-mark.png               (header, footer, SEO — the only logo file)
+/public/
+├── favicon.ico                 (16–64px)
+├── apple-touch-icon.png        (180px, cream background)
+└── icon-512.png                (Android / search)
 ```
 
 ### CSS Variable Reference
@@ -348,20 +303,17 @@ Desktop (1024px+):   50px height
 
 ## Questions & Clarifications
 
-**Q: When should I use the orange accent logo?**  
-A: Use it sparingly for CTAs, promotions, and key moments (max 1-2x per page). Never as the primary header logo.
-
 **Q: What's the minimum logo size?**  
-A: Mark: 32px. Full logo: 120px wide on web, 40px height in header.
+A: 32px (header on small phones). The favicon is generated separately at 16px.
 
 **Q: Can I change the logo colors?**  
 A: No. The forest green and orange are locked brand colors. Any variations must be approved by Design Agent.
 
 **Q: Dark mode support?**  
-A: Use `logo-dark-inverted.webp` (white version) on dark backgrounds. Ensure 7:1 contrast ratio.
+A: The mark is mid/dark green on transparent. No inverted version exists yet; create one (from `logo-mark.png`) only if a dark section needs it.
 
 **Q: Favicon format?**  
-A: Preferred: SVG or 32x32px PNG. Copy `logo-mark.webp` and convert to ICO/PNG for deployment.
+A: Already generated from `logo-mark.png`: `favicon.ico` (multi-size), `apple-touch-icon.png`, `icon-512.png`. Regenerate from the PNG if the mark ever changes.
 
 ---
 
@@ -370,6 +322,7 @@ A: Preferred: SVG or 32x32px PNG. Copy `logo-mark.webp` and convert to ICO/PNG f
 | Version | Date | Changes |
 |---------|------|---------|
 | 1.0 | 2026-10-12 | Initial brand guidelines with complete logo system |
+| 1.1 | 2026-10-14 | Logo system replaced by single transparent `logo-mark.png`; favicon set; old WebP variants retired (docs in `docs/archive/`) |
 
 ---
 

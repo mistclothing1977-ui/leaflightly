@@ -1,5 +1,11 @@
 @AGENTS.md
 
+# Home page (locked — 2026-10-14)
+
+Do not change the home page (`src/app/page.tsx` and the sections it renders: PremiumHero, VideoBlock,
+ProblemStatement, ImpactCounter, OurApproach, TierSystemRedesigned, FeaturedProducts, CustomerStories,
+NewsletterSection) unless the owner explicitly asks. Report issues found there instead of fixing them.
+
 # Header rules (locked — change only when the owner explicitly overrides)
 
 The header has regressed repeatedly. These rules stand until the owner says otherwise.
