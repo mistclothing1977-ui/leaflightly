@@ -5,6 +5,7 @@ import RelatedProductsCarousel from '@/components/RelatedProductsCarousel';
 import CompareButton from '@/components/CompareButton';
 import BuyNowButton from '@/components/BuyNowButton';
 import AffiliateDisclosure from '@/components/AffiliateDisclosure';
+import WishlistButton from '@/components/WishlistButton';
 import { StructuredData } from '@/components/StructuredData';
 import { generateMetadata as generatePageMetadata, generateProductSchema, generateOrganizationSchema, generateBreadcrumbSchema } from '@/lib/seo';
 import { buildAmazonLink } from '@/lib/affiliateLinks';
@@ -162,15 +163,18 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
 
           {/* CTA */}
           <div className={styles.cta}>
-            <BuyNowButton
-              retailers={[
-                {
-                  retailer: 'Amazon',
-                  url: buildAmazonLink(product.name),
-                  icon: '🛒',
-                },
-              ]}
-            />
+            <div className={styles.ctaRow}>
+              <BuyNowButton
+                retailers={[
+                  {
+                    retailer: 'Amazon',
+                    url: buildAmazonLink(product.name),
+                    icon: '🛒',
+                  },
+                ]}
+              />
+              <WishlistButton productId={product.id} />
+            </div>
             <AffiliateDisclosure />
             <CompareButton productId={product.id} productName={product.name} />
           </div>

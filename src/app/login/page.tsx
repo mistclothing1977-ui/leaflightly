@@ -1,102 +1,48 @@
-'use client';
+import { Metadata } from "next";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
+import LoginForm from "@/components/LoginForm";
+import styles from "./page.module.css";
 
-import { useState } from 'react';
-import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import styles from './page.module.css';
+export const metadata: Metadata = {
+  title: "Login — Leaf Lightly",
+  description: "Sign in to your Leaf Lightly account",
+};
 
-export default function LoginPage() {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
-  const router = useRouter();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
-
-    if (!formData.email || !formData.password) {
-      setError('Please fill in all fields');
-      setLoading(false);
-      return;
-    }
-
-    try {
-      await login(formData.email, formData.password);
-      router.push('/account');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
-    } finally {
-      setLoading(false);
-    }
-  };
+export default async function LoginPage() {
+  const session = await auth();
+  if (session) {
+    redirect("/wishlist");
+  }
 
   return (
-    <main className={styles.container}>
+    <div className={styles.container}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Log In</h1>
-        <p className={styles.subtitle}>Welcome back to Leaf Lightly</p>
+        <h1>Welcome Back</h1>
+        <p className={styles.subtitle}>Sign in to access your wishlist</p>
 
-        {error && <div className={styles.error}>{error}</div>}
+        <LoginForm />
 
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label htmlFor="email" className={styles.label}>
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className={styles.input}
-              required
-            />
-          </div>
+        <div className={styles.divider}>OR</div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="password" className={styles.label}>
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className={styles.input}
-              required
-            />
-          </div>
+        <div className={styles.socialLogin}>
+          <form action="/api/auth/signin/google" method="POST">
+            <button type="submit" className={styles.googleButton}>
+              <span>🔍</span> Sign in with Google
+            </button>
+          </form>
 
-          <button
-            type="submit"
-            className={styles.submitButton}
-            disabled={loading}
-          >
-            {loading ? 'Logging in...' : 'Log In'}
-          </button>
-        </form>
+          <form action="/api/auth/signin/github" method="POST">
+            <button type="submit" className={styles.githubButton}>
+              <span>🐙</span> Sign in with GitHub
+            </button>
+          </form>
+        </div>
 
-        <p className={styles.footer}>
-          Don't have an account?{' '}
-          <Link href="/signup" className={styles.link}>
-            Sign up here
-          </Link>
+        <p className={styles.signup}>
+          Don't have an account? <a href="/signup">Sign up</a>
         </p>
       </div>
-    </main>
+    </div>
   );
 }

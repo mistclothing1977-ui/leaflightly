@@ -196,6 +196,17 @@
   margin-top: auto;
 }
 
+.ctaRow {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.ctaRow > :first-child {
+  flex: 1;
+}
+
 .ctaButton {
   display: block;
   width: 100%;
