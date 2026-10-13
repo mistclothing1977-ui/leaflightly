@@ -1,8 +1,8 @@
 # LEAF LIGHTLY: BRAIN AND CLONING DOCUMENT
 ## Master Project DNA & New Project Bootstrap Guide
 
-**Version:** 1.1  
-**Last Updated:** 2026-10-13 (v1.1: asset & header guardrails, root scale)  
+**Version:** 1.2  
+**Last Updated:** 2026-10-14 (v1.2: media performance, shipping, email/newsletter and placeholder standards; v1.1: asset & header guardrails, root scale)  
 **Purpose:** Preserve and replicate Leaf Lightly's design standards, processes, and premium positioning across new projects  
 **For:** New designers, new projects, post-rollout quality gates, architecture decisions
 
@@ -671,7 +671,8 @@ Always ask:
 These files belong in version control:
 - BRAIN_AND_CLONING_DOCUMENT.md
 - CLAUDE.md (locked rules every AI session reads) and scripts/header-check.js
-- MRB.md (replication blueprint — landmines LM-001–LM-014, lessons, next steps §7.4)
+- MRB.md (replication blueprint — landmines LM-001–LM-016, lessons, next steps §7.4)
+- WORKFLOW.md (Change → Verify → Ship steps, env vars, database, newsletter)
 - DESIGN_AUDIT_PROTOCOL.md
 - DESIGN_AUDIT_PREMIUM_OVERHAUL.md (reference)
 - `/docs/audits/audit_*.md` (completed audit reports)
@@ -718,6 +719,28 @@ These files belong in version control:
 2. Fix at the source of truth (the image pixels, the shared variable), not with overrides.
 3. Verify with measurements at all breakpoints, then show the results.
 4. If an area breaks repeatedly, lock it in `CLAUDE.md` with an automated check.
+
+**Media performance (learned 2026-10-14)**
+- Hero/background video: 1080p H.264, CRF 26–27, no audio, `+faststart`; target ≤10 MB. Never ship 4K (the 47 MB hero → 8.4 MB with no visible loss).
+- Give the hero video a poster frame; lazy-mount below-the-fold videos (IntersectionObserver, ~600px margin) so first load fetches only the hero.
+- Keep section heights fixed so lazy media doesn't shift the layout.
+
+**Shipping (learned 2026-10-13/14)**
+- "Works locally" ≠ "deployed". After every push, confirm the hosting provider's deploy status is success, then check the live URL. Hours of pushes once silently failed.
+- "It builds" ≠ "it works". When unblocking a build, trace the feature end-to-end (write path → read path → schema → database) before calling it done.
+- Third-party services must not crash the build: create API clients (email, payments) lazily, on first use.
+- Production needs its secrets set explicitly (auth secret, cron secret, token secrets). A missing auth secret took down every sign-in route.
+
+**Email & newsletter standards**
+- Double opt-in with signed confirm links; signed one-click unsubscribe links plus `List-Unsubscribe` headers (legal requirement under UK/EU rules; required by Gmail/Yahoo for bulk mail).
+- Build each email per recipient — never share one rendered email (with one person's links/address) across a batch.
+- Scheduled jobs authenticate with a bearer secret and fail closed if it's unset.
+- One database, one schema. Never let a feature read from tables nothing writes to.
+
+**Placeholders & third parties**
+- Use local placeholders (e.g. a branded "image coming soon" SVG), not free placeholder services that can disappear.
+- Product images only from sources that grant usage rights (affiliate programmes, brand media kits, own photos).
+- Social icons: official brand marks via `simple-icons`, not letters.
 
 ---
 
