@@ -87,7 +87,7 @@ export function generateArticleSchema(
     author: {
       '@type': 'Organization',
       name: author,
-      logo: 'https://leaflightly.com/assets/logos/logo-mark.webp',
+      logo: 'https://leaflightly.com/assets/logos/logo-mark.png',
       sameAs: [
         'https://twitter.com/leaflightly',
         'https://instagram.com/leaflightly',
@@ -96,7 +96,7 @@ export function generateArticleSchema(
     publisher: {
       '@type': 'Organization',
       name: 'Leaf Lightly',
-      logo: 'https://leaflightly.com/assets/logos/logo-mark.webp',
+      logo: 'https://leaflightly.com/assets/logos/logo-mark.png',
     },
     datePublished,
     dateModified,

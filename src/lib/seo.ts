@@ -140,7 +140,7 @@ export function generateOrganizationSchema() {
     '@type': 'Organization',
     name: 'Leaf Lightly',
     url: 'https://leaflightly.com',
-    logo: 'https://leaflightly.com/assets/logos/logo-mark.webp',
+    logo: 'https://leaflightly.com/assets/logos/logo-mark.png',
     description:
       'An editorial discovery platform for sustainable, thoughtfully-made products across kitchen, fashion, home, beauty, and wellness.',
     sameAs: [
