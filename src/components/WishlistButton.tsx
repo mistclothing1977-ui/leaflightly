@@ -5,14 +5,18 @@ import styles from './WishlistButton.module.css';
 
 interface WishlistButtonProps {
   productId: string;
+  /** Skip the initial lookup when the caller already knows (e.g. on the wishlist page). */
+  initiallyWishlisted?: boolean;
+  onChange?: (wishlisted: boolean) => void;
 }
 
-export default function WishlistButton({ productId }: WishlistButtonProps) {
-  const [isWishlisted, setIsWishlisted] = useState(false);
+export default function WishlistButton({ productId, initiallyWishlisted, onChange }: WishlistButtonProps) {
+  const [isWishlisted, setIsWishlisted] = useState(!!initiallyWishlisted);
   const [isLoading, setIsLoading] = useState(false);
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(!!initiallyWishlisted);
 
   useEffect(() => {
+    if (initiallyWishlisted) return;
     // Check if user is authenticated and if product is wishlisted
     const checkAuthAndWishlist = async () => {
       try {
@@ -30,9 +34,13 @@ export default function WishlistButton({ productId }: WishlistButtonProps) {
     };
 
     checkAuthAndWishlist();
-  }, [productId]);
+  }, [productId, initiallyWishlisted]);
 
-  const toggleWishlist = async () => {
+  const toggleWishlist = async (e: React.MouseEvent) => {
+    // The button often sits inside a product link; don't navigate.
+    e.preventDefault();
+    e.stopPropagation();
+
     if (!isAuth) {
       window.location.href = '/login';
       return;
@@ -49,7 +57,11 @@ export default function WishlistButton({ productId }: WishlistButtonProps) {
       });
 
       if (res.ok) {
-        setIsWishlisted(!isWishlisted);
+        const next = !isWishlisted;
+        setIsWishlisted(next);
+        onChange?.(next);
+      } else if (res.status === 401) {
+        window.location.href = '/login';
       }
     } finally {
       setIsLoading(false);

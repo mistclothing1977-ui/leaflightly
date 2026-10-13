@@ -8,7 +8,11 @@ export async function GET() {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const wishlist = await getWishlist(session.user.id);
-
-  return Response.json({ wishlist });
+  try {
+    const wishlist = await getWishlist(session.user.id);
+    return Response.json({ wishlist });
+  } catch (err) {
+    console.error("Wishlist fetch failed:", err);
+    return Response.json({ error: "Could not load wishlist" }, { status: 500 });
+  }
 }

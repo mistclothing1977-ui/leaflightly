@@ -90,6 +90,9 @@
 - One database client and schema: `src/lib/db/client.ts` / `src/lib/db/schema.ts` (Neon). Don't add a second.
 - Don't use `npm run db:push` until `tablesFilter` in `drizzle.config.ts` is fixed — it tries to recreate every table. Apply changes with explicit SQL inside a transaction and check table counts before/after.
 - `src/lib/db/migrations/` is git-ignored.
+- Accounts: `users` table via `src/lib/users.ts` (emails lower-cased; `pgErrorCode()` unwraps Drizzle errors). Wishlists: `wishlist_items` via `src/lib/wishlist-store.ts`. Never reintroduce in-memory stores — Vercel runs multiple instances.
+- The local dev server and local builds use the **same Neon database as production**. Test with clearly-labelled accounts (e.g. `claude-e2e-test+…@example.com`) and delete them afterwards.
+- If the dev server serves stale server code after a production build, test on `npx next start -p 3005` instead of restarting the owner's dev server.
 
 ## Newsletter
 

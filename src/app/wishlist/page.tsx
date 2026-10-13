@@ -9,14 +9,47 @@ import styles from './page.module.css';
 export default function WishlistPage() {
   const [wishlistItems, setWishlistItems] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [signedOut, setSignedOut] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('wishlist');
-    setWishlistItems(saved ? JSON.parse(saved) : []);
-    setIsLoading(false);
+    fetch('/api/wishlist/get')
+      .then(async (res) => {
+        if (res.status === 401) {
+          setSignedOut(true);
+          return;
+        }
+        if (res.ok) {
+          const data = await res.json();
+          setWishlistItems(Array.isArray(data.wishlist) ? data.wishlist : []);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setIsLoading(false));
   }, []);
 
+  const removeItem = (productId: string) =>
+    setWishlistItems((items) => items.filter((id) => id !== productId));
+
   const wishlistProducts = products.filter((p) => wishlistItems.includes(p.id));
+
+  if (!isLoading && signedOut) {
+    return (
+      <main className={styles.container}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>My Wishlist</h1>
+        </header>
+        <div className={styles.empty}>
+          <div className={styles.emptyContent}>
+            <h2 className={styles.emptyTitle}>Sign in to see your wishlist</h2>
+            <p className={styles.emptyText}>Your saved products are kept with your account.</p>
+            <Link href="/login" className={styles.browseButton}>
+              Sign In
+            </Link>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className={styles.container}>
@@ -55,7 +88,11 @@ export default function WishlistPage() {
                       <div className={styles.discountBadge}>-{discount}%</div>
                     )}
                     <div className={styles.removeButton}>
-                      <WishlistButton productId={product.id} />
+                      <WishlistButton
+                        productId={product.id}
+                        initiallyWishlisted
+                        onChange={(wishlisted) => !wishlisted && removeItem(product.id)}
+                      />
                     </div>
                   </div>
 
@@ -88,7 +125,7 @@ export default function WishlistPage() {
               <div className={styles.tip}>
                 <p className={styles.tipTitle}>Track Price Drops</p>
                 <p className={styles.tipDesc}>
-                  We'\''ll notify you when items in your wishlist go on sale.
+                  We&apos;ll notify you when items in your wishlist go on sale.
                 </p>
               </div>
               <div className={styles.tip}>

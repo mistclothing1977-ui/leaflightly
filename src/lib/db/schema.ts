@@ -10,6 +10,7 @@ import {
   jsonb,
   index,
   foreignKey,
+  primaryKey,
 } from "drizzle-orm/pg-core";
 import { relations, sql } from "drizzle-orm";
 
@@ -197,6 +198,43 @@ export const newsletter_signups = pgTable(
   (table) => ({
     emailIdx: index("newsletter_email_idx").on(table.email),
     statusIdx: index("newsletter_status_idx").on(table.status),
+  })
+);
+
+// ============================================
+// SITE USERS (customer accounts — separate from admin_users)
+// ============================================
+export const users = pgTable(
+  "users",
+  {
+    id: varchar("id", { length: 64 }).primaryKey(),
+    email: varchar("email", { length: 255 }).unique().notNull(), // stored lower-case
+    name: varchar("name", { length: 100 }).notNull(),
+    password_hash: text("password_hash"), // null for OAuth-only accounts
+    auth_provider: varchar("auth_provider", { length: 20 }).default("credentials").notNull(),
+    created_at: timestamp("created_at").defaultNow().notNull(),
+    last_login_at: timestamp("last_login_at"),
+  },
+  (table) => ({
+    emailIdx: index("users_email_idx").on(table.email),
+  })
+);
+
+// ============================================
+// WISHLIST
+// ============================================
+export const wishlist_items = pgTable(
+  "wishlist_items",
+  {
+    user_id: varchar("user_id", { length: 64 })
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    product_id: varchar("product_id", { length: 100 }).notNull(),
+    added_at: timestamp("added_at").defaultNow().notNull(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.user_id, table.product_id] }),
+    userIdx: index("wishlist_items_user_idx").on(table.user_id),
   })
 );
 

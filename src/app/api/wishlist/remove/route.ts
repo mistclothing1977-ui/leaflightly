@@ -8,13 +8,18 @@ export async function POST(req: Request) {
     return Response.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const { productId } = await req.json();
+  const { productId } = await req.json().catch(() => ({}));
 
-  if (!productId) {
+  if (typeof productId !== "string" || !productId) {
     return Response.json({ error: "Product ID required" }, { status: 400 });
   }
 
-  await removeFromWishlist(session.user.id, productId);
+  try {
+    await removeFromWishlist(session.user.id, productId);
+  } catch (err) {
+    console.error("Wishlist remove failed:", err);
+    return Response.json({ error: "Could not update wishlist" }, { status: 500 });
+  }
 
   return Response.json({ success: true });
 }

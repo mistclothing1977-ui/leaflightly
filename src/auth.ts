@@ -2,7 +2,11 @@ import { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import { compare, hash } from "bcryptjs";
+import { compare } from "bcryptjs";
+import { createUser, findUserByEmail, touchLastLogin, type AuthProvider } from "@/lib/users";
+
+// Compared against when the email is unknown, so response time doesn't reveal which emails have accounts.
+const DUMMY_HASH = "$2a$12$qI/in7ysUt/43P4avfwH8OGmFcfxvpVfirq/eZMOsjJWv9opIvx2i";
 
 declare module "next-auth" {
   interface Session {
@@ -14,9 +18,6 @@ declare module "next-auth" {
     };
   }
 }
-
-// Simple in-memory user store (replace with DB in production)
-const users: Record<string, { id: string; email: string; name: string; passwordHash?: string }> = {};
 
 const authConfig = {
   providers: [
@@ -31,22 +32,18 @@ const authConfig = {
           return null;
         }
 
-        const user = Object.values(users).find(
-          (u) => u.email === credentials.email
-        );
-
-        if (!user || !user.passwordHash) {
-          return null;
-        }
+        const user = await findUserByEmail(credentials.email);
 
         const isPasswordValid = await compare(
           credentials.password as string,
-          user.passwordHash
+          user?.password_hash ?? DUMMY_HASH
         );
 
-        if (!isPasswordValid) {
+        if (!user || !user.password_hash || !isPasswordValid) {
           return null;
         }
+
+        await touchLastLogin(user.id);
 
         return {
           id: user.id,
@@ -78,21 +75,18 @@ const authConfig = {
 
   callbacks: {
     async signIn({ user, account }: { user?: any; account?: any }) {
-      // Create user if doesn't exist (OAuth)
+      // OAuth: find or create the DB user and always use the DB id (not the provider's id).
       if (account?.provider !== "credentials") {
-        const existingUser = Object.values(users).find(
-          (u) => u.email === user.email
-        );
-
-        if (!existingUser && user.email && user.name) {
-          const userId = `user_${Date.now()}`;
-          users[userId] = {
-            id: userId,
+        if (!user?.email) return false;
+        const existing =
+          (await findUserByEmail(user.email)) ??
+          (await createUser({
             email: user.email,
-            name: user.name,
-          };
-          user.id = userId;
-        }
+            name: user.name || user.email.split("@")[0],
+            provider: account.provider as AuthProvider,
+          }));
+        user.id = existing.id;
+        await touchLastLogin(existing.id);
       }
 
       return true;
@@ -122,25 +116,6 @@ export async function auth() {
 export { authConfig };
 
 // Helper to register user (credentials only)
-export async function registerUser(
-  email: string,
-  name: string,
-  password: string
-) {
-  const existingUser = Object.values(users).find((u) => u.email === email);
-  if (existingUser) {
-    throw new Error("User already exists");
-  }
-
-  const userId = `user_${Date.now()}`;
-  const passwordHash = await hash(password, 10);
-
-  users[userId] = {
-    id: userId,
-    email,
-    name,
-    passwordHash,
-  };
-
-  return users[userId];
+export async function registerUser(email: string, name: string, password: string) {
+  return createUser({ email, name, password, provider: "credentials" });
 }
