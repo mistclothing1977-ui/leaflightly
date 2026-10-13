@@ -7,8 +7,19 @@ interface MegaMenuProps {
   category: string;
 }
 
+interface MenuSection {
+  name: string;
+  items: { label: string; href: string }[];
+}
+
+interface CategoryMenu {
+  featured: MenuSection;
+  filters: MenuSection;
+  links: MenuSection;
+}
+
 export default function MegaMenu({ category }: MegaMenuProps) {
-  const menus: Record<string, any> = {
+  const menus: Record<string, CategoryMenu> = {
     kitchen: {
       featured: {
         name: 'Bestsellers',

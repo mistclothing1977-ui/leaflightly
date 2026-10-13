@@ -2,7 +2,6 @@ import { products } from '@/data/products';
 import { certificationLabels, tierLabels } from '@/lib/product-labels';
 import ReviewsSection from '@/components/ReviewsSection';
 import RelatedProductsCarousel from '@/components/RelatedProductsCarousel';
-import CompareButton from '@/components/CompareButton';
 import BuyNowButton from '@/components/BuyNowButton';
 import AffiliateDisclosure from '@/components/AffiliateDisclosure';
 import WishlistButton from '@/components/WishlistButton';

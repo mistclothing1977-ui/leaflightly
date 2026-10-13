@@ -285,7 +285,7 @@ export function NewsletterEmailTemplate({
  * Render email template to HTML string
  */
 export function renderNewsletterEmail(props: NewsletterEmailProps): string {
-  const email = <NewsletterEmailTemplate {...props} />;
+  const { unsubscribeUrl } = props;
 
   // Simple JSX to HTML conversion
   // In production, use @react-email/render or similar

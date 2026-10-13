@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { newsletterSubscribers, newsletterBatches } from '@/db/schema';
-import { eq, and } from 'drizzle-orm';
+import { eq } from 'drizzle-orm';
 import { v4 as uuidv4 } from 'uuid';
 import { calculateBatchSchedule } from '@/lib/email/batch-calculator';
 import { products } from '@/data/products';

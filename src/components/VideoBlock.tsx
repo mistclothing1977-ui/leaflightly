@@ -4,14 +4,14 @@ import styles from './VideoBlock.module.css';
 
 interface VideoBlockProps {
   videoUrl: string;
-  element: 'earth' | 'air' | 'fire';
+  element: 'water' | 'earth' | 'air' | 'fire';
   title: string;
   description?: string;
 }
 
 export default function VideoBlock({ videoUrl, element, title, description }: VideoBlockProps) {
   return (
-    <section className={styles.videoBlock}>
+    <section className={styles.videoBlock} data-element={element}>
       <video
         autoPlay
         muted

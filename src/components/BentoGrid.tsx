@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import styles from './BentoGrid.module.css';
 
 interface BentoItemProps {

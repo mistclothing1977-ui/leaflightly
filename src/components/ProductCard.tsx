@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import { Product } from '@/data/products';
 import { certificationLabels } from '@/lib/product-labels';
 import Link from 'next/link';

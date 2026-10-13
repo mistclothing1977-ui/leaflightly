@@ -21,7 +21,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
       p.brand.toLowerCase().includes(query) ||
       p.category.toLowerCase().includes(query);
 
-    const matchesTier = tier === 'all' || p.tier === parseInt(tier);
+    const matchesTier = tier === 'all' || p.tier === tier;
 
     return matchesQuery && matchesTier;
   });
@@ -73,12 +73,12 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
               >
                 All Tiers
               </Link>
-              {[1, 2, 3].map((t) => (
+              {['A', 'B', 'C'].map((t) => (
                 <Link
                   key={t}
                   href={`/search?q=${encodeURIComponent(q)}&sort=${sort}&tier=${t}`}
-                  className={tier === t.toString() ? styles.filterActive : ''}
-                  aria-current={tier === t.toString() ? 'page' : undefined}
+                  className={tier === t ? styles.filterActive : ''}
+                  aria-current={tier === t ? 'page' : undefined}
                 >
                   Tier {t}
                 </Link>

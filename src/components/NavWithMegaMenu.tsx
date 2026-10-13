@@ -19,7 +19,7 @@ export default function NavWithMegaMenu({
   onClick,
 }: NavWithMegaMenuProps) {
   const [showMenu, setShowMenu] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);

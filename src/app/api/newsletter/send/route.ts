@@ -59,12 +59,6 @@ export async function POST(request: NextRequest) {
     const results = [];
 
     for (const batch of pendingBatches) {
-      // Get subscriber emails for this batch
-      const subscribers = await db
-        .select()
-        .from(newsletterSubscribers)
-        .where(eq(newsletterSubscribers.status, 'active'));
-
       // Get subscriber emails in batch range
       const batchSubscriberIds = await db
         .select()

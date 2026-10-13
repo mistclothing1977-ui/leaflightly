@@ -38,7 +38,6 @@ export function calculateBatchSchedule(
 ): BatchPlan {
   const totalSubscribers = subscribers.length;
   const daysAvailable = 7;
-  const weeklyCapacity = dailyLimit * daysAvailable; // 700
 
   // Calculate emails per day (distributed evenly)
   const emailsPerDay = Math.ceil(totalSubscribers / daysAvailable);
