@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --color-primary: #1a472a;
   --color-accent: #FF6B35;
   --color-text-primary: #2A2A26;
@@ -55,7 +55,7 @@
 }
 
 .logo {
-  height: 120px;
+  height: 88px;
   width: auto;
   display: block;
   object-fit: contain;
@@ -249,7 +249,7 @@
   }
 
   .logo {
-    height: 90px;
+    height: 72px;
     width: 90px;
   }
 
@@ -275,7 +275,7 @@
   }
 
   .logo {
-    height: 70px;
+    height: 56px;
     width: 70px;
   }
 
