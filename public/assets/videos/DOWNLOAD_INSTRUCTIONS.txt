@@ -1,0 +1,29 @@
+﻿HERO VIDEO SETUP INSTRUCTIONS
+=============================
+
+The coastal cliffs video needs to be manually downloaded from Pexels.
+
+VIDEO DETAILS:
+- Title: Breathtaking Aerial View of Coastal Cliffs
+- Creator: Khrystyna Ivanova
+- Video ID: 31784580
+- Resolution: Full HD (1080x1920)
+- Duration: 13 seconds
+
+DOWNLOAD STEPS:
+1. Go to: https://www.pexels.com/video/breathtaking-aerial-view-of-coastal-cliffs-31784580/
+2. Click the green "Free download" button
+3. Select "Full HD" (1080x1920)
+4. Click "Download Selected Size"
+5. Your browser will download: coastal-cliffs-hero.mp4
+
+FILE PLACEMENT:
+- Downloaded file should be renamed/moved to: coastal-cliffs-hero.mp4
+- Place it in: public/assets/videos/
+- Full path: public/assets/videos/coastal-cliffs-hero.mp4
+
+Once placed, the hero video will automatically load on page refresh!
+
+ALTERNATIVE:
+If you can't download from Pexels, you can use any landscape video (16:9 aspect ratio) 
+by placing it here with the same filename.

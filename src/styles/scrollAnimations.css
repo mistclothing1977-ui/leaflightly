@@ -1,0 +1,89 @@
+/* Scroll-triggered animations */
+
+/* Fade in on scroll */
+.fadeInOnScroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: 0.1s;
+}
+
+.fadeInOnScroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scale in on scroll */
+.scaleInOnScroll {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.scaleInOnScroll.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Slide in from left */
+.slideInLeftOnScroll {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.slideInLeftOnScroll.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide in from right */
+.slideInRightOnScroll {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.slideInRightOnScroll.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Staggered fade in (use with useStaggerAnimation hook) */
+.staggerContainer.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.staggerContainer > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-delay: calc(var(--index, 0) * 0.1s);
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .fadeInOnScroll,
+  .scaleInOnScroll,
+  .slideInLeftOnScroll,
+  .slideInRightOnScroll,
+  .staggerContainer > * {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .fadeInOnScroll.visible,
+  .scaleInOnScroll.visible,
+  .slideInLeftOnScroll.visible,
+  .slideInRightOnScroll.visible {
+    opacity: 1;
+    transform: none;
+  }
+}

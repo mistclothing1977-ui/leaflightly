@@ -27,7 +27,7 @@ export default function BuyNowButton({ retailers }: BuyNowButtonProps) {
         rel="noopener noreferrer"
         className={styles.singleButton}
       >
-        <span>{retailer.icon}</span> Buy on {retailer.retailer}
+        <span aria-hidden="true">{retailer.icon}</span> Buy on {retailer.retailer}
         {retailer.coupon && <span className={styles.coupon}>Code: {retailer.coupon}</span>}
       </a>
     );
@@ -45,7 +45,7 @@ export default function BuyNowButton({ retailers }: BuyNowButtonProps) {
             rel="noopener noreferrer"
             className={styles.button}
           >
-            <span>{retailer.icon}</span> {retailer.retailer}
+            <span aria-hidden="true">{retailer.icon}</span> {retailer.retailer}
             {retailer.coupon && <span className={styles.coupon}>{retailer.coupon}</span>}
           </a>
         ))}

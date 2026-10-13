@@ -1,34 +1,82 @@
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+:root {
+  --color-primary: #1a472a;
+  --color-accent: #FF6B35;
+  --color-text-primary: #2A2A26;
+  --color-text-secondary: #8B8B7E;
+  --color-bg: #F8F6F3;
 }
 
-/* Breadcrumb */
+.container {
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Header */
+.header {
+  margin-bottom: 3rem;
+}
+
 .breadcrumb {
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+}
+
+.breadcrumbList {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
-  color: #8B8B7E;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumbList li {
+  display: flex;
+  align-items: center;
+}
+
+.breadcrumbList li::after {
+  content: '/';
+  margin: 0 0.5rem;
+  color: var(--color-text-secondary);
+}
+
+.breadcrumbList li:last-child::after {
+  display: none;
 }
 
 .breadcrumb a {
-  color: #2c7f6e;
+  color: var(--color-primary);
   text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .breadcrumb a:hover {
-  text-decoration: underline;
+  opacity: 0.7;
 }
 
-/* Main grid */
+.sep {
+  margin: 0 0.25rem;
+  color: var(--color-text-secondary);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Main grid: 60% image, 40% sidebar */
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 60% 40%;
   gap: 3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  align-items: start;
 }
 
 /* Image section */
@@ -252,7 +300,240 @@
   margin-bottom: 1.5rem;
 }
 
+/* Image section */
+.imageSection {
+  display: flex;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--color-bg);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.imageWrapper:hover .image {
+  transform: scale(1.05);
+}
+
+.discountBadge {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: var(--color-accent);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Sidebar: Sticky Purchase Section */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.purchaseCard {
+  position: sticky;
+  top: 2rem;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.brand {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.stars {
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+.ratingValue {
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.reviewCount {
+  color: var(--color-text-secondary);
+}
+
+/* Tier Badge */
+.tierBadge {
+  background: var(--color-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.tierLabel {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
+.tierDesc {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+/* Price Section */
+.priceSection {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.currentPrice {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.originalPrice {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  text-decoration: line-through;
+}
+
+/* CTA Buttons */
+.ctaButtons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Certifications Card */
+.certificationsCard {
+  background: var(--color-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.cardTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.5px;
+  margin-bottom: 1rem;
+}
+
+.certBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.certBadge {
+  display: inline-block;
+  background: white;
+  border: 1px solid #e0e0e0;
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* Product Specs Section */
+.specsSection {
+  margin-bottom: 4rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.spec {
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.specLabel {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.specValue {
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* Curation Section */
+.curationSection {
+  background: var(--color-bg);
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 4rem;
+}
+
+.curationText {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
 /* Responsive */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 55% 45%;
+    gap: 2rem;
+  }
+
+  .purchaseCard {
+    position: static;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 1.5rem;
@@ -263,23 +544,8 @@
     gap: 2rem;
   }
 
-  .name {
-    font-size: 1.5rem;
-  }
-
-  .current {
-    font-size: 1.5rem;
-  }
-
-  .reviews {
-    margin-left: 0;
-    display: block;
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-
-  .rating {
-    flex-wrap: wrap;
+  .title {
+    font-size: 1.75rem;
   }
 }
 
@@ -288,20 +554,15 @@
     padding: 1rem;
   }
 
-  .name {
-    font-size: 1.25rem;
+  .title {
+    font-size: 1.5rem;
   }
 
-  .current {
-    font-size: 1.25rem;
+  .currentPrice {
+    font-size: 1.5rem;
   }
 
-  .price {
-    margin-bottom: 1.5rem;
-  }
-
-  .ctaButton {
-    padding: 0.75rem;
-    font-size: 0.9rem;
+  .ctaButtons {
+    flex-direction: column;
   }
 }

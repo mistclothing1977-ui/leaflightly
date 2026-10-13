@@ -1,0 +1,92 @@
+/* Theme Toggle Button */
+
+.toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: var(--color-light-gray, #F5F3F0);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-size: 1.5rem;
+  padding: 0;
+}
+
+.toggle:hover {
+  background: var(--color-gray, #8B8B7E);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.toggle:active {
+  transform: scale(0.98);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--color-primary, #1a472a);
+  outline-offset: 2px;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: iconSpinOnLoad 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  color: #1a472a;
+}
+
+.icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+}
+
+@keyframes iconSpinOnLoad {
+  from {
+    opacity: 0;
+    transform: rotateZ(-180deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: rotateZ(0) scale(1);
+  }
+}
+
+.toggle:hover .icon {
+  transform: rotateZ(20deg);
+}
+
+/* Dark mode styling */
+@media (prefers-color-scheme: dark) {
+  .toggle {
+    background: var(--color-surface, #1a1f27);
+    border: 1px solid var(--color-light-gray, #2a3038);
+  }
+
+  .toggle:hover {
+    background: var(--color-light-gray, #2a3038);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .toggle {
+    transition: none;
+  }
+
+  .icon {
+    animation: none;
+    transform: none;
+  }
+
+  .toggle:hover .icon {
+    transform: none;
+  }
+}

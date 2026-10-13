@@ -1,86 +1,120 @@
-import { Metadata } from "next";
-import { auth } from "@/auth";
-import { redirect } from "next/navigation";
-import { products } from "@/data/products";
-import { getWishlist } from "@/lib/wishlist-store";
-import BuyNowButton from "@/components/BuyNowButton";
-import { buildAmazonLink } from "@/lib/affiliateLinks";
-import styles from "./page.module.css";
+﻿'use client';
 
-export const dynamic = "force-dynamic";
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { products } from '@/data/products';
+import WishlistButton from '@/components/WishlistButton';
+import styles from './page.module.css';
 
-export const metadata: Metadata = {
-  title: "My Wishlist — Leaf Lightly",
-  description: "View your saved favorite sustainable products",
-};
+export default function WishlistPage() {
+  const [wishlistItems, setWishlistItems] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-export default async function WishlistPage() {
-  const session = await auth();
-  if (!session?.user?.id) {
-    redirect("/login");
-  }
+  useEffect(() => {
+    const saved = localStorage.getItem('wishlist');
+    setWishlistItems(saved ? JSON.parse(saved) : []);
+    setIsLoading(false);
+  }, []);
 
-  const wishlistIds = await getWishlist(session.user.id);
-  const wishlistedProducts = products.filter((p) => wishlistIds.includes(p.id));
+  const wishlistProducts = products.filter((p) => wishlistItems.includes(p.id));
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.heading}>My Wishlist</h1>
+    <main className={styles.container}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>My Wishlist</h1>
+        <p className={styles.subtitle}>
+          {wishlistProducts.length} item{wishlistProducts.length !== 1 ? 's' : ''}
+        </p>
+      </header>
 
-      {wishlistedProducts.length === 0 ? (
-        <div className={styles.empty}>
-          <p>No saved products yet</p>
-          <a href="/products/kitchen" className={styles.browseLink}>
-            Browse Products →
-          </a>
-        </div>
-      ) : (
+      {isLoading ? (
+        <div className={styles.loading} role="status" aria-live="polite">Loading your wishlist...</div>
+      ) : wishlistProducts.length > 0 ? (
         <>
-          <p className={styles.count}>
-            {wishlistedProducts.length} item{wishlistedProducts.length !== 1 ? "s" : ""}
-          </p>
-
           <div className={styles.grid}>
-            {wishlistedProducts.map((product) => (
-              <div key={product.id} className={styles.card}>
-                <div className={styles.imageWrapper}>
-                  <img src={product.imageUrl} alt={product.name} />
-                  <span className={styles.tier}>{product.tier}</span>
-                </div>
+            {wishlistProducts.map((product) => {
+              const discount = product.originalPrice
+                ? Math.round(
+                    ((product.originalPrice - product.price) / product.originalPrice) * 100
+                  )
+                : 0;
 
-                <div className={styles.content}>
-                  <p className={styles.brand}>{product.brand}</p>
-                  <h3 className={styles.name}>{product.name}</h3>
-
-                  <div className={styles.price}>
-                    <span className={styles.current}>£{product.price.toFixed(2)}</span>
-                    {product.originalPrice && (
-                      <span className={styles.original}>
-                        £{product.originalPrice.toFixed(2)}
-                      </span>
+              return (
+                <Link
+                  key={product.id}
+                  href={`/products/${product.id}`}
+                  className={styles.card}
+                >
+                  <div className={styles.imageContainer}>
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className={styles.image}
+                    />
+                    {discount > 0 && (
+                      <div className={styles.discountBadge}>-{discount}%</div>
                     )}
+                    <div className={styles.removeButton}>
+                      <WishlistButton productId={product.id} />
+                    </div>
                   </div>
 
-                  <div className={styles.rating}>
-                    <span>★★★★★</span>
-                    <span>{product.rating}</span>
-                  </div>
+                  <div className={styles.content}>
+                    <p className={styles.brand}>{product.brand}</p>
+                    <h3 className={styles.name}>{product.name}</h3>
 
-                  <BuyNowButton
-                    retailers={[
-                      {
-                        retailer: "Amazon",
-                        url: buildAmazonLink(product.name),
-                        icon: "🛒",
-                      },
-                    ]}
-                  />
-                </div>
-              </div>
-            ))}
+                    <div className={styles.price}>
+                      <span className={styles.current}>£{product.price.toFixed(2)}</span>
+                      {product.originalPrice && (
+                        <span className={styles.original}>
+                          £{product.originalPrice.toFixed(2)}
+                        </span>
+                      )}
+                    </div>
+
+                    <div className={styles.rating} aria-label={`${product.rating} out of 5 stars`}>
+                      <span className={styles.stars} aria-hidden="true">★★★★★</span>
+                      <span className={styles.ratingValue}>{product.rating}</span>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
+
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>Tips for Your Wishlist</h2>
+            <div className={styles.tips}>
+              <div className={styles.tip}>
+                <p className={styles.tipTitle}>Track Price Drops</p>
+                <p className={styles.tipDesc}>
+                  We'\''ll notify you when items in your wishlist go on sale.
+                </p>
+              </div>
+              <div className={styles.tip}>
+                <p className={styles.tipTitle}>Share Your Picks</p>
+                <p className={styles.tipDesc}>Share your wishlist with friends and family.</p>
+              </div>
+              <div className={styles.tip}>
+                <p className={styles.tipTitle}>Compare Products</p>
+                <p className={styles.tipDesc}>Compare sustainability features side-by-side.</p>
+              </div>
+            </div>
+          </section>
         </>
+      ) : (
+        <div className={styles.empty}>
+          <div className={styles.emptyContent}>
+            <h2 className={styles.emptyTitle}>Your wishlist is empty</h2>
+            <p className={styles.emptyText}>
+              Start adding products to save your favorite sustainable picks for later.
+            </p>
+            <Link href="/products/lifestyle" className={styles.browseButton}>
+              Browse Products
+            </Link>
+          </div>
+        </div>
       )}
-    </div>
+    </main>
   );
 }

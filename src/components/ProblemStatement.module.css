@@ -1,0 +1,68 @@
+.problemSection {
+  width: 100%;
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, #f8f6f3 0%, #faf8f5 100%);
+}
+
+.problemContainer {
+  max-width: 720px;
+  margin-left: 20%;
+}
+
+.problemContent {
+  position: relative;
+  z-index: 1;
+}
+
+.problemHeading {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #1a472a;
+  margin-bottom: 1.5rem;
+}
+
+.problemText {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #2a2a26;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.problemThesis {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: #1a472a;
+  margin: 0;
+  font-weight: 500;
+}
+
+.problemThesis strong {
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .problemSection {
+    padding: 3rem 1.5rem;
+  }
+
+  .problemContainer {
+    margin-left: 0;
+  }
+
+  .problemHeading {
+    font-size: 0.7rem;
+  }
+
+  .problemText {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .problemThesis {
+    font-size: 1.1rem;
+  }
+}

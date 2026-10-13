@@ -2,7 +2,7 @@
 
 :root {
   --color-primary: #1a472a;
-  --color-secondary: #C9B8A0;
+  --color-secondary: #8B7355;
   --color-accent: #FF6B35;
   --color-neutral: #2A2A26;
   --color-bg: #F8F6F3;
@@ -45,7 +45,12 @@
   line-height: 1.6;
 }
 
-/* Product Grid */
+/* Bento Grid Wrapper */
+.bentoWrapper {
+  margin-bottom: 4rem;
+}
+
+/* Product Grid - Legacy (keeping for backward compatibility) */
 .grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -60,14 +65,25 @@
   border-radius: 10px;
   overflow: hidden;
   text-decoration: none;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: 0 2px 8px rgba(26, 71, 42, 0.08);
   position: relative;
+  height: 100%;
 }
 
 .productCard:hover {
-  box-shadow: 0 8px 24px rgba(26, 71, 42, 0.15);
-  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(26, 71, 42, 0.2);
+  transform: translateY(-6px);
+}
+
+/* Featured product (larger in bento layout) */
+.productCard.featured {
+  box-shadow: 0 4px 16px rgba(26, 71, 42, 0.12);
+}
+
+.productCard.featured:hover {
+  box-shadow: 0 20px 48px rgba(26, 71, 42, 0.25);
+  transform: translateY(-8px);
 }
 
 /* Category Tag */

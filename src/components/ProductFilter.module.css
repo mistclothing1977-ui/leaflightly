@@ -13,9 +13,9 @@
 
 .container {
   display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 2rem;
-  padding: 2rem 0;
+  grid-template-columns: 280px 1fr;
+  gap: 3rem;
+  padding: 3rem 0;
 }
 
 .filterToggle {
@@ -91,14 +91,24 @@
 
 /* Filter Groups */
 .filterGroup {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.filterGroup:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .filterGroup h4 {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: var(--color-text-primary);
-  margin: 0 0 0.75rem 0;
+  color: var(--color-primary);
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .checkboxGroup,
@@ -170,15 +180,16 @@
 
 /* Results Count */
 .resultsCount {
-  background: var(--color-bg);
-  padding: 0.75rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  color: var(--color-text-secondary);
+  background: linear-gradient(135deg, #f8f6f3 0%, #faf8f5 100%);
+  padding: 1.25rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
   text-align: center;
-  margin-top: 1rem;
-  border-top: 1px solid #e8e3dd;
-  padding-top: 1rem;
+  margin-top: 2rem;
+  border: 1px solid #ede8e0;
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }
 
 /* Products Section */
@@ -189,7 +200,7 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 /* No Results */

@@ -13,5 +13,5 @@ export const certificationLabels: Record<string, string> = {
 export const tierLabels: Record<string, string> = {
   A: 'Certified Eco',
   B: 'Eco-Community Validated',
-  C: 'Plastic-Free + Material-Transparent',
+  C: 'Transparent & Honest',
 };

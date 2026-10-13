@@ -1,0 +1,118 @@
+.storiesSection {
+  width: 100%;
+  padding: 5rem 2rem;
+  background: white;
+}
+
+.storiesContainer {
+  width: 100%;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.storiesHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.sectionLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #1a472a;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.storiesTitle {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #1a472a;
+  margin: 0;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.storiesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.storyCard {
+  background: linear-gradient(135deg, #f8f6f3 0%, #faf8f5 100%);
+  padding: 2.5rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.quote {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #1a472a;
+  font-style: italic;
+  margin: 0 0 2rem 0;
+  font-weight: 500;
+}
+
+.storyAuthor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.authorImage {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.authorName {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a472a;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .storiesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .storiesTitle {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .storiesSection {
+    padding: 3rem 1.5rem;
+  }
+
+  .storiesGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .storiesHeader {
+    margin-bottom: 2.5rem;
+  }
+
+  .storiesTitle {
+    font-size: 1.75rem;
+  }
+
+  .storyCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .quote {
+    font-size: 0.95rem;
+  }
+}

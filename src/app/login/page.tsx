@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import LoginForm from "@/components/LoginForm";
+import OAuthButtons from "@/components/OAuthButtons";
 import styles from "./page.module.css";
 
 export const dynamic = "force-dynamic";
@@ -27,19 +28,7 @@ export default async function LoginPage() {
 
         <div className={styles.divider}>OR</div>
 
-        <div className={styles.socialLogin}>
-          <form action="/api/auth/signin/google" method="POST">
-            <button type="submit" className={styles.googleButton}>
-              <span>🔍</span> Sign in with Google
-            </button>
-          </form>
-
-          <form action="/api/auth/signin/github" method="POST">
-            <button type="submit" className={styles.githubButton}>
-              <span>🐙</span> Sign in with GitHub
-            </button>
-          </form>
-        </div>
+        <OAuthButtons />
 
         <p className={styles.signup}>
           Don't have an account? <a href="/signup">Sign up</a>

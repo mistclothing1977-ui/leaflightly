@@ -1,0 +1,72 @@
+/* Bento Grid - Asymmetric layout for premium feel */
+
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: auto;
+}
+
+/* Gap variants */
+.gapSmall {
+  gap: 1rem;
+}
+
+.gapMedium {
+  gap: 1.5rem;
+}
+
+.gapLarge {
+  gap: 2rem;
+}
+
+/* Span variants */
+.spanFull {
+  grid-column: 1 / -1;
+}
+
+.spanHalf {
+  grid-column: span 6;
+}
+
+.spanThird {
+  grid-column: span 4;
+}
+
+.spanTwoThirds {
+  grid-column: span 8;
+}
+
+/* Responsive: Tablet */
+@media (max-width: 1024px) {
+  .bentoGrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .spanThird {
+    grid-column: span 3;
+  }
+
+  .spanTwoThirds {
+    grid-column: span 4;
+  }
+}
+
+/* Responsive: Mobile */
+@media (max-width: 768px) {
+  .bentoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .spanFull,
+  .spanHalf,
+  .spanThird,
+  .spanTwoThirds {
+    grid-column: 1;
+  }
+
+  .gapSmall,
+  .gapMedium,
+  .gapLarge {
+    gap: 1rem;
+  }
+}

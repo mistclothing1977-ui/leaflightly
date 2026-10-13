@@ -92,78 +92,78 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
       <StructuredData data={breadcrumbSchema} />
       <StructuredData data={organizationSchema} />
 
-      {/* Breadcrumb */}
-      <nav className={styles.breadcrumb}>
-        <Link href={`/products/${product.category}`}>
-          {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
-        </Link>
-        <span>/</span>
-        <span>{product.name}</span>
-      </nav>
+      {/* Header Section */}
+      <header className={styles.header}>
+        <nav className={styles.breadcrumb} aria-label="Breadcrumb">
+          <ol className={styles.breadcrumbList}>
+            <li>
+              <Link href="/">Home</Link>
+            </li>
+            <li>
+              <Link href={`/products/${product.category}`}>
+                {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
+              </Link>
+            </li>
+            <li aria-current="page">
+              {product.name}
+            </li>
+          </ol>
+        </nav>
+        <h1 className={styles.title}>{product.name}</h1>
+      </header>
 
-      {/* Main content grid */}
+      {/* Main content grid: 60% image, 40% info */}
       <div className={styles.grid}>
-        {/* Image */}
+        {/* Left: Image Section */}
         <div className={styles.imageSection}>
           <div className={styles.imageWrapper}>
-            <img src={product.imageUrl} alt={product.name} className={styles.image} />
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className={styles.image}
+            />
             {discount > 0 && (
               <div className={styles.discountBadge}>
-                Save {discount}%
+                -{discount}%
               </div>
             )}
           </div>
         </div>
 
-        {/* Details */}
-        <div className={styles.details}>
-          <p className={styles.brand}>{product.brand}</p>
-          <h1 className={styles.name}>{product.name}</h1>
-
-          {/* Rating */}
-          <div className={styles.rating}>
-            <span className={styles.stars}>★★★★★</span>
-            <span className={styles.ratingText}>{product.rating}</span>
-            <span className={styles.reviews}>
-              Based on {product.reviewCount.toLocaleString()} reviews
-            </span>
-          </div>
-
-          {/* Price */}
-          <div className={styles.price}>
-            <span className={styles.current}>£{product.price.toFixed(2)}</span>
-            {product.originalPrice && (
-              <span className={styles.original}>
-                Was £{product.originalPrice.toFixed(2)}
+        {/* Right: Sticky Purchase Section */}
+        <aside className={styles.sidebar}>
+          {/* Quick Purchase Card (Sticky) */}
+          <div className={styles.purchaseCard}>
+            {/* Brand & Rating */}
+            <p className={styles.brand}>{product.brand}</p>
+            <div className={styles.rating} aria-label={`${product.rating} out of 5 stars, ${product.reviewCount.toLocaleString()} reviews`}>
+              <span className={styles.stars} aria-hidden="true">★★★★★</span>
+              <span className={styles.ratingValue}>{product.rating}</span>
+              <span className={styles.reviewCount}>
+                ({product.reviewCount.toLocaleString()})
               </span>
-            )}
-          </div>
-
-          {/* Certifications */}
-          {product.certifications.length > 0 && (
-            <div className={styles.certSection}>
-              <h3>Certifications & Standards</h3>
-              <div className={styles.badges}>
-                {product.certifications.map((cert) => (
-                  <span key={cert} className={styles.badge}>
-                    {certificationLabels[cert]}
-                  </span>
-                ))}
-              </div>
             </div>
-          )}
 
-          {/* Tier */}
-          <div className={styles.tierSection}>
-            <h3>Tier</h3>
-            <p className={styles.tierDescription}>
-              <strong>Tier {product.tier}</strong> — {tierLabels[product.tier]}
-            </p>
-          </div>
+            {/* Tier Badge */}
+            <div className={styles.tierBadge}>
+              <span className={styles.tierLabel}>Tier {product.tier}</span>
+              <span className={styles.tierDesc}>{tierLabels[product.tier]}</span>
+            </div>
 
-          {/* CTA */}
-          <div className={styles.cta}>
-            <div className={styles.ctaRow}>
+            {/* Price */}
+            <div className={styles.priceSection}>
+              <span className={styles.currentPrice}>
+                £{product.price.toFixed(2)}
+              </span>
+              {product.originalPrice && (
+                <span className={styles.originalPrice}>
+                  £{product.originalPrice.toFixed(2)}
+                </span>
+              )}
+            </div>
+
+            {/* CTA Buttons */}
+            <div className={styles.ctaButtons}>
               <BuyNowButton
                 retailers={[
                   {
@@ -175,11 +175,49 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               />
               <WishlistButton productId={product.id} />
             </div>
+
+            {/* Affiliate Disclosure */}
             <AffiliateDisclosure />
-            <CompareButton productId={product.id} productName={product.name} />
+          </div>
+
+          {/* Certifications */}
+          {product.certifications.length > 0 && (
+            <div className={styles.certificationsCard}>
+              <h3 className={styles.cardTitle}>Certifications</h3>
+              <div className={styles.certBadges}>
+                {product.certifications.map((cert) => (
+                  <span key={cert} className={styles.certBadge}>
+                    {certificationLabels[cert]}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </aside>
+      </div>
+
+      {/* Product Specs Section */}
+      <section className={styles.specsSection}>
+        <h2 className={styles.sectionTitle}>Product Details</h2>
+        <div className={styles.specs}>
+          <div className={styles.spec}>
+            <dt className={styles.specLabel}>Category</dt>
+            <dd className={styles.specValue}>
+              {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
+            </dd>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Curation Statement (Trust Signal) */}
+      <section className={styles.curationSection}>
+        <h2 className={styles.sectionTitle}>Why We Picked This</h2>
+        <p className={styles.curationText}>
+          We spent weeks researching this product and verified its sustainability claims
+          against official certifications. Every item on Leaf Lightly meets our strict standards
+          for environmental impact and ethical production.
+        </p>
+      </section>
 
       {/* Related products */}
       <RelatedProductsCarousel

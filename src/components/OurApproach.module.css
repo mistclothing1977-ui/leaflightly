@@ -1,0 +1,113 @@
+.approachSection {
+  width: 100%;
+  padding: 5rem 2rem;
+  background: linear-gradient(135deg, #f8f6f3 0%, #faf8f5 100%);
+}
+
+.approachContainer {
+  width: 100%;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.approachHeader {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.sectionLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #1a472a;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.approachTitle {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #1a472a;
+  margin: 0;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.stepCard {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stepNumber {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #1a472a;
+  margin-bottom: 1rem;
+}
+
+.stepTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a472a;
+  margin-bottom: 1rem;
+  margin-top: 0;
+}
+
+.stepDescription {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #8b8b7e;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .stepsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .approachTitle {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .approachSection {
+    padding: 3rem 1.5rem;
+  }
+
+  .stepsGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .approachHeader {
+    margin-bottom: 2.5rem;
+  }
+
+  .approachTitle {
+    font-size: 1.75rem;
+  }
+
+  .stepCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .stepNumber {
+    font-size: 2.5rem;
+  }
+
+  .stepTitle {
+    font-size: 1.1rem;
+  }
+}

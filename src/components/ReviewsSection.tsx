@@ -119,6 +119,7 @@ export default function ReviewsSection({
                   <button
                     className={`${styles.barLabel} ${filterRating === rating ? styles.active : ''}`}
                     onClick={() => setFilterRating(filterRating === rating ? null : rating)}
+                    aria-pressed={filterRating === rating}
                   >
                     {rating} ★
                   </button>
@@ -138,19 +139,20 @@ export default function ReviewsSection({
           <div className={styles.reviewsList}>
             {/* Sort Controls */}
             <div className={styles.controls}>
-              <label className={styles.label}>
+              <label htmlFor="sort-select" className={styles.label}>
                 Sort by:
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                  className={styles.select}
-                >
-                  <option value="helpful">Most Helpful</option>
-                  <option value="recent">Most Recent</option>
-                  <option value="highest">Highest Rating</option>
-                  <option value="lowest">Lowest Rating</option>
-                </select>
               </label>
+              <select
+                id="sort-select"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
+                className={styles.select}
+              >
+                <option value="helpful">Most Helpful</option>
+                <option value="recent">Most Recent</option>
+                <option value="highest">Highest Rating</option>
+                <option value="lowest">Lowest Rating</option>
+              </select>
 
               {filterRating && (
                 <button

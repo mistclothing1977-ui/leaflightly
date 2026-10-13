@@ -49,8 +49,9 @@ export default function CompareButton({ productId, productName: _productName }: 
         className={`${styles.button} ${isAdded ? styles.active : ''}`}
         onClick={handleAddToCompare}
         title={isAdded ? 'Remove from comparison' : 'Add to comparison'}
+        aria-label={isAdded ? 'Remove from comparison' : 'Add to comparison'}
       >
-        ⚖️ {isAdded ? 'Remove from Compare' : 'Add to Compare'}
+        <span aria-hidden="true">⚖️</span> {isAdded ? 'Remove from Compare' : 'Add to Compare'}
       </button>
 
       {compareList.length > 0 && (

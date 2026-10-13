@@ -1,0 +1,341 @@
+:root {
+  --color-primary: #1a472a;
+  --color-accent: #FF6B35;
+  --color-text-primary: #2A2A26;
+  --color-text-secondary: #8B8B7E;
+  --color-bg: #F8F6F3;
+}
+
+/* Premium Hero: Cinematic & Immersive */
+.premiumHero {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* Background Layer: Video + Parallax */
+.backgroundLayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.backgroundVideo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.backgroundImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.5);
+  will-change: transform;
+}
+
+/* Gradient Overlay: Enhance text contrast & depth */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Hero Content: Premium Spacing */
+.heroContent {
+  position: relative;
+  z-index: 10;
+  max-width: 720px;
+  padding: 6rem 3rem;
+  color: white;
+  text-align: left;
+  animation: fadeInUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tier Badge: Floating, premium styling */
+.tierBadge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  animation: slideInDown 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero Title: Premium Typography */
+.heroTitle {
+  font-size: clamp(2.8rem, 7vw, 5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  animation: fadeInUp 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s backwards;
+}
+
+/* Hero Subtitle: Refined line-height & spacing */
+.heroSubtitle {
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  line-height: 1.6;
+  margin: 0 0 3rem 0;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 480px;
+  animation: fadeInUp 1.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
+}
+
+/* Magnetic Button: Premium micro-interactions */
+.magneticButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: white;
+  color: var(--color-primary);
+  padding: 1.5rem 3rem;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 1.15rem;
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Button Hover: Lift & Expand */
+.magneticButton:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+  background: var(--color-accent);
+  color: white;
+}
+
+.magneticButton:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+/* Button Arrow Animation */
+.buttonArrow {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-weight: 800;
+}
+
+.magneticButton:hover .buttonArrow {
+  transform: translateX(8px);
+}
+
+/* Discount Badge: Floating overlay */
+.discountBadgeHero {
+  position: absolute;
+  top: 60px;
+  right: 60px;
+  background: var(--color-accent);
+  color: white;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  box-shadow: 0 20px 60px rgba(255, 107, 53, 0.4);
+  animation: bounce 2s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* Decorative Floating Elements: Depth & Movement */
+.decorativeElements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.floatingDot1,
+.floatingDot2,
+.floatingDot3 {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+}
+
+.floatingDot1 {
+  width: 300px;
+  height: 300px;
+  top: 10%;
+  right: 5%;
+  animation: float 8s ease-in-out infinite;
+}
+
+.floatingDot2 {
+  width: 200px;
+  height: 200px;
+  bottom: 15%;
+  left: 5%;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+.floatingDot3 {
+  width: 150px;
+  height: 150px;
+  top: 50%;
+  right: 15%;
+  animation: float 12s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
+
+/* Responsive: Tablet & Mobile */
+@media (max-width: 1024px) {
+  .heroContent {
+    padding: 4rem 2.5rem;
+  }
+
+  .heroTitle {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .heroSubtitle {
+    margin-bottom: 2.5rem;
+  }
+
+  .magneticButton {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  .discountBadgeHero {
+    width: 70px;
+    height: 70px;
+    font-size: 1.4rem;
+    top: 40px;
+    right: 40px;
+  }
+
+  .floatingDot1 {
+    width: 200px;
+    height: 200px;
+  }
+
+  .floatingDot2 {
+    width: 150px;
+    height: 150px;
+  }
+
+  .floatingDot3 {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .premiumHero {
+    min-height: 70vh;
+  }
+
+  .heroContent {
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
+
+  .tierBadge {
+    margin-bottom: 1.5rem;
+  }
+
+  .heroTitle {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    margin-bottom: 1rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    max-width: 100%;
+  }
+
+  .magneticButton {
+    padding: 0.9rem 1.8rem;
+    font-size: 0.95rem;
+  }
+
+  .discountBadgeHero {
+    width: 60px;
+    height: 60px;
+    font-size: 1.2rem;
+    top: 20px;
+    right: 20px;
+  }
+
+  .floatingDot1,
+  .floatingDot2,
+  .floatingDot3 {
+    opacity: 0.5;
+  }
+}

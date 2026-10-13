@@ -17,7 +17,7 @@ const TIER_CONFIG: Record<Tier, { color: string; tagline: string }> = {
   },
   C: {
     color: '#7a7a70',
-    tagline: 'Transparent Materials',
+    tagline: 'Materials You Can Trust',
   },
 };
 
@@ -72,7 +72,7 @@ export default function TierShowcase() {
               <div className={styles.tierDescription}>
                 {tier === 'A' && (
                   <p>
-                    Only fully certified sustainable products with verifiable credentials like FSC, B Corp, or Organic certification. No compromises.
+                    Only fully certified sustainable products with verifiable credentials like FSC, B Corp, or Organic certification.
                   </p>
                 )}
                 {tier === 'B' && (

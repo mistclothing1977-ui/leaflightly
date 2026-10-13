@@ -64,10 +64,10 @@ export default function SignupForm() {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      {error && <div className={styles.error}>{error}</div>}
+      {error && <div className={styles.error} role="alert" aria-live="polite">{error}</div>}
 
       <div className={styles.group}>
-        <label htmlFor="name">Full Name</label>
+        <label htmlFor="name">Full Name <span aria-label="required">*</span></label>
         <input
           id="name"
           type="text"
@@ -75,12 +75,13 @@ export default function SignupForm() {
           onChange={(e) => setName(e.target.value)}
           placeholder="John Doe"
           required
+          aria-required="true"
           disabled={isLoading}
         />
       </div>
 
       <div className={styles.group}>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">Email <span aria-label="required">*</span></label>
         <input
           id="email"
           type="email"
@@ -88,12 +89,13 @@ export default function SignupForm() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
           required
+          aria-required="true"
           disabled={isLoading}
         />
       </div>
 
       <div className={styles.group}>
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">Password <span aria-label="required">*</span></label>
         <input
           id="password"
           type="password"
@@ -101,12 +103,13 @@ export default function SignupForm() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
           required
+          aria-required="true"
           disabled={isLoading}
         />
       </div>
 
       <div className={styles.group}>
-        <label htmlFor="confirmPassword">Confirm Password</label>
+        <label htmlFor="confirmPassword">Confirm Password <span aria-label="required">*</span></label>
         <input
           id="confirmPassword"
           type="password"
@@ -114,6 +117,7 @@ export default function SignupForm() {
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="••••••••"
           required
+          aria-required="true"
           disabled={isLoading}
         />
       </div>

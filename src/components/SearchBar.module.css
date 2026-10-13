@@ -2,7 +2,7 @@
 
 :root {
   --color-primary: #1a472a;
-  --color-secondary: #C9B8A0;
+  --color-secondary: #8B7355;
   --color-accent: #FF6B35;
   --color-bg: #F8F6F3;
   --color-text-primary: #2A2A26;
@@ -22,11 +22,13 @@
   border-radius: 8px;
   overflow: hidden;
   background: white;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .form:focus-within {
   border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(26, 71, 42, 0.1);
 }
 
 .input {
@@ -49,14 +51,26 @@
   border: none;
   cursor: pointer;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--color-primary);
 }
 
 .button:hover {
   background: var(--color-bg);
+  filter: brightness(1.05);
+  transform: scale(1.05);
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
 }
 
 /* Dropdown Results */
@@ -86,7 +100,7 @@
   border-bottom: 1px solid #f0ebe5;
   text-decoration: none;
   color: inherit;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .resultItem:last-child {
@@ -95,6 +109,12 @@
 
 .resultItem:hover {
   background: var(--color-bg);
+  padding-left: 1.25rem;
+}
+
+.resultItem:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -1px;
 }
 
 .resultImage {
@@ -148,11 +168,17 @@
   text-decoration: none;
   font-weight: 600;
   font-size: 0.9rem;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .viewAll:hover {
   background: var(--color-bg);
+  color: var(--color-accent);
+}
+
+.viewAll:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -1px;
 }
 
 .noResults {
@@ -171,13 +197,20 @@
     max-width: 100%;
   }
 
+  .button {
+    padding: 1rem;
+    min-height: 48px;
+    min-width: 48px;
+  }
+
   .dropdown {
     max-height: 400px;
   }
 
   .resultItem {
-    padding: 0.65rem 0.75rem;
+    padding: 0.75rem;
     gap: 0.75rem;
+    min-height: 48px;
   }
 
   .resultImage {

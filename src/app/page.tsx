@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import FeaturedProductHero from '@/components/FeaturedProductHero';
-import CuratedByCategory from '@/components/CuratedByCategory';
-import ProductCarousel from '@/components/ProductCarousel';
-import TierShowcase from '@/components/TierShowcase';
-import NewsletterModal from '@/components/NewsletterModal';
+import PremiumHero from '@/components/PremiumHero';
+import ProblemStatement from '@/components/ProblemStatement';
+import ImpactCounter from '@/components/ImpactCounter';
+import OurApproach from '@/components/OurApproach';
+import TierSystemRedesigned from '@/components/TierSystemRedesigned';
+import FeaturedProducts from '@/components/FeaturedProducts';
+import CustomerStories from '@/components/CustomerStories';
+import VideoBlock from '@/components/VideoBlock';
+import NewsletterSection from '@/components/NewsletterSection';
 import { StructuredData } from '@/components/StructuredData';
 import { generateOrganizationSchema, generateBreadcrumbSchema } from '@/lib/seo';
 import styles from './home.module.css';
@@ -50,76 +53,60 @@ export default function Home() {
     { name: 'Home', url: 'https://leaflightly.com' },
   ]);
   return (
-    <div className={styles.container}>
+    <>
       <StructuredData data={organizationSchema} />
       <StructuredData data={breadcrumbSchema} />
 
-      {/* Featured Product Hero */}
-      <FeaturedProductHero copyVariant="variant1" />
+      {/* 1. HERO SECTION - Full Width Video */}
+      <PremiumHero
+        title="Discover Products You Can Trust"
+        subtitle="We've done the hard work of finding sustainable products. You just enjoy them."
+        ctaText="Start Exploring"
+        ctaHref="/products"
+        videoUrl="/assets/videos/hero-video.mp4"
+      />
 
-      {/* Category Grid */}
-      <section className={styles.categories}>
-        <h2>Browse by Category</h2>
-        <div className={styles.categoryGrid}>
-          {[
-            { name: 'Kitchen', href: '/products/kitchen', status: 'Live', badge: 'Top Rated' },
-            { name: 'Fashion', href: '/products/fashion', status: 'Live', badge: 'NEW: 5 items just added' },
-            { name: 'Home', href: '/products/home', status: 'Live', badge: 'Customer Favorite' },
-            { name: 'Beauty', href: '/products/beauty', status: 'Live', badge: 'Just Launched' },
-            { name: 'Wellness', href: '/products/wellness', status: 'Live', badge: 'Trending This Week' },
-          ].map((category) => (
-            <div key={category.name} className={styles.categoryCard}>
-              {category.badge && <span className={styles.categoryBadge}>{category.badge}</span>}
-              <h3>{category.name}</h3>
-              <p className={styles.status}>{category.status}</p>
-              <Link href={category.href} className={styles.categoryLink}>
-                Browse →
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* 2. PROBLEM STATEMENT */}
+      <ProblemStatement />
 
-      {/* Curated From Every Category - Stage 3 */}
-      <CuratedByCategory />
+      {/* 3. IMPACT COUNTER */}
+      <ImpactCounter />
 
-      {/* How It Works */}
-      <section className={styles.howItWorks}>
-        <h2>How It Works</h2>
-        <div className={styles.steps}>
-          <div className={styles.step}>
-            <span className={styles.stepNumber}>1</span>
-            <h3>We Vet</h3>
-            <p>We spend weeks researching each brand. We verify certifications against actual standards. We test products ourselves. Only the truly sustainable make our cut—because a green label isn't enough.</p>
-          </div>
-          <div className={styles.step}>
-            <span className={styles.stepNumber}>2</span>
-            <h3>You Discover</h3>
-            <p>Browse 50+ vetted brands across 5 categories. Read real reviews from real shoppers. Compare sustainability tiers. Find the product that matches your values and your life.</p>
-          </div>
-          <div className={styles.step}>
-            <span className={styles.stepNumber}>3</span>
-            <h3>You Earn</h3>
-            <p>We earn a small commission when you shop—and we tell you that upfront. It keeps Leaf Lightly free and independent. Your purchase supports both the brand and our curation. Everyone wins.</p>
-          </div>
-        </div>
+      {/* 3.5. WATER VIDEO BLOCK */}
+      <VideoBlock
+        videoUrl="/assets/videos/water-hero.mp4"
+        element="water"
+        title="From Ocean to Home"
+        description="Sourced responsibly. Crafted sustainably."
+      />
 
-        {/* Stat callout */}
-        <div className={styles.statCallout}>
-          <p className={styles.statCalloutText}>
-            <strong>500+ curated products</strong> from <strong>200+ sustainable brands</strong>
-          </p>
-        </div>
-      </section>
+      {/* 4. OUR APPROACH */}
+      <OurApproach />
 
-      {/* Tier Showcase */}
-      <TierShowcase />
+      {/* 5. TIER SYSTEM - Redesigned */}
+      <TierSystemRedesigned />
 
-      {/* Product Carousel */}
-      <ProductCarousel />
+      {/* 6. FEATURED PRODUCTS */}
+      <FeaturedProducts />
 
-      {/* Newsletter Modal */}
-      <NewsletterModal />
-    </div>
+      {/* 7. CUSTOMER STORIES */}
+      <CustomerStories />
+
+      {/* 7.5. FIRE VIDEO BLOCK */}
+      <VideoBlock
+        videoUrl="/assets/videos/fire-hero.mp4"
+        element="fire"
+        title="Made With Purpose"
+        description="Crafted with intention. Built to inspire."
+      />
+
+      {/* 8. NEWSLETTER - Full Page Section */}
+      <NewsletterSection />
+
+      {/* 9. FOOTER */}
+      <div className={styles.container}>
+        {/* Placeholder footer - keep existing footer here if present */}
+      </div>
+    </>
   );
 }

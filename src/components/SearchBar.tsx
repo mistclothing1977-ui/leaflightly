@@ -68,7 +68,7 @@ export default function SearchBar() {
 
       {/* Dropdown Results */}
       {isOpen && query.trim().length > 0 && (
-        <div className={styles.dropdown}>
+        <div className={styles.dropdown} role="listbox" aria-label="Product search results">
           {results.length > 0 ? (
             <>
               <div className={styles.results}>
@@ -77,6 +77,7 @@ export default function SearchBar() {
                     key={product.id}
                     href={`/products/${product.id}`}
                     className={styles.resultItem}
+                    role="option"
                     onClick={() => {
                       setQuery('');
                       setIsOpen(false);
@@ -100,13 +101,14 @@ export default function SearchBar() {
                 <Link
                   href={`/search?q=${encodeURIComponent(query)}`}
                   className={styles.viewAll}
+                  role="option"
                 >
                   View all results →
                 </Link>
               )}
             </>
           ) : (
-            <div className={styles.noResults}>
+            <div className={styles.noResults} role="status">
               <p>No products found</p>
             </div>
           )}

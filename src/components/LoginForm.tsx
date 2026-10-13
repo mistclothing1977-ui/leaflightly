@@ -40,10 +40,10 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      {error && <div className={styles.error}>{error}</div>}
+      {error && <div className={styles.error} role="alert" aria-live="polite">{error}</div>}
 
       <div className={styles.group}>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">Email <span aria-label="required">*</span></label>
         <input
           id="email"
           type="email"
@@ -51,12 +51,13 @@ export default function LoginForm() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
           required
+          aria-required="true"
           disabled={isLoading}
         />
       </div>
 
       <div className={styles.group}>
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">Password <span aria-label="required">*</span></label>
         <input
           id="password"
           type="password"
@@ -64,6 +65,7 @@ export default function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
           required
+          aria-required="true"
           disabled={isLoading}
         />
       </div>

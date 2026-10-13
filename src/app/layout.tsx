@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Providers } from "./providers";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import AIChat from "@/components/AIChat";
@@ -27,12 +28,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        <main className="mainContent">
-          {children}
-        </main>
-        <Footer />
-        <AIChat />
+        <Providers>
+          <Header />
+          <main className="mainContent">
+            {children}
+          </main>
+          <Footer />
+          <AIChat />
+        </Providers>
       </body>
     </html>
   );

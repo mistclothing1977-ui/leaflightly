@@ -6,7 +6,7 @@
 export type Tier = 'A' | 'B' | 'C';
 export type Certification = 'b-corp' | 'fsc' | 'pefc' | 'organic' | 'compostable' | 'plastic-free' | 'fair-trade' | 'carbon-neutral' | 'vegan';
 export type AffiliateNetwork = 'awin' | 'avantlink' | 'cj' | 'direct' | 'sharesale' | 'flexoffers' | null;
-export type Category = 'kitchen' | 'fashion' | 'home' | 'beauty' | 'wellness';
+export type Category = 'kitchen' | 'fashion' | 'lifestyle' | 'beauty' | 'wellness';
 
 export interface Product {
   id: string;
@@ -283,7 +283,7 @@ export const products: Product[] = [
     id: 'seventh-generation-cleaning',
     brand: 'Seventh Generation',
     name: 'Multi-Surface Cleaner (5-Pack)',
-    category: 'home',
+    category: 'lifestyle',
     price: 22.99,
     originalPrice: 28.00,
     tier: 'A',
@@ -299,7 +299,7 @@ export const products: Product[] = [
     id: 'ecos-laundry-detergent',
     brand: 'Ecos',
     name: 'Hypoallergenic Laundry Detergent',
-    category: 'home',
+    category: 'lifestyle',
     price: 14.99,
     tier: 'A',
     certifications: ['b-corp', 'organic', 'vegan'],
@@ -314,7 +314,7 @@ export const products: Product[] = [
     id: 'bamboo-bed-sheets',
     brand: 'Bampure',
     name: 'Organic Bamboo Sheet Set',
-    category: 'home',
+    category: 'lifestyle',
     price: 89.99,
     originalPrice: 119.99,
     tier: 'A',
@@ -331,7 +331,7 @@ export const products: Product[] = [
     id: 'aroma-diffuser-wood',
     brand: 'Aria Naturals',
     name: 'Bamboo Wood Essential Oil Diffuser',
-    category: 'home',
+    category: 'lifestyle',
     price: 34.99,
     tier: 'B',
     certifications: ['organic', 'plastic-free'],
@@ -346,7 +346,7 @@ export const products: Product[] = [
     id: 'natural-area-rug',
     brand: 'Armadillo & Co',
     name: 'Handwoven Jute Area Rug (5x8)',
-    category: 'home',
+    category: 'lifestyle',
     price: 199.00,
     tier: 'B',
     certifications: ['organic', 'fair-trade'],

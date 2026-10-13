@@ -1,0 +1,86 @@
+.impactSection {
+  width: 100%;
+  padding: 5rem 2rem;
+  background: white;
+}
+
+.impactContainer {
+  width: 100%;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.sectionLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #1a472a;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.metricCard {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.metricNumber {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #1a472a;
+  margin-bottom: 0.75rem;
+  line-height: 1;
+}
+
+.metricLabel {
+  font-size: 1rem;
+  color: #8b8b7e;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+@media (max-width: 1024px) {
+  .metricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+
+  .metricCard {
+    padding: 2rem 1.5rem;
+  }
+
+  .metricNumber {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .impactSection {
+    padding: 3rem 1.5rem;
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .sectionLabel {
+    margin-bottom: 2rem;
+  }
+
+  .metricNumber {
+    font-size: 2.5rem;
+  }
+
+  .metricLabel {
+    font-size: 0.9rem;
+  }
+}

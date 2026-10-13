@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+import Image from 'next/image';
 import { Product } from '@/data/products';
 import { certificationLabels } from '@/lib/product-labels';
 import Link from 'next/link';
@@ -10,6 +12,8 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const discount = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
@@ -19,10 +23,13 @@ export default function ProductCard({ product }: ProductCardProps) {
       <article className={styles.card}>
         {/* Image Container */}
         <div className={styles.imageContainer}>
+          {!imageLoaded && <div className={styles.skeleton} />}
           <img
             src={product.imageUrl}
             alt={product.name}
-            className={styles.image}
+            className={`${styles.image} ${imageLoaded ? styles.loaded : ''}`}
+            loading="lazy"
+            onLoad={() => setImageLoaded(true)}
           />
           {discount > 0 && (
             <div className={styles.discountBadge}>
@@ -48,8 +55,8 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
 
           {/* Rating & Reviews */}
-          <div className={styles.rating}>
-            <span className={styles.stars}>★★★★★</span>
+          <div className={styles.rating} aria-label={`${product.rating} out of 5 stars, ${product.reviewCount} reviews`}>
+            <span className={styles.stars} aria-hidden="true">★★★★★</span>
             <span className={styles.ratingText}>
               {product.rating}
             </span>
@@ -68,11 +75,6 @@ export default function ProductCard({ product }: ProductCardProps) {
               ))}
             </div>
           )}
-
-          {/* CTA */}
-          <button className={styles.cta}>
-            View Details
-          </button>
         </div>
       </article>
     </Link>

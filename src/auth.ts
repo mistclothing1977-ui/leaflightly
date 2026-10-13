@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
@@ -114,14 +114,11 @@ const authConfig = {
   },
 };
 
-const nextAuthResult = NextAuth(authConfig);
+// Create auth wrapper using getServerSession
+export async function auth() {
+  return await getServerSession(authConfig);
+}
 
-export const auth = nextAuthResult.auth;
-export const handlers = nextAuthResult.handlers;
-export const signIn = nextAuthResult.signIn;
-export const signOut = nextAuthResult.signOut;
-
-// Also export for route handler
 export { authConfig };
 
 // Helper to register user (credentials only)

@@ -147,7 +147,7 @@ export default function NewsletterModal() {
                 className={styles.ctaButton}
                 disabled={isLoading}
               >
-                {isLoading ? 'Subscribing...' : 'Get 10% Off'}
+                {isLoading ? 'Subscribing...' : 'Get Weekly Curations'}
               </button>
             </form>
 
