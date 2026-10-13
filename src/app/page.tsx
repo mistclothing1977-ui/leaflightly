@@ -64,6 +64,7 @@ export default function Home() {
         ctaText="Start Exploring"
         ctaHref="/products"
         videoUrl="/assets/videos/water-hero.mp4"
+        poster="/assets/images/water-hero-poster.jpg"
       />
 
       {/* 2. PROBLEM STATEMENT */}

@@ -11,6 +11,7 @@ interface PremiumHeroProps {
   ctaHref: string;
   backgroundImage?: string;
   videoUrl?: string;
+  poster?: string;
   tier?: string;
   discount?: number;
 }
@@ -22,6 +23,7 @@ export default function PremiumHero({
   ctaHref,
   backgroundImage,
   videoUrl,
+  poster,
   tier,
   discount,
 }: PremiumHeroProps) {
@@ -47,7 +49,8 @@ export default function PremiumHero({
             muted
             loop
             playsInline
-            preload="metadata"
+            preload="auto"
+            poster={poster}
             className={styles.backgroundVideo}
             style={videoStyle}
           >
