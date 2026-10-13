@@ -18,7 +18,7 @@ export default function Footer() {
         {/* Left: Brand & Description */}
         <div className={styles.brandSection}>
           <Link href="/" className={styles.logoLink}>
-            <img src="/assets/logos/logo-clean.png" alt="Leaf Lightly" className={styles.logo} />
+            <img src="/assets/logos/logo-mark.png" alt="Leaf Lightly" className={styles.logo} />
           </Link>
         </div>
 

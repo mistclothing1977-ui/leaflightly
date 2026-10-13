@@ -29,7 +29,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.logoLink}>
-        <img src="/assets/logos/logo-clean.png" alt="Leaf Lightly" className={styles.logo} />
+        <img src="/assets/logos/logo-mark.png" alt="Leaf Lightly" className={styles.logo} />
         <span className={styles.brandName}>Leaf Lightly</span>
       </Link>
       <nav className={`${styles.nav} ${mobileMenuOpen ? styles.navOpen : ''}`}>
