@@ -1600,10 +1600,10 @@ npm run db:push
 In priority order. Items touching the header need owner approval and a passing `scripts/header-check.js` run (see `CLAUDE.md`).
 
 1. ~~**Fix clipped desktop mega menus (LM-014).**~~ ✅ Done 2026-10-13.
-2. **Verify production after push.** Push pending commits, then check the live Vercel site: logo has no box, header passes the check at 1890/1440/1280/375, SEO logo URL `/assets/logos/logo-mark.png` returns 200.
-3. **Real product images.** Featured product cards still show grey "400 × 400" placeholders. Add real images (licensed/affiliate-provided) with `alt` text.
-4. **Real social icons in the footer.** Replace the letter badges (f, @, P, ♪) with proper SVG icons for Facebook, Instagram, Pinterest and TikTok.
-5. **Favicon from the new mark.** Generate `favicon.ico` / `apple-touch-icon.png` from `logo-mark.png` and confirm `layout.tsx` metadata points at them.
+2. ~~**Verify production after push.**~~ ✅ Done 2026-10-13. Live site had been stuck since 42400c6: build broke on a missing `src/db/index.ts`, Resend client constructed at import, 15 type errors, and `vercel.json` cron `description` fields (rejected by Vercel). All fixed; deploy succeeded at ebacfcd. **Lesson:** after every push, confirm the Vercel commit status is `success` (GitHub commit status API) — a green local dev server proves nothing about production.
+3. **Real product images.** ✅ Groundwork done 2026-10-14: local branded placeholder (`PRODUCT_IMAGE_PLACEHOLDER`), featured grid reads `featured: true` from `products.ts`. **Remaining:** paste affiliate-supplied image URLs (Amazon SiteStripe/PA-API, Awin feed) into each product's `imageUrl`. Never use brand-site images without usage rights.
+4. ~~**Real social icons in the footer.**~~ ✅ Done 2026-10-14 (simple-icons SVGs). Profile URLs are still placeholders (`leaflightly`) until the owner confirms them.
+5. ~~**Favicon from the new mark.**~~ ✅ Done 2026-10-14: `favicon.ico` (16–64px), `apple-touch-icon.png` (180px, cream background), `icon-512.png`; wired in `layout.tsx` metadata.
 6. **Clean stale docs.** `docs/BRAND_GUIDELINES.md`, `docs/FAVICON_SETUP.md`, `docs/INDEX.md`, `docs/DEPLOYMENT_SUMMARY.md`, `docs/AGENT_LOGO_HANDOFF.md` and `docs/LOGO_DEPLOYMENT_CHECKLIST.md` still reference deleted WebP logos; `LOGO_ADVERSARIAL_ANALYSIS.md` describes a "deadlock" that is now resolved. Update or archive.
 7. **Tablet header polish (optional).** At 769–900px and 1030–1100px the header wraps to two rows. Consider switching to the hamburger layout up to ~1100px instead.
 8. **Persistence.** Move users/wishlists from in-memory stores to Neon PostgreSQL (§7.3) before real users sign up.
