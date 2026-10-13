@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
 import styles from './WishlistButton.module.css';
 
 interface WishlistButtonProps {
@@ -9,25 +8,32 @@ interface WishlistButtonProps {
 }
 
 export default function WishlistButton({ productId }: WishlistButtonProps) {
-  const { data: session } = useSession();
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    if (!session?.user?.id) return;
-
-    // Check if already wishlisted
-    const checkWishlist = async () => {
-      const res = await fetch('/api/wishlist/get');
-      const data = await res.json();
-      setIsWishlisted(data.wishlist?.includes(productId) ?? false);
+    // Check if user is authenticated and if product is wishlisted
+    const checkAuthAndWishlist = async () => {
+      try {
+        const res = await fetch('/api/wishlist/get');
+        if (res.ok) {
+          const data = await res.json();
+          setIsAuth(true);
+          setIsWishlisted(data.wishlist?.includes(productId) ?? false);
+        } else if (res.status === 401) {
+          setIsAuth(false);
+        }
+      } catch (error) {
+        setIsAuth(false);
+      }
     };
 
-    checkWishlist();
-  }, [session?.user?.id, productId]);
+    checkAuthAndWishlist();
+  }, [productId]);
 
   const toggleWishlist = async () => {
-    if (!session?.user?.id) {
+    if (!isAuth) {
       window.location.href = '/login';
       return;
     }
