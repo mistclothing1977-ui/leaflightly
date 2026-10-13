@@ -28,6 +28,7 @@
   flex-direction: column;
   gap: 0;
   justify-content: flex-start;
+  background: transparent;
 }
 
 .logoLink {
