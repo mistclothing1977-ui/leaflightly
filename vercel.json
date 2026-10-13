@@ -2,13 +2,11 @@
   "crons": [
     {
       "path": "/api/newsletter/schedule",
-      "schedule": "0 8 * * 1",
-      "description": "Create weekly newsletter batches every Monday at 08:00 UTC"
+      "schedule": "0 8 * * 1"
     },
     {
       "path": "/api/newsletter/send",
-      "schedule": "0 9 * * *",
-      "description": "Send daily newsletter batches at 09:00 UTC"
+      "schedule": "0 9 * * *"
     }
   ]
 }
