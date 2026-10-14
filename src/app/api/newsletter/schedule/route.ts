@@ -5,6 +5,7 @@ import { newsletter_signups, newsletter_batches } from '@/lib/db/schema';
 import { calculateBatchSchedule } from '@/lib/email/batch-calculator';
 import { isAuthorizedCron } from '@/lib/newsletter/security';
 import { products } from '@/data/products';
+import { safeError } from '@/lib/safe-error';
 
 export const dynamic = 'force-dynamic';
 
@@ -87,7 +88,7 @@ async function schedule(req: NextRequest) {
       notScheduledOverCapacity: unscheduled > 0 ? unscheduled : 0,
     });
   } catch (error) {
-    console.error('Newsletter schedule error:', error);
+    console.error('Newsletter schedule error:', safeError(error));
     return NextResponse.json({ error: 'Failed to schedule batches' }, { status: 500 });
   }
 }

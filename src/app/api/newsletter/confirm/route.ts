@@ -5,6 +5,7 @@ import { newsletter_signups } from "@/lib/db/schema";
 import { successResponse, errorResponse } from "@/lib/api/handler";
 import { withCORS, withSecurityHeaders } from "@/lib/api/middleware";
 import { verifyNewsletterToken } from "@/lib/newsletter/security";
+import { safeError } from "@/lib/safe-error";
 
 export const dynamic = "force-dynamic";
 
@@ -59,7 +60,7 @@ export async function GET(req: NextRequest) {
     });
     return withSecurityHeaders(withCORS(response));
   } catch (err) {
-    console.error("Email confirmation error:", err);
+    console.error("Email confirmation error:", safeError(err));
 
     let response = errorResponse("Internal server error", "INTERNAL_ERROR", 500);
     return withSecurityHeaders(withCORS(response));

@@ -3,6 +3,7 @@ import { eq } from 'drizzle-orm';
 import { db } from '@/lib/db/client';
 import { newsletter_signups } from '@/lib/db/schema';
 import { verifyNewsletterToken } from '@/lib/newsletter/security';
+import { safeError } from '@/lib/safe-error';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,7 +29,7 @@ async function unsubscribe(req: NextRequest) {
       .set({ status: 'unsubscribed', unsubscribed_at: new Date() })
       .where(eq(newsletter_signups.email, email));
   } catch (err) {
-    console.error('Newsletter unsubscribe error:', err);
+    console.error('Newsletter unsubscribe error:', safeError(err));
     return page('Something went wrong', 'We could not process your request. Please try again shortly.', 500);
   }
 

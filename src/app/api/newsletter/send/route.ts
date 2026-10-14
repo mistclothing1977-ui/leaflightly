@@ -6,6 +6,7 @@ import { sendEmail } from '@/lib/email/resend';
 import { renderNewsletterEmail } from '@/lib/email/newsletter-template';
 import { isAuthorizedCron, siteUrl, unsubscribeUrl } from '@/lib/newsletter/security';
 import type { Product } from '@/data/products';
+import { safeError } from '@/lib/safe-error';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -117,7 +118,7 @@ async function send(req: NextRequest) {
 
     return NextResponse.json({ message: 'Due batches sent', batchesSent: results.length, results });
   } catch (error) {
-    console.error('Newsletter send error:', error);
+    console.error('Newsletter send error:', safeError(error));
     return NextResponse.json({ error: 'Failed to send newsletter batches' }, { status: 500 });
   }
 }

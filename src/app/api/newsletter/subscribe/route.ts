@@ -8,6 +8,7 @@ import { newsletterSignupRateLimit } from "@/lib/rateLimit";
 import { successResponse, errorResponse } from "@/lib/api/handler";
 import { withCORS, withSecurityHeaders } from "@/lib/api/middleware";
 import { sendConfirmationEmail } from "@/lib/email-confirmation";
+import { safeError } from "@/lib/safe-error";
 
 export const dynamic = "force-dynamic";
 
@@ -105,14 +106,13 @@ export async function POST(req: NextRequest) {
     );
     return withSecurityHeaders(withCORS(response));
   } catch (err) {
-    console.error("Newsletter signup error:", err);
-
     let response: NextResponse;
     if (err instanceof z.ZodError) {
       response = errorResponse("Invalid email address", "VALIDATION_ERROR", 400);
     } else {
-      const errorMsg = err instanceof Error ? err.message : String(err);
-      response = errorResponse(errorMsg, "SERVER_ERROR", 500);
+      // Never echo the raw error: Drizzle messages contain the full query and parameters.
+      console.error("Newsletter signup error:", safeError(err));
+      response = errorResponse("Signup failed. Please try again later.", "SERVER_ERROR", 500);
     }
 
     return withSecurityHeaders(withCORS(response));
