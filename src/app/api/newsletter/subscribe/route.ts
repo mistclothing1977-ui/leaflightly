@@ -72,10 +72,8 @@ export async function POST(req: NextRequest) {
         })
         .where(eq(newsletter_signups.email, validated.email));
 
-      // Send confirmation email (non-blocking)
-      sendConfirmationEmail(validated.email).catch((err) =>
-        console.error("Failed to send confirmation email:", err)
-      );
+      // Awaited: serverless runtimes stop background work once the response is sent.
+      await sendConfirmationEmail(validated.email);
 
       let response = successResponse({
         subscribed: true,
@@ -92,10 +90,8 @@ export async function POST(req: NextRequest) {
       subscribed_at: new Date(),
     });
 
-    // Send confirmation email (non-blocking)
-    sendConfirmationEmail(validated.email).catch((err) =>
-      console.error("Failed to send confirmation email:", err)
-    );
+    // Awaited: serverless runtimes stop background work once the response is sent.
+    await sendConfirmationEmail(validated.email);
 
     let response = successResponse(
       {
