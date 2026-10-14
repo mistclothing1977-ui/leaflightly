@@ -1263,7 +1263,15 @@ Always read `git diff` before committing a scripted rewrite.
 
 ---
 
-#### **LM-017: Production Database Unreachable (Supabase IPv6-only)** — ⚠️ OPEN (owner decision)
+#### **LM-017: Production Database Unreachable (Supabase IPv6-only)** — ✅ RESOLVED 2026-10-14
+
+**Resolution:** owner chose Neon. Vercel production `DATABASE_URL` now = the Neon pooled host (`ep-lively-boat-zao7mx12-pooler…neon.tech`); redeployed. Live end-to-end test passed: signup 200, duplicate 409, login, wishlist add/get, newsletter subscribe 201 / bad email 400. Test rows deleted. Supabase settings (`NEXT_PUBLIC_SUPABASE_*`, `SUPABASE_*`) remain in Vercel but no longer back the site's data; the admin product API still uses Supabase auth tokens.
+
+**Two more production-only failures found by the live test (both fixed):**
+- `src/lib/validate.ts` imports `isomorphic-dompurify` → `jsdom` → `ERR_REQUIRE_ESM` on Vercel at module load, so `/api/newsletter/subscribe` returned 500 for every request. Email schema moved to `src/lib/validate-email.ts`. **The admin product routes still import `validate.ts` and will crash the same way** if used — replace `isomorphic-dompurify` (e.g. `sanitize-html`) before using them.
+- Vercel `UPSTASH_REDIS_REST_URL` doesn't resolve (deleted Upstash DB?), so the rate limiter threw before validation. `src/lib/rateLimit.ts` now fails open with a warning. **Owner:** create a new Upstash Redis DB and update `UPSTASH_REDIS_REST_URL`/`TOKEN`, or delete both vars (limiter then runs in mock mode).
+
+**Original finding:**
 
 **Found 2026-10-14** by a live signup test: Vercel's production `DATABASE_URL` points at Supabase's direct host `db.teqodtkywpiubaokqwnk.supabase.co`, which has only an IPv6 (AAAA) record. Vercel functions are IPv4-only, so every query fails with `getaddrinfo ENOTFOUND`. Every DB-backed feature on the live site (newsletter sign-up, accounts, wishlists) has therefore never worked in production. All tables (incl. `users`, `wishlist_items`, `newsletter_batches`) were created in **Neon** (the `.env.local` DB), not Supabase.
 

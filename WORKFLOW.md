@@ -91,6 +91,8 @@
 - Don't use `npm run db:push` until `tablesFilter` in `drizzle.config.ts` is fixed — it tries to recreate every table. Apply changes with explicit SQL inside a transaction and check table counts before/after.
 - `src/lib/db/migrations/` is git-ignored.
 - Accounts: `users` table via `src/lib/users.ts` (emails lower-cased; `pgErrorCode()` unwraps Drizzle errors). Wishlists: `wishlist_items` via `src/lib/wishlist-store.ts`. Never reintroduce in-memory stores — Vercel runs multiple instances.
+- Production `DATABASE_URL` = Neon (since 2026-10-14). The Supabase direct host is IPv6-only and unreachable from Vercel — don't switch back without its IPv4 pooler URL.
+- After any DB-backed change, test one real write **on the live site** and confirm the row lands in Neon; read live errors with `npx vercel logs --deployment leaflightly.vercel.app`.
 - The local dev server and local builds use the **same Neon database as production**. Test with clearly-labelled accounts (e.g. `claude-e2e-test+…@example.com`) and delete them afterwards.
 - If the dev server serves stale server code after a production build, test on `npx next start -p 3005` instead of restarting the owner's dev server.
 
