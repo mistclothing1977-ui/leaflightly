@@ -1,5 +1,5 @@
 import { z } from "zod";
-import DOMPurify from "isomorphic-dompurify";
+import sanitize from "sanitize-html";
 
 // ============================================
 // PRODUCT INPUT SCHEMA
@@ -107,11 +107,12 @@ export type BlogPostInput = z.infer<typeof blogPostInputSchema>;
 // ============================================
 // SANITIZATION
 // ============================================
+// sanitize-html is pure JS; isomorphic-dompurify needed jsdom, which crashes on Vercel at load.
 export function sanitizeHtml(html: string): string {
-  return DOMPurify.sanitize(html, {
-    ALLOWED_TAGS: ["p", "br", "strong", "em", "u", "a", "ul", "ol", "li", "blockquote", "code", "pre"],
-    ALLOWED_ATTR: ["href", "target", "rel"],
-    KEEP_CONTENT: true,
+  return sanitize(html, {
+    allowedTags: ["p", "br", "strong", "em", "u", "a", "ul", "ol", "li", "blockquote", "code", "pre"],
+    allowedAttributes: { a: ["href", "target", "rel"] },
+    allowedSchemes: ["http", "https", "mailto"],
   });
 }
 

@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-// Kept separate from validate.ts: that file imports isomorphic-dompurify (→ jsdom),
-// which crashes on Vercel at module load and took the newsletter route down with it.
+// Kept separate from validate.ts so public routes don't load the HTML sanitizer.
 
 const DISPOSABLE_DOMAINS = [
   "tempmail.com",

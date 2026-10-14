@@ -20,7 +20,6 @@
     "@vercel/kv": "^1.0.1",
     "bcryptjs": "^2.4.3",
     "drizzle-orm": "^0.45.4",
-    "isomorphic-dompurify": "^2.13.0",
     "jose": "^5.4.1",
     "next": "^16.4.0",
     "next-auth": "^4.24.0",
@@ -32,6 +31,7 @@
     "remark": "^15.0.1",
     "remark-rehype": "^11.1.0",
     "resend": "^3.0.0",
+    "sanitize-html": "^2.18.0",
     "sharp": "^0.35.5",
     "simple-icons": "^16.35.0",
     "typescript": "^5.3.3",
@@ -41,6 +41,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/react-dom": "^19.0.0",
+    "@types/sanitize-html": "^2.16.2",
     "autoprefixer": "^10.4.16",
     "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.11",
