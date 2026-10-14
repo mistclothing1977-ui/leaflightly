@@ -27,11 +27,23 @@ function createLimiter(limit: number, window: string) {
     console.warn(`Rate limiting disabled (Upstash not configured). Using mock limiter.`);
     return new MockRatelimit() as any;
   }
-  return new Ratelimit({
+  const limiter = new Ratelimit({
     redis,
     limiter: Ratelimit.slidingWindow(limit, window as any),
     analytics: true,
   });
+  // Fail open: an unreachable Redis (e.g. deleted Upstash DB) must not take the feature down.
+  return {
+    async limit(identifier: string) {
+      try {
+        return await limiter.limit(identifier);
+      } catch (err) {
+        const e = err as { code?: string; cause?: { code?: string }; message?: string };
+        console.warn("Rate limiter unavailable, allowing request:", e?.cause?.code ?? e?.code ?? e?.message);
+        return new MockRatelimit().limit(identifier);
+      }
+    },
+  };
 }
 
 // Admin product creation: 10 per hour
