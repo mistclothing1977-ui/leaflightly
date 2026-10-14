@@ -1263,6 +1263,18 @@ Always read `git diff` before committing a scripted rewrite.
 
 ---
 
+#### **LM-017: Production Database Unreachable (Supabase IPv6-only)** — ⚠️ OPEN (owner decision)
+
+**Found 2026-10-14** by a live signup test: Vercel's production `DATABASE_URL` points at Supabase's direct host `db.teqodtkywpiubaokqwnk.supabase.co`, which has only an IPv6 (AAAA) record. Vercel functions are IPv4-only, so every query fails with `getaddrinfo ENOTFOUND`. Every DB-backed feature on the live site (newsletter sign-up, accounts, wishlists) has therefore never worked in production. All tables (incl. `users`, `wishlist_items`, `newsletter_batches`) were created in **Neon** (the `.env.local` DB), not Supabase.
+
+**Options:** (a) point Vercel `DATABASE_URL` at Neon (has every table, works now); or (b) keep Supabase: use its IPv4 **Session/Transaction pooler** connection string (Supabase dashboard → Connect), then create the tables there.
+
+**Also fixed:** Drizzle error messages contained query params, so live logs captured test emails and bcrypt hashes, and newsletter subscribe echoed raw errors to the browser — now sanitized (`DbError`, `safeError()`).
+
+**Lesson:** after changing anything DB-backed, test one real write on the **live** site and confirm the row appears in the database you expect. Local success proves nothing about production config.
+
+---
+
 #### **LM-016: Process Mistakes That Broke or Nearly Broke Deploys (2026-10-13/14)**
 
 Each of these happened during the logo/header/newsletter work. Follow the prevention steps every time.
