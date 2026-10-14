@@ -5,6 +5,8 @@
 
 import { calculateBatchSchedule, calculateUpgradeThreshold } from '@/lib/email/batch-calculator';
 import { renderNewsletterEmail } from '@/lib/email/newsletter-template';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 // ============================================
 // TEST 1: Batch Calculator
@@ -37,12 +39,14 @@ describe('Batch Calculator', () => {
 
     const plan = calculateBatchSchedule(subscribers, weekStart, '09:00', 100);
 
-    expect(plan.weeklyTotal).toBe(750);
-    expect(plan.batches.length).toBeGreaterThanOrEqual(7);
+    // 100/day x 7 days caps the week at 700; the schedule route reports the 50 overflow
+    // ("notScheduledOverCapacity") and warns to upgrade the Resend plan.
+    expect(plan.weeklyTotal).toBe(700);
+    expect(plan.batches.length).toBe(7);
 
-    // Total should match input
     const totalEmails = plan.batches.reduce((sum, b) => sum + b.emailCount, 0);
-    expect(totalEmails).toBe(750);
+    expect(totalEmails).toBe(700);
+    plan.batches.forEach((b) => expect(b.emailCount).toBeLessThanOrEqual(100));
 
     console.log('✅ Test 2 PASSED: Handles odd subscriber counts correctly');
   });
@@ -63,15 +67,14 @@ describe('Batch Calculator', () => {
 
   test('Should schedule batches at correct times', () => {
     const subscribers = ['user@example.com'];
-    const weekStart = new Date('2026-10-13'); // Monday
+    const weekStart = new Date(Date.UTC(2026, 9, 12)); // Monday 12 Oct 2026, 00:00 UTC
 
     const plan = calculateBatchSchedule(subscribers, weekStart, '14:30', 100);
 
-    // First batch should be Monday at 14:30
+    // First batch should be Monday at 14:30 UTC (Vercel cron runs in UTC)
     const firstBatch = plan.batches[0];
     expect(firstBatch.dayOfWeek).toBe(0); // Monday
-    expect(firstBatch.scheduledFor.getHours()).toBe(14);
-    expect(firstBatch.scheduledFor.getMinutes()).toBe(30);
+    expect(firstBatch.scheduledFor.toISOString()).toBe('2026-10-12T14:30:00.000Z');
 
     console.log('✅ Test 4 PASSED: Batches scheduled at correct times');
   });
@@ -265,13 +268,21 @@ describe('Vercel Cron Configuration', () => {
     // Schedule format: "0 8 * * 1" = Monday 8:00 UTC
     // Schedule format: "0 9 * * *" = Every day 9:00 UTC
 
-    const schedulePattern = /^\d{1,2}\s\d{1,2}\s\*\s\*\s[0-6]?$/; // Simple cron pattern
+    // minute hour * * (day-of-week digit or *)
+    const schedulePattern = /^\d{1,2}\s\d{1,2}\s\*\s\*\s([0-6]|\*)$/;
 
-    const scheduleCron = '0 8 * * 1'; // Monday 8am
-    const sendCron = '0 9 * * *'; // Daily 9am
+    const vercel = JSON.parse(readFileSync(resolve(__dirname, '../vercel.json'), 'utf8')) as {
+      crons: { path: string; schedule: string }[];
+    };
+    const byPath = Object.fromEntries(vercel.crons.map((c) => [c.path, c]));
 
-    expect(scheduleCron).toMatch(schedulePattern);
-    expect(sendCron).toMatch(schedulePattern);
+    expect(byPath['/api/newsletter/schedule'].schedule).toBe('0 8 * * 1'); // Monday 08:00 UTC
+    expect(byPath['/api/newsletter/send'].schedule).toBe('0 9 * * *'); // daily 09:00 UTC
+    vercel.crons.forEach((c) => {
+      expect(c.schedule).toMatch(schedulePattern);
+      // Vercel rejects any key other than path/schedule (this broke every deploy once).
+      expect(Object.keys(c).sort()).toEqual(['path', 'schedule']);
+    });
 
     console.log('✅ Test 15 PASSED: Cron schedules are valid');
   });

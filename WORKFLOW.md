@@ -71,7 +71,8 @@
    - Header touched → `scripts/header-check.js` at 1890/1440/1280/1100/1024/900/800/769/414/375/360/320, signed out, all `PASS`.
    - Layout touched → no sideways scroll (`scrollWidth === clientWidth`) on home, wishlist, a product page, a category page and about, at desktop and phone widths. Never use `100vw` for full-width sections (use `--main-pad` negative margins).
    - UI changed → check in the browser (measure, don't eyeball thumbnails).
-   - Always → `$env:NODE_OPTIONS='--max-old-space-size=4096'; npm run build` must succeed.
+   - Always → `npm test` (Vitest, `tests/*.test.ts`) must pass, and `$env:NODE_OPTIONS='--max-old-space-size=4096'; npm run build` must succeed.
+   - Changed newsletter/security/validation code → add or update a test in `tests/`.
 5. **Commit:** stage explicit paths (never already-deleted ones), write the message to a file, `git commit -F <file>`, then `git show --stat HEAD` to confirm every file is in.
 6. **Push, then confirm the deploy:** poll `https://api.github.com/repos/mistclothing1977-ui/leaflightly/commits/<sha>/status` until `success`. On `failure`: `npx vercel inspect <deployment-id> --logs`.
 7. **Check the live site** (`https://leaflightly.vercel.app`, cache-busting `?v=<sha>`) for the change. For anything that writes data, do one real write live (labelled test account `claude-e2e-test+…@example.com`), confirm it in Neon, then delete the test rows. Read live errors with `npx vercel logs --deployment leaflightly.vercel.app`.
