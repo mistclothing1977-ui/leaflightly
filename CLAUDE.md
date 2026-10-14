@@ -29,5 +29,7 @@ The header has regressed repeatedly. These rules stand until the owner says othe
 
 ## Required check after ANY edit to Header, NavWithMegaMenu, SearchBar, ThemeToggle or globals.css
 Run `scripts/header-check.js` in the browser at widths 1890, 1440, 1280, 1100, 1024, 900, 800,
-769 and 375. Every width must print `PASS`. Do not report the header as fixed until it does,
+769, 414, 375, 360 and 320 (test signed-out: Login + Sign Up is the widest top row). At ≤480px the
+top row (logo, theme toggle, auth, menu) must stay on one line — toggle 40px, header gap 0.5rem,
+auth links have no min-width. Every width must print `PASS`. Do not report the header as fixed until it does,
 and include the results in the reply.
