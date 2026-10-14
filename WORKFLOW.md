@@ -68,12 +68,13 @@
 2. **Diagnose before fixing:** inspect the asset/data or measure the layout; state the root cause.
 3. **Edit** with the editor tool, one file at a time. Never rewrite source with PowerShell `Get-Content`/`Set-Content` (corrupts `£`, adds BOM).
 4. **Verify locally:**
-   - Header touched → `scripts/header-check.js` at 1890/1440/1280/1100/1024/900/800/769/375, all `PASS`.
+   - Header touched → `scripts/header-check.js` at 1890/1440/1280/1100/1024/900/800/769/414/375/360/320, signed out, all `PASS`.
+   - Layout touched → no sideways scroll (`scrollWidth === clientWidth`) on home, wishlist, a product page, a category page and about, at desktop and phone widths. Never use `100vw` for full-width sections (use `--main-pad` negative margins).
    - UI changed → check in the browser (measure, don't eyeball thumbnails).
    - Always → `$env:NODE_OPTIONS='--max-old-space-size=4096'; npm run build` must succeed.
 5. **Commit:** stage explicit paths (never already-deleted ones), write the message to a file, `git commit -F <file>`, then `git show --stat HEAD` to confirm every file is in.
 6. **Push, then confirm the deploy:** poll `https://api.github.com/repos/mistclothing1977-ui/leaflightly/commits/<sha>/status` until `success`. On `failure`: `npx vercel inspect <deployment-id> --logs`.
-7. **Check the live site** (`https://leaflightly.vercel.app`, cache-busting `?v=<sha>`) for the change.
+7. **Check the live site** (`https://leaflightly.vercel.app`, cache-busting `?v=<sha>`) for the change. For anything that writes data, do one real write live (labelled test account `claude-e2e-test+…@example.com`), confirm it in Neon, then delete the test rows. Read live errors with `npx vercel logs --deployment leaflightly.vercel.app`.
 8. **Record** new lessons in `MRB.md` (§5.2 landmines / §7.4 next steps) and, if it's a design standard, `BRAIN_AND_CLONING_DOCUMENT.md`.
 
 ## Environment Variables (Vercel production)
@@ -95,6 +96,15 @@
 - After any DB-backed change, test one real write **on the live site** and confirm the row lands in Neon; read live errors with `npx vercel logs --deployment leaflightly.vercel.app`.
 - The local dev server and local builds use the **same Neon database as production**. Test with clearly-labelled accounts (e.g. `claude-e2e-test+…@example.com`) and delete them afterwards.
 - If the dev server serves stale server code after a production build, test on `npx next start -p 3005` instead of restarting the owner's dev server.
+
+## Accounts, Wishlist & Sharing
+
+- Sign-in: email/password (NextAuth credentials) against the `users` table; Google/GitHub need their keys in Vercel first.
+- Wishlist: heart button → `/api/wishlist/*` → `wishlist_items`. The Wishlist page loads from the API (not localStorage).
+- Share: "Share wishlist" button → `/wishlist/shared?items=<product ids>` (native share sheet on mobile, copy link on desktop). The link holds only product ids; the page is `noindex` and ends with Browse / Start Your Wishlist CTAs.
+- Never log or return raw DB errors — use `DbError` (`src/lib/users.ts`) / `safeError()` (`src/lib/safe-error.ts`).
+- Public routes must not import `src/lib/validate.ts` (pulls in `isomorphic-dompurify` → `jsdom`, which crashes on Vercel); use `src/lib/validate-email.ts`.
+- Rate limiter (`src/lib/rateLimit.ts`) fails open if Upstash is unreachable.
 
 ## Newsletter
 

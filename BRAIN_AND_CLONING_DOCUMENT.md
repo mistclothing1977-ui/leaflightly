@@ -1,8 +1,8 @@
 # LEAF LIGHTLY: BRAIN AND CLONING DOCUMENT
 ## Master Project DNA & New Project Bootstrap Guide
 
-**Version:** 1.2  
-**Last Updated:** 2026-10-14 (v1.2: media performance, shipping, email/newsletter and placeholder standards; v1.1: asset & header guardrails, root scale)  
+**Version:** 1.3  
+**Last Updated:** 2026-10-14 (v1.3: layout (no 100vw, 320px phones), production resilience, growth features; v1.2: media performance, shipping, email/newsletter and placeholder standards; v1.1: asset & header guardrails, root scale)  
 **Purpose:** Preserve and replicate Leaf Lightly's design standards, processes, and premium positioning across new projects  
 **For:** New designers, new projects, post-rollout quality gates, architecture decisions
 
@@ -54,7 +54,7 @@ Mobile:    <768px
 - **769–1024px:** wordmark hidden; if it still can't fit, the header wraps to a second row rather than overlapping.
 - **≤768px:** two rows — logo, theme toggle, auth, menu / full-width search. Nav opens as a scrollable row below.
 
-**Verify every header change** with `scripts/header-check.js` at 1890, 1440, 1280, 1100, 1024, 900, 800, 769 and 375px. All must print `PASS`.
+**Verify every header change** with `scripts/header-check.js` at 1890, 1440, 1280, 1100, 1024, 900, 800, 769, 414, 375, 360 and 320px, signed out (Login + Sign Up is the widest top row). All must print `PASS`; at ≤480px the top row must stay on one line.
 
 ### Color Palette
 ```
@@ -736,6 +736,21 @@ These files belong in version control:
 - Build each email per recipient — never share one rendered email (with one person's links/address) across a batch.
 - Scheduled jobs authenticate with a bearer secret and fail closed if it's unset.
 - One database, one schema. Never let a feature read from tables nothing writes to.
+
+**Layout (learned 2026-10-14)**
+- Never use `100vw` for full-width sections: it includes the scrollbar on Windows and makes every page scroll sideways. Break out of the content padding with negative margins tied to one variable (`--main-pad`).
+- Support 320px phones. Test the widest state (e.g. signed-out header with Login + Sign Up); keep tap targets ≥40–44px while tightening gaps.
+- Rules written for one element (e.g. a min-width for menu links) must not leak onto others that share a class — scope them.
+
+**Production resilience (learned 2026-10-14)**
+- Test one real write on the **live** site after any database-backed change and confirm it lands in the expected database. Production config (database host, secrets, third-party URLs) can be broken while local works.
+- Optional infrastructure (rate limiter, cache, analytics) must fail open with a warning — never take a core feature down.
+- Libraries that need a browser DOM on the server (e.g. `isomorphic-dompurify` → `jsdom`) can crash serverless functions at load; keep them out of shared modules used by public routes.
+- Never log or return raw database errors: they contain the query and its parameters (emails, password hashes). Log only the error type and code.
+
+**Growth features**
+- Shareable links should carry only what's needed (e.g. product ids), never account data; mark shared pages `noindex`; give visitors a next step (browse, start their own list).
+- Never promise a feature in copy that doesn't exist (e.g. "we'll notify you of price drops").
 
 **Placeholders & third parties**
 - Use local placeholders (e.g. a branded "image coming soon" SVG), not free placeholder services that can disappear.
