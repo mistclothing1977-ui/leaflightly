@@ -6,6 +6,9 @@ Do not change the home page (`src/app/page.tsx` and the sections it renders: Pre
 ProblemStatement, ImpactCounter, OurApproach, TierSystemRedesigned, FeaturedProducts, CustomerStories,
 NewsletterSection) unless the owner explicitly asks. Report issues found there instead of fixing them.
 
+Never use `100vw` for full-width sections — it includes the scrollbar on Windows and makes the page
+scroll sideways. Break out of `main.mainContent` with `margin: 0 calc(-1 * var(--main-pad))`.
+
 # Header rules (locked — change only when the owner explicitly overrides)
 
 The header has regressed repeatedly. These rules stand until the owner says otherwise.

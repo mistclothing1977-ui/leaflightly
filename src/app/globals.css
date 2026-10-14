@@ -220,7 +220,10 @@ input::placeholder {
 }
 
 main.mainContent {
-  padding: 2rem;
+  /* Full-bleed sections break out with negative margins of this size — never use 100vw
+     (it includes the scrollbar on Windows and causes sideways scrolling). */
+  --main-pad: 2rem;
+  padding: var(--main-pad);
 }
 
 /* Shadow Hierarchy - Premium depth layering */

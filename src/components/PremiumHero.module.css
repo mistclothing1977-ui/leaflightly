@@ -9,13 +9,14 @@
 /* Premium Hero: Cinematic & Immersive */
 .premiumHero {
   position: relative;
-  width: 100vw;
+  /* Full-bleed via the parent's padding, not 100vw (which includes the scrollbar). */
+  margin-left: calc(-1 * var(--main-pad, 2rem));
+  margin-right: calc(-1 * var(--main-pad, 2rem));
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  margin-left: calc(-50vw + 50%);
 }
 
 /* Background Layer: Video + Parallax */
