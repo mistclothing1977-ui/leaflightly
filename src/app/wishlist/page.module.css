@@ -33,6 +33,51 @@
   margin: 0.75rem 0 0 0;
 }
 
+/* Share */
+.shareWrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.shareButton {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 0.65rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.shareButton:hover {
+  background: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.shareButton:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.shareStatus {
+  font-size: 0.9rem;
+  color: var(--color-primary);
+}
+
+.sharedNote {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  margin: 0.75rem 0 0 0;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
 /* Loading */
 .loading {
   text-align: center;

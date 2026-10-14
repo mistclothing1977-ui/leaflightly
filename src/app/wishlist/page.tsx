@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { products } from '@/data/products';
 import WishlistButton from '@/components/WishlistButton';
+import ShareWishlistButton from './ShareWishlistButton';
 import styles from './page.module.css';
 
 export default function WishlistPage() {
@@ -58,6 +59,9 @@ export default function WishlistPage() {
         <p className={styles.subtitle}>
           {wishlistProducts.length} item{wishlistProducts.length !== 1 ? 's' : ''}
         </p>
+        {!isLoading && wishlistProducts.length > 0 && (
+          <ShareWishlistButton productIds={wishlistProducts.map((p) => p.id)} />
+        )}
       </header>
 
       {isLoading ? (
@@ -124,7 +128,9 @@ export default function WishlistPage() {
             <div className={styles.tips}>
               <div className={styles.tip}>
                 <p className={styles.tipTitle}>Share Your Picks</p>
-                <p className={styles.tipDesc}>Share your wishlist with friends and family.</p>
+                <p className={styles.tipDesc}>
+                  Use &ldquo;Share wishlist&rdquo; above to send your picks to friends and family.
+                </p>
               </div>
               <div className={styles.tip}>
                 <p className={styles.tipTitle}>Compare Products</p>
