@@ -3,7 +3,8 @@
 // overlaps=none clipped=0 hScroll=false and a single nav font size.
 (() => {
   const h = document.querySelector('header');
-  const mobile = innerWidth <= 768;
+  // Compact (menu-button) layout runs up to 1100px; see Header.module.css.
+  const mobile = innerWidth <= 1100;
   const visible = (e) => {
     const r = e.getBoundingClientRect();
     return r.width && r.height && getComputedStyle(e).display !== 'none';

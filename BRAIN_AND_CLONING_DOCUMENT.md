@@ -50,9 +50,9 @@ Mobile:    <768px
 ```
 
 **Header behaviour by width (locked — see `CLAUDE.md`):**
-- **>1024px:** one row — logo + wordmark, nav, search (shrinks 400px → 140px), theme toggle, auth.
-- **769–1024px:** wordmark hidden; if it still can't fit, the header wraps to a second row rather than overlapping.
-- **≤768px:** two rows — logo, theme toggle, auth, menu / full-width search. Nav opens as a scrollable row below.
+- **≥1260px:** one row — logo + wordmark, nav, search (shrinks 400px → 140px), theme toggle, auth.
+- **1101–1259px:** one row, wordmark hidden, tighter spacing.
+- **≤1100px (compact):** two rows — logo, theme toggle, auth, menu / full-width search. Nav opens as a scrollable row below. Top row stays on one line down to 320px.
 
 **Verify every header change** with `scripts/header-check.js` at 1890, 1440, 1280, 1100, 1024, 900, 800, 769, 414, 375, 360 and 320px, signed out (Login + Sign Up is the widest top row). All must print `PASS`; at ≤480px the top row must stay on one line.
 
