@@ -1,8 +1,8 @@
 # LEAF LIGHTLY: BRAIN AND CLONING DOCUMENT
 ## Master Project DNA & New Project Bootstrap Guide
 
-**Version:** 1.3  
-**Last Updated:** 2026-10-14 (v1.3: layout (no 100vw, 320px phones), production resilience, growth features; v1.2: media performance, shipping, email/newsletter and placeholder standards; v1.1: asset & header guardrails, root scale)  
+**Version:** 1.4  
+**Last Updated:** 2026-10-14 (v1.4: measured breakpoints, testing, dependencies, capacity; v1.3: layout (no 100vw, 320px phones), production resilience, growth features; v1.2: media performance, shipping, email/newsletter and placeholder standards; v1.1: asset & header guardrails, root scale)  
 **Purpose:** Preserve and replicate Leaf Lightly's design standards, processes, and premium positioning across new projects  
 **For:** New designers, new projects, post-rollout quality gates, architecture decisions
 
@@ -747,6 +747,23 @@ These files belong in version control:
 - Optional infrastructure (rate limiter, cache, analytics) must fail open with a warning — never take a core feature down.
 - Libraries that need a browser DOM on the server (e.g. `isomorphic-dompurify` → `jsdom`) can crash serverless functions at load; keep them out of shared modules used by public routes.
 - Never log or return raw database errors: they contain the query and its parameters (emails, password hashes). Log only the error type and code.
+
+**Responsive breakpoints (learned 2026-10-14)**
+- Choose breakpoints by measuring where the content actually fits, not by device labels. Find the widest state (signed out), step the width down until it wraps, and set the breakpoint there (here: compact ≤1100px, wordmark hidden ≤1259px).
+- When several files share a breakpoint, list every file in the locked rules and change them together (header, search, mega-menu, check script).
+
+**Testing (learned 2026-10-14)**
+- A test file that never runs is worse than none: it looks like coverage. Install the runner (`vitest`) and make `npm test` a required step before every push.
+- Tests can be wrong: before "fixing" code to match a failing test, check the test's expectation is still correct (e.g. a weekly email cap means not everyone is sent).
+- Test against real config files (`vercel.json`) rather than hard-coded copies.
+- Security-critical helpers (signed links, cron auth, sanitising, error redaction) each need tests that prove the attack fails, not just that the happy path works.
+
+**Dependencies**
+- On the server, prefer pure-JS libraries over ones that emulate a browser (`sanitize-html`, not `isomorphic-dompurify`/`jsdom`).
+- Respect peer dependencies instead of forcing installs; pick the compatible major version (e.g. Vitest 3 with `@types/node` 20).
+
+**Capacity**
+- Know your sending limits (Resend free: 100/day → 700/week). Report overflow and warn at ~90% rather than silently dropping recipients.
 
 **Growth features**
 - Shareable links should carry only what's needed (e.g. product ids), never account data; mark shared pages `noindex`; give visitors a next step (browse, start their own list).

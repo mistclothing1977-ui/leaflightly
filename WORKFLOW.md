@@ -98,13 +98,25 @@
 - The local dev server and local builds use the **same Neon database as production**. Test with clearly-labelled accounts (e.g. `claude-e2e-test+…@example.com`) and delete them afterwards.
 - If the dev server serves stale server code after a production build, test on `npx next start -p 3005` instead of restarting the owner's dev server.
 
+## Header Breakpoints (locked — see `CLAUDE.md`)
+
+- Compact (menu button, full-width search): ≤1100px. Narrow desktop (no wordmark): 1101–1259px. Full desktop: ≥1260px.
+- The 1100px value lives in `Header.module.css`, `SearchBar.module.css`, `NavWithMegaMenu.module.css` and `scripts/header-check.js` — change all four together, then run the header check at every width listed in `CLAUDE.md`.
+
+## Tests & Dependencies
+
+- `npm test` runs Vitest (`vitest.config.ts`, `tests/*.test.ts`): newsletter batching/cron config and security helpers. 30 tests; all must pass before pushing.
+- Vitest is pinned to v3 (v5 needs `@types/node` ≥22; the project uses 20). Don't force-install over peer conflicts.
+- HTML sanitising uses `sanitize-html` (`src/lib/validate.ts`). Never reintroduce `isomorphic-dompurify`/`jsdom` — they crash Vercel functions.
+- Admin product API (`/api/admin/products*`) requires a Supabase bearer token; unauthenticated calls return 401.
+
 ## Accounts, Wishlist & Sharing
 
 - Sign-in: email/password (NextAuth credentials) against the `users` table; Google/GitHub need their keys in Vercel first.
 - Wishlist: heart button → `/api/wishlist/*` → `wishlist_items`. The Wishlist page loads from the API (not localStorage).
 - Share: "Share wishlist" button → `/wishlist/shared?items=<product ids>` (native share sheet on mobile, copy link on desktop). The link holds only product ids; the page is `noindex` and ends with Browse / Start Your Wishlist CTAs.
 - Never log or return raw DB errors — use `DbError` (`src/lib/users.ts`) / `safeError()` (`src/lib/safe-error.ts`).
-- Public routes must not import `src/lib/validate.ts` (pulls in `isomorphic-dompurify` → `jsdom`, which crashes on Vercel); use `src/lib/validate-email.ts`.
+- Public routes use `src/lib/validate-email.ts` for email checks (keeps the HTML sanitiser out of their bundle).
 - Rate limiter (`src/lib/rateLimit.ts`) fails open if Upstash is unreachable.
 
 ## Newsletter
