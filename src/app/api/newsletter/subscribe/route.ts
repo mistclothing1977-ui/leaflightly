@@ -3,7 +3,7 @@ import { z } from "zod";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db/client";
 import { newsletter_signups } from "@/lib/db/schema";
-import { emailSchema } from "@/lib/validate";
+import { emailSchema } from "@/lib/validate-email";
 import { newsletterSignupRateLimit } from "@/lib/rateLimit";
 import { successResponse, errorResponse } from "@/lib/api/handler";
 import { withCORS, withSecurityHeaders } from "@/lib/api/middleware";

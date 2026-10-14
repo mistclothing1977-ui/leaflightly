@@ -60,22 +60,8 @@ export const productInputSchema = z.object({
 
 export type ProductInput = z.infer<typeof productInputSchema>;
 
-// ============================================
-// EMAIL SCHEMA
-// ============================================
-export const emailSchema = z.object({
-  email: z
-    .string()
-    .email("Invalid email address")
-    .toLowerCase()
-    .refine(
-      (email) => !isDisposableEmail(email),
-      "Disposable email addresses are not allowed"
-    ),
-  source: z.string().optional(),
-});
-
-export type EmailInput = z.infer<typeof emailSchema>;
+// Email schema lives in validate-email.ts (no DOMPurify/jsdom dependency).
+export { emailSchema, type EmailInput } from "./validate-email";
 
 // ============================================
 // BLOG POST SCHEMA
@@ -127,23 +113,6 @@ export function sanitizeHtml(html: string): string {
     ALLOWED_ATTR: ["href", "target", "rel"],
     KEEP_CONTENT: true,
   });
-}
-
-// ============================================
-// DISPOSABLE EMAIL CHECK
-// ============================================
-function isDisposableEmail(email: string): boolean {
-  const domain = email.split("@")[1]?.toLowerCase();
-  const disposableDomains = [
-    "tempmail.com",
-    "10minutemail.com",
-    "guerrillamail.com",
-    "mailinator.com",
-    "temp-mail.org",
-    "throwaway.email",
-    "yopmail.com",
-  ];
-  return disposableDomains.includes(domain);
 }
 
 // ============================================
