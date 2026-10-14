@@ -22,12 +22,17 @@ export async function sendConfirmationEmail(email: string): Promise<void> {
 
   try {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: process.env.EMAIL_FROM || "noreply@leaflightly.com",
       to: email,
       subject: "Confirm Your Leaf Lightly Newsletter Subscription",
       html,
     });
+    if (result.error) {
+      console.error("Resend rejected confirmation email:", result.error.name, result.error.message);
+    } else {
+      console.log("Confirmation email queued:", result.data?.id);
+    }
   } catch (err) {
     console.error("Failed to send confirmation email:", err);
     // Don't throw - let the signup complete even if email fails
