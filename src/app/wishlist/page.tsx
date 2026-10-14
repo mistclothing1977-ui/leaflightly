@@ -123,12 +123,6 @@ export default function WishlistPage() {
             <h2 className={styles.sectionTitle}>Tips for Your Wishlist</h2>
             <div className={styles.tips}>
               <div className={styles.tip}>
-                <p className={styles.tipTitle}>Track Price Drops</p>
-                <p className={styles.tipDesc}>
-                  We&apos;ll notify you when items in your wishlist go on sale.
-                </p>
-              </div>
-              <div className={styles.tip}>
                 <p className={styles.tipTitle}>Share Your Picks</p>
                 <p className={styles.tipDesc}>Share your wishlist with friends and family.</p>
               </div>
