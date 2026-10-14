@@ -84,7 +84,13 @@
 - Secret-type values can't be read back (`vercel env pull` shows `[encrypted]`) — verify behaviour instead.
 - New values only apply after a redeploy: `npx vercel redeploy <latest-prod-url> --target production`.
 - Required in production: `DATABASE_URL`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, `CRON_SECRET`, `NEWSLETTER_TOKEN_SECRET`, `NEXT_PUBLIC_BASE_URL`, `RESEND_API_KEY`, `EMAIL_FROM`. Missing `NEXTAUTH_SECRET` made every auth route 500.
-- `NEXTAUTH_URL` and `NEXT_PUBLIC_BASE_URL` = `https://leaflightly.vercel.app` until `leaflightly.com` DNS is live; then switch both and redeploy.
+- `NEXTAUTH_URL` and `NEXT_PUBLIC_BASE_URL` = `https://leaflightly.com` (live since 2026-10-14).
+
+## Domains
+
+- Primary: `https://leaflightly.com`. `www.leaflightly.com`, `leaflightly.co.uk`, `www.leaflightly.co.uk` 308-redirect to it (Vercel project domain settings).
+- DNS is at Cloudflare (both zones): apex and `www` are CNAME → `cname.vercel-dns.com`, **DNS only** (grey cloud). Never proxy them, never point at a `*.vercel-dns.app` host (that broke both domains). Leave MX/TXT email records alone.
+- Vercel domain changes can be made with the API using the CLI token (`%APPDATA%\com.vercel.cli\Data\auth.json`): `PATCH /v9/projects/<projectId>/domains/<domain>?teamId=<orgId>` with `{redirect, redirectStatusCode}`.
 - `vercel link` appends `VERCEL_OIDC_TOKEN` to `.env.local` (harmless).
 
 ## Database
