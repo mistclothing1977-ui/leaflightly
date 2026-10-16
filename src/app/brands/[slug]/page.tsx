@@ -45,14 +45,6 @@ export default async function BrandPage({ params }: BrandPageProps) {
         <p className={styles.trust}>
           <strong>Our check:</strong> {brand.trustNote}
         </p>
-        {brand.website && (
-          <p className={styles.site}>
-            Brand website:{' '}
-            <a href={brand.website} target="_blank" rel="noopener noreferrer">
-              {brand.website.replace(/^https?:\/\//, '').replace(/\/$/, '')}
-            </a>
-          </p>
-        )}
       </section>
 
       <section className={styles.products}>

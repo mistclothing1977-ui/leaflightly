@@ -231,3 +231,6 @@ Stored in `awin_programme_status` (data/db/catalogue.sql). Only Truthbrush is jo
 
 #### Tiny toothbrush colours (checked 2026-10-16)
 Read from Truthbrush's own product page (non-affiliate): Cloud White, Sunshine Yellow, Periwinkle Purple, Meadow Green. Feed labels were aligned to these. The year's-supply bundle without a colour is labelled Multi-colour, matching the store's year's-supply listing.
+
+### Brand websites are not linked (rule, 2026-10-16)
+Do not link to a brand's own website from our pages. A plain link is untracked, so a sale made through it earns no commission. Link only through Awin tracked links (product links from the feed). The brand record may keep the website for reference, but the site does not display it.
