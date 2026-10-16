@@ -547,7 +547,7 @@ export const products: Product[] = [
   },
   {
     id: 'bamboo-toothbrush-set',
-    featured: true,
+    featured: false,
     story: 'Biodegradable handle with nylon bristles for zero waste',
     brand: 'Humble Brush',
     name: 'Bamboo Toothbrush Set (12-Pack)',
