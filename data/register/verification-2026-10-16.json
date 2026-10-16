@@ -1,0 +1,12 @@
+{
+  "checked": "2026-10-16",
+  "method": "One company at a time on the public register page. Only our own findings recorded.",
+  "results": [
+    {"brand": "Ruadh", "register": "B Corp", "result": "confirmed (company level)", "detail": "Certified since Sep 2025; score 93.9; operates in UK", "link": "https://www.bcorporation.net/en-us/find-a-b-corp/company/ruadh/", "checked": "2026-10-16"},
+    {"brand": "Otrium", "register": "B Corp", "result": "confirmed (company level)", "detail": "Certified since Nov 2024; score 91.6; operates in UK", "link": "https://www.bcorporation.net/en-us/find-a-b-corp/company/otrium/", "checked": "2026-10-16"},
+    {"brand": "Grace & Stella", "register": "Leaping Bunny", "result": "not checked", "detail": "Brand FAQ says Leaping Bunny certified. Directory returned an error page from this browser.", "link": "https://www.graceandstella.com/pages/faq", "checked": "2026-10-16"},
+    {"brand": "VIOLETTE_FR", "register": "B Corp", "result": "not found yet", "detail": "Company profile not located by name. Needs a directory search.", "link": null, "checked": "2026-10-16"},
+    {"brand": "OneBioShop", "register": "B Corp", "result": "not found yet", "detail": "Company profile not located by name. Needs a directory search.", "link": null, "checked": "2026-10-16"},
+    {"brand": "Misciano Paris", "register": "B Corp", "result": "not found yet", "detail": "Company profile not located by name. Needs a directory search.", "link": null, "checked": "2026-10-16"}
+  ]
+}
