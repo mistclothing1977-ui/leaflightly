@@ -27,7 +27,7 @@ export default function BuyNowButton({ retailers }: BuyNowButtonProps) {
         rel="noopener noreferrer"
         className={styles.singleButton}
       >
-        <span aria-hidden="true">{retailer.icon}</span> Buy on {retailer.retailer} <span>(leaves Leaf Lightly)</span>
+        <span aria-hidden="true">{retailer.icon}</span> Buy on {retailer.retailer} <span className={styles.leaves}>(leaves Leaf Lightly)</span>
         {retailer.coupon && <span className={styles.coupon}>Code: {retailer.coupon}</span>}
       </a>
     );
