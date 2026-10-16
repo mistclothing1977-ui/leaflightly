@@ -92,3 +92,14 @@ Method: checked the plan's stated facts against Etsy's own pages where possible,
 - Etsy Fees and Payments Policy (UK): https://www.etsy.com/uk/legal/fees/
 - Etsy Fee Basics (UK help): https://help.etsy.com/hc/en-gb/articles/360035902374-Etsy-Fee-Basics?segment=selling
 - UK CMA Green Claims Code (cited in the plan): not re-checked in this pass.
+
+## Owner decision (16 Oct 2026): five products per category at launch
+
+Decision: launch with at least five products in each category, then test and review. This overrides the earlier three-product recommendation.
+
+Guardrails that come with it:
+- Each of the five products in a category must have its own buyer task and its own completed example. Do not split one product into five near-identical files.
+- Each product passes the five-person user test before listing. A product that fails is fixed or dropped, not published.
+- Build shared components once (cover, instructions, inventory table, checklist, licence page) and reuse them across products.
+- Set the review point now: after 30 days, weekly data decides which products to improve, merge or retire.
+- Support load is tracked per product from the first sale.
