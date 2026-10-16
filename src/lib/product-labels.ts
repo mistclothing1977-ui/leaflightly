@@ -8,6 +8,8 @@ export const certificationLabels: Record<string, string> = {
   'fair-trade': 'Fair Trade',
   'carbon-neutral': 'Carbon Neutral',
   'vegan': 'Vegan',
+  'cosmos': 'COSMOS',
+  'leaping-bunny': 'Leaping Bunny',
 };
 
 export const tierLabels: Record<string, string> = {

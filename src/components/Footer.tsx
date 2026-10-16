@@ -6,10 +6,10 @@ import styles from './Footer.module.css';
 
 export default function Footer() {
   const socialLinks = [
-    { name: 'Facebook', icon: siFacebook, url: 'https://facebook.com/leaflightly' },
-    { name: 'Instagram', icon: siInstagram, url: 'https://instagram.com/leaflightly' },
-    { name: 'Pinterest', icon: siPinterest, url: 'https://pinterest.com/leaflightly' },
-    { name: 'TikTok', icon: siTiktok, url: 'https://tiktok.com/@leaflightly' },
+    { name: 'Facebook', icon: siFacebook, url: 'https://www.facebook.com/Leaflightly.co.uk/' },
+    { name: 'Instagram', icon: siInstagram, url: 'https://www.instagram.com/leaflightly/' },
+    { name: 'Pinterest', icon: siPinterest, url: 'https://uk.pinterest.com/Leaflightly/' },
+    { name: 'TikTok', icon: siTiktok, url: 'https://www.tiktok.com/@leaflightly' },
   ];
 
   return (

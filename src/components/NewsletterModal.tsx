@@ -153,7 +153,7 @@ export default function NewsletterModal() {
 
             <p className={styles.finePrint}>
               We respect your privacy. Unsubscribe anytime.{' '}
-              <a href="/privacy" className={styles.link}>
+              <a href="/privacy-policy" className={styles.link}>
                 See our privacy policy.
               </a>
             </p>

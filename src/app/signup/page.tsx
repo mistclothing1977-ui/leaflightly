@@ -33,12 +33,6 @@ export default async function SignupPage() {
               <span>🔍</span> Sign up with Google
             </button>
           </form>
-
-          <form action="/api/auth/signin/github" method="POST">
-            <button type="submit" className={styles.githubButton}>
-              <span>🐙</span> Sign up with GitHub
-            </button>
-          </form>
         </div>
 
         <p className={styles.login}>

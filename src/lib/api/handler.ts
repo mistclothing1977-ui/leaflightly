@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ZodError, z } from "zod";
-import { verifySupabaseToken } from "@/lib/auth";
 
 export type ApiHandler<T = void> = (
   req: NextRequest,
@@ -22,31 +21,6 @@ export class ApiError extends Error {
   ) {
     super(message);
   }
-}
-
-export async function withAuth(
-  req: NextRequest,
-  handler: (req: NextRequest, userId: string) => Promise<NextResponse>
-) {
-  const authHeader = req.headers.get("authorization");
-  if (!authHeader?.startsWith("Bearer ")) {
-    return NextResponse.json<ApiResponse>(
-      { success: false, error: "Missing authorization header", code: "UNAUTHORIZED" },
-      { status: 401 }
-    );
-  }
-
-  const token = authHeader.slice(7);
-  const payload = await verifySupabaseToken(token);
-
-  if (!payload?.sub) {
-    return NextResponse.json<ApiResponse>(
-      { success: false, error: "Invalid token", code: "UNAUTHORIZED" },
-      { status: 401 }
-    );
-  }
-
-  return handler(req, payload.sub as string);
 }
 
 export async function withValidation<T>(

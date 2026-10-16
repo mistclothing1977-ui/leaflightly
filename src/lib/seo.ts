@@ -145,8 +145,8 @@ export function generateOrganizationSchema() {
       'An editorial discovery platform for sustainable, thoughtfully-made products across kitchen, fashion, home, beauty, and wellness.',
     sameAs: [
       'https://twitter.com/leaflightly',
-      'https://instagram.com/leaflightly',
-      'https://facebook.com/leaflightly',
+      'https://www.instagram.com/leaflightly/',
+      'https://www.facebook.com/Leaflightly.co.uk/',
     ],
     address: {
       '@type': 'PostalAddress',

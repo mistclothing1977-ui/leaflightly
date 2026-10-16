@@ -5,5 +5,4 @@ export default {
   dbCredentials: {
     url: process.env.DATABASE_URL!,
   },
-  tablesFilter: ["public.*"],
 };

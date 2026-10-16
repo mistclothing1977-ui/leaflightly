@@ -4,7 +4,7 @@ import { hash } from 'bcryptjs';
 import { db } from '@/lib/db/client';
 import { users } from '@/lib/db/schema';
 
-export type AuthProvider = 'credentials' | 'google' | 'github';
+export type AuthProvider = 'credentials' | 'google';
 
 export const normalizeEmail = (email: string) => email.trim().toLowerCase();
 

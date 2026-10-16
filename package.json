@@ -10,7 +10,10 @@
     "test": "vitest run",
     "db:generate": "dotenv -e .env.local -- drizzle-kit generate",
     "db:push": "dotenv -e .env.local -- drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "intake:checklist": "node scripts/intake/checklist.mjs",
+    "intake:validate": "node scripts/intake/validate.mjs",
+    "intake:export": "node scripts/intake/export.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.43.4",
