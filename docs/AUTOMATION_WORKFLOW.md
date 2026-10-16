@@ -238,3 +238,6 @@ Do not link to a brand's own website from our pages. A plain link is untracked, 
 ### Brand claims vs verified certifications (rule, 2026-10-16)
 - **Verified certifications** (we have checked a register or certificate) are listed as badges. Only these count as ours.
 - **Brand claims** (for example "B Corp certified" or "carbon neutral" stated in a listing) are shown as the brand's own statement, under "The brand states", with a line saying we haven't verified them. We do not present them as our check, and the brand carries responsibility for its own claims.
+
+### Site-wide and homepage changes (rule, 2026-10-16)
+Every site-wide or homepage change must also check the header navigation, including the Brands link (points to the Shop by brand section on /products). Run the header check (scripts/header-check.js) at all listed widths before reporting the header as done.

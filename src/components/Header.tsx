@@ -64,6 +64,7 @@ export default function Header() {
           category="wellness"
           onClick={() => setMobileMenuOpen(false)}
         />
+        <Link href="/products#shop-by-brand" className={styles.navLink} onClick={() => setMobileMenuOpen(false)}>Brands</Link>
         <Link href="/wishlist" className={styles.navLink} onClick={() => setMobileMenuOpen(false)}>Wishlist</Link>
       </nav>
 

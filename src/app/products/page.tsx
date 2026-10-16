@@ -32,7 +32,7 @@ export default async function AllProductsPage() {
       </section>
 
       {brands.length > 0 && (
-        <section className={styles.gridSection}>
+        <section id="shop-by-brand" className={styles.gridSection}>
           <h2>Shop by brand</h2>
           <p>Brands we trust. Each page explains what we checked and lists their products.</p>
           <div className={styles.brandGrid}>
