@@ -1,7 +1,7 @@
 # 📋 Master Replication Blueprint: Affiliate Site Build
 ## Leaf Lightly — Production-Ready Sustainable Product Discovery Platform
 
-**Document Version:** 1.2  
+**Document Version:** 1.3  
 **Last Updated:** 2026-10-14  
 **Status:** PRODUCTION BUILD COMPLETE — see §7.4 for next steps  
 **Build Hash:** 0b8df35 (main branch)
@@ -1268,8 +1268,8 @@ Always read `git diff` before committing a scripted rewrite.
 **Resolution:** owner chose Neon. Vercel production `DATABASE_URL` now = the Neon pooled host (`ep-lively-boat-zao7mx12-pooler…neon.tech`); redeployed. Live end-to-end test passed: signup 200, duplicate 409, login, wishlist add/get, newsletter subscribe 201 / bad email 400. Test rows deleted. Supabase settings (`NEXT_PUBLIC_SUPABASE_*`, `SUPABASE_*`) remain in Vercel but no longer back the site's data; the admin product API still uses Supabase auth tokens.
 
 **Two more production-only failures found by the live test (both fixed):**
-- `src/lib/validate.ts` imports `isomorphic-dompurify` → `jsdom` → `ERR_REQUIRE_ESM` on Vercel at module load, so `/api/newsletter/subscribe` returned 500 for every request. Email schema moved to `src/lib/validate-email.ts`. **The admin product routes still import `validate.ts` and will crash the same way** if used — replace `isomorphic-dompurify` (e.g. `sanitize-html`) before using them.
-- Vercel `UPSTASH_REDIS_REST_URL` doesn't resolve (deleted Upstash DB?), so the rate limiter threw before validation. `src/lib/rateLimit.ts` now fails open with a warning. **Owner:** create a new Upstash Redis DB and update `UPSTASH_REDIS_REST_URL`/`TOKEN`, or delete both vars (limiter then runs in mock mode).
+- `src/lib/validate.ts` imports `isomorphic-dompurify` → `jsdom` → `ERR_REQUIRE_ESM` on Vercel at module load, so `/api/newsletter/subscribe` returned 500 for every request. Email schema moved to `src/lib/validate-email.ts`. **Resolved 2026-10-14:** `validate.ts` now uses `sanitize-html`, so the admin product routes no longer hit the jsdom crash. (Verified by reading the code; not yet exercised live.)
+- Vercel `UPSTASH_REDIS_REST_URL` doesn't resolve (deleted Upstash DB?), so the rate limiter threw before validation. `src/lib/rateLimit.ts` now fails open with a warning. **Owner:** create a new Upstash Redis DB and update `UPSTASH_REDIS_REST_URL`/`TOKEN`, or delete both vars (limiter then runs in mock mode). **Verified 2026-10-14:** Upstash database `leaflightly-ratelimit` (endpoint `primary-yeti-170679.upstash.io`). Production returns 429 on the sixth sign-up attempt from one IP (limit 5/hour). Earlier failures: a mis-stored URL (`ENOTFOUND`), then a wrong token (`WRONGPASS`). The token was reset after being shown in chat.
 
 **Original finding:**
 
@@ -1524,6 +1524,7 @@ If something breaks, revert with: `git revert <commit-hash>`
 
 | Version | Date | Change | Author | Status |
 |---------|------|--------|--------|--------|
+| 1.3 | 2026-10-14 | Upstash rate limiting verified (429 on 6th sign-up); admin auth moved from Supabase JWT to NextAuth session + `admin_users`; Supabase env vars removed; home-page newsletter form wired to the subscribe API and restyled; footer social links set (Facebook, Instagram, Pinterest, TikTok); Email Routing for `hello@` confirmed; LM-018 to LM-024; session log §11 | AI Agent + Owner | PRODUCTION |
 | 1.0 | 2026-10-13 | Initial MRB created | AI Agent (Lead Architect) | PRODUCTION |
 | 1.2 | 2026-10-14 | Videos re-encoded + lazy-loaded; social icons; product-image groundwork; favicon; docs archived; newsletter rebuilt (LM-015); process landmines (LM-016); home page locked | AI Agent + Owner | PRODUCTION |
 | 1.1 | 2026-10-13 | Logo background keyed out (`logo-mark.png` only); header locked via `CLAUDE.md` + `scripts/header-check.js`; root font 87.5%; LM-008–LM-014, L-006–L-011; next steps (§7.4) | AI Agent + Owner | PRODUCTION |
@@ -1603,23 +1604,39 @@ git push origin main
 **Set in Vercel Dashboard → Settings → Environment Variables:**
 
 ```env
+# Site
+NEXT_PUBLIC_BASE_URL=https://leaflightly.com
+
 # NextAuth
 NEXTAUTH_URL=https://leaflightly.com
-NEXTAUTH_SECRET=<unique-per-deployment>
+NEXTAUTH_SECRET=<secret>
 
-# OAuth
-GOOGLE_CLIENT_ID=<production-value>
-GOOGLE_CLIENT_SECRET=<production-value>
-GITHUB_ID=<production-value>
-GITHUB_SECRET=<production-value>
+# OAuth (optional; Google/GitHub buttons stay hidden until set)
+GOOGLE_CLIENT_ID=<optional>
+GOOGLE_CLIENT_SECRET=<optional>
+GITHUB_ID=<optional>
+GITHUB_SECRET=<optional>
 
-# Email
-RESEND_API_KEY=<production-key>
+# Database (Neon, pooled)
+DATABASE_URL=<neon-pooled-url>
 
-# Rate Limiting (optional)
-UPSTASH_REDIS_REST_URL=<if-enabled>
-UPSTASH_REDIS_REST_TOKEN=<if-enabled>
+# Email (Resend, leaflightly.com domain verified)
+RESEND_API_KEY=<sending-key>
+EMAIL_FROM=Leaf Lightly <newsletter@leaflightly.com>
+
+# Newsletter / cron
+NEWSLETTER_TOKEN_SECRET=<random-32-byte-hex>
+CRON_SECRET=<random>
+
+# Rate limiting (Upstash, database leaflightly-ratelimit, eu-west-1)
+UPSTASH_REDIS_REST_URL=https://primary-yeti-170679.upstash.io
+UPSTASH_REDIS_REST_TOKEN=<secret>
+
+# Removed 2026-10-14: all NEXT_PUBLIC_SUPABASE_* and SUPABASE_* variables
+# (admin auth now uses the NextAuth session + admin_users table).
 ```
+
+**Rules:** never put a secret, token or password into chat or a file. Set secrets in Vercel only. After changing any variable, redeploy; Vercel does not apply it to existing deployments.
 
 ### 7.3 Data Persistence Roadmap
 
@@ -1661,6 +1678,20 @@ In priority order. Items touching the header need owner approval and a passing `
    - (c-done) ✅ 2026-10-14 **Domain live.** Both Cloudflare zones had an apex CNAME to `83f7fbde18e865ce.vercel-dns.app` — a host that doesn't exist — so neither domain resolved. Fixed in Cloudflare: apex + `www` CNAME → `cname.vercel-dns.com`, **DNS only**, for `leaflightly.com` and `leaflightly.co.uk` (MX/TXT email records untouched). Vercel (API): `leaflightly.com` primary; `www.leaflightly.com`, `leaflightly.co.uk`, `www.leaflightly.co.uk` → 308 to `leaflightly.com`. `NEXTAUTH_URL` and `NEXT_PUBLIC_BASE_URL` = `https://leaflightly.com`; redeployed; live signup/login/wishlist/newsletter/share verified on the domain. Local test tip: if your own network still caches "not found", test with `curl --resolve leaflightly.com:443:76.76.21.142`.
    - (c) ⏳ **Owner:** Resend domain verification for `leaflightly.com` is still needed before confirmation emails send. (Previously: `leaflightly.com` had no working DNS.) Point the domain at Vercel and add Resend's DNS records (SPF/DKIM), then change `NEXT_PUBLIC_BASE_URL` to `https://leaflightly.com` and redeploy. Until then confirmation emails from `@leaflightly.com` will not send.
    - ✅ 2026-10-14: Vercel production was missing `NEXTAUTH_SECRET`/`NEXTAUTH_URL`, so `/login`, `/api/auth/*` all returned 500. Set both (random secret; URL `https://leaflightly.vercel.app`) and redeployed; all now 200. Only the email/password provider is active in production — Google/GitHub sign-in needs `GOOGLE_CLIENT_ID/SECRET`, `GITHUB_ID/SECRET` added to Vercel. Accounts are still in-memory (item 8), so they reset on every deploy. When `leaflightly.com` goes live, update `NEXTAUTH_URL` too.
+
+**Status as of 2026-10-14 (v1.3) — supersedes the list above where they differ:**
+
+- ✅ Upstash rate limiting verified live: 6th sign-up from one IP returns 429 (§11).
+- ✅ Admin API uses the NextAuth session + `admin_users` (owner row added). Verified: signed-out → 401; signed-in admin → 200. Supabase variables removed.
+- ✅ Home-page newsletter form now calls `/api/newsletter/subscribe` (it previously showed "Welcome!" without saving anyone).
+- ✅ Footer social links live: Facebook `facebook.com/Leaflightly.co.uk`, Instagram `instagram.com/leaflightly`, Pinterest `uk.pinterest.com/Leaflightly`, TikTok `tiktok.com/@leaflightly`. Also in `src/lib/seo.ts` structured data.
+- ✅ `hello@leaflightly.com` receives mail via Cloudflare Email Routing (owner confirmed).
+- ⏳ **Owner:** affiliate image URLs for the 31 products (`imageUrl` in `src/data/products.ts`).
+- ⏳ **Owner:** Google/GitHub sign-in secrets, if wanted.
+- ⏳ **Pinterest API:** app submitted, awaiting Meta/Pinterest review. Facebook/Instagram Graph API app under review.
+- ⏳ **Social agent (not started):** draft-and-approve queue; nothing publishes without owner approval.
+- ⏳ **Known gap:** `src/lib/storage.ts` still imports Supabase but nothing imports it. Delete it when the product-image upload route is built, or now if preferred.
+- ⏳ **Known gap:** `drizzle.config.ts` `tablesFilter` trap still present (do not use `db:push`).
 
 ---
 
@@ -1759,6 +1790,111 @@ npm install             # Reinstall dependencies
 
 ---
 
-**End of Master Replication Blueprint v1.0**  
-*Last Updated: 2026-10-13*  
-*Status: PRODUCTION BUILD READY*
+---
+
+## 11. Session Log: 2026-10-14
+
+Chronological record of what was done, what failed and how it was fixed. Each entry notes the verification.
+
+### 11.1 Rate limiting (Upstash) — completed
+
+1. Code: `src/lib/rateLimit.ts` wraps `@upstash/ratelimit` (sliding window) and fails open on errors. Signup limit: 5 per IP per hour; admin product create 10/h; admin update 20/h; image upload 20/day.
+2. First attempt: `UPSTASH_REDIS_REST_URL` stored wrong → logs `ENOTFOUND`. Owner re-entered the URL.
+3. Second: token wrong → logs `WRONGPASS invalid or missing auth token`. Owner created a new database `leaflightly-ratelimit` (eu-west-1) and the token was reset after the full token appeared in a screenshot in chat.
+4. Verified: six invalid sign-ups from one IP → five 400s, sixth **429** "Too many signup attempts". Upstash console shows reads/writes.
+5. Note: a failing-open limiter gives no visible error to users; only Vercel logs show it. Check logs after any env change.
+
+### 11.2 Admin authentication — moved off Supabase
+
+1. Before: `src/lib/api/middleware.ts` `withAuth` verified a Supabase JWT (`SUPABASE_JWT_SECRET`), a second auth system alongside NextAuth.
+2. After: `withAuth` calls NextAuth `auth()` and requires an active row in `admin_users` (matched on `user_id`). Signed out → 401 "Please sign in"; signed in but not admin → 403.
+3. Removed: `src/lib/auth.ts` (`verifySupabaseToken`) and an unused `withAuth` in `src/lib/api/handler.ts`.
+4. Owner account had no `users` row (only a newsletter sign-up), so owner signed up on the site first, then `admin_users` was populated from `users` by email.
+5. Verified live: no session → 401; old-style Bearer token → 401; signed-in owner → 200 on `GET /api/admin/products` (tested in browser console).
+6. Vercel: Supabase variables removed from Production by owner (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_JWT_SECRET`, `SUPABASE_SERVICE_ROLE_KEY`).
+7. Not done: `src/lib/storage.ts` (Supabase Storage) still exists but is imported nowhere.
+
+### 11.3 Home-page newsletter form — fixed
+
+1. Bug: `NewsletterSection.tsx` showed "✓ Welcome!" and cleared the field without calling any API. No subscriber was saved and no confirmation email was sent.
+2. Fix: POSTs `{ email, source: 'homepage' }` to `/api/newsletter/subscribe`. Shows the result under the button: "Check your inbox to confirm your subscription." (201), "You're already subscribed. Thanks!" (`ALREADY_SUBSCRIBED`), validation and rate-limit messages, and a generic error.
+3. Restyled (owner request, not a rebuild): serif heading in normal case at 2.2rem (1.6rem on mobile), lighter body text, less padding; input and button unchanged.
+4. Home page is locked in `CLAUDE.md`; this change was made on explicit owner instruction.
+5. Verified: production bundle contains the new text and the API returns 400 for an invalid address; owner confirmed both messages.
+6. Test data: the two `example.com` pending rows from 12 Oct were deleted. Only the owner's active address remains.
+
+### 11.4 Social links — completed
+
+- Footer (`src/components/Footer.tsx`) and structured data (`src/lib/seo.ts`) now use: Facebook `https://www.facebook.com/Leaflightly.co.uk/`, Instagram `https://www.instagram.com/leaflightly/`, Pinterest `https://uk.pinterest.com/Leaflightly/`, TikTok `https://www.tiktok.com/@leaflightly`.
+- Verified live: footer `href`s updated; old `facebook.com/leaflightly` removed.
+
+### 11.5 Email — hello@ inbound
+
+- `hello@leaflightly.com` did not receive mail. Resend only sends. Inbound is Cloudflare Email Routing on the `leaflightly.com` zone (already enabled).
+- Cloudflare showed 15 messages received and 15 forwarded in 7 days, so routing worked and the destination was the problem. The owner checked the destination address and reported mail arriving; the exact change was not recorded.
+
+### 11.6 Social media agent — planning only
+
+- No agent exists. Owner decided: create official developer apps (Meta for Facebook/Instagram, Pinterest, TikTok), set secrets in Vercel only, build a draft queue with owner approval before publishing.
+- Pinterest app submitted (access level "Yes, mine" for reading own boards). Meta app under review.
+- Owner declined to store social login credentials in memory. Correct approach: official OAuth/API tokens in Vercel env.
+
+### 11.7 Deploys and tooling
+
+- Production deploys this session: multiple, after each env change. Last deploy for footer/SEO links confirmed live.
+- The local Vercel CLI runs out of memory on this machine unless `NODE_OPTIONS=--max-old-space-size=6144` is set. `vercel env ls` crashes even with it; use the Vercel dashboard for env work.
+
+### 11.8 Verification status
+
+| Check | Result |
+|-------|--------|
+| `npx tsc --noEmit` | 0 errors (last run after newsletter fix) |
+| `npm test` | 30/30 pass |
+| Rate limit (Upstash) | 429 on 6th attempt |
+| Admin API, no session | 401 |
+| Admin API, owner session | 200 |
+| Newsletter form → API | 201/400 paths confirmed; owner confirmed UI messages |
+| Footer social links | Live hrefs match |
+| Header check (`scripts/header-check.js`) | Not re-run this session (no header files changed) |
+| Live smoke test (pages) | `/`, `/wishlist`, `/login`, `/signup`, `/about`, `/contact`, `/how-it-works`, `/affiliate-disclosure`, `/privacy-policy`, `/compare`, `/search`, `/sitemap.xml`, `/robots.txt` all 200; unknown route 404 |
+| Live smoke test (products) | All 31 `/products/[id]` pages 200; category pages `kitchen`, `fashion`, `lifestyle`, `beauty`, `wellness` 200; `/products/home-goods` 307 (intended redirect) |
+| Live smoke test (APIs) | Wishlist get/add without session 401; signup empty body 400; subscribe invalid email 400; confirm with bad token → 303 `/newsletter/invalid`; unsubscribe bad token 400; cron schedule/send without secret 401; admin without session 401 |
+| Broken link found and fixed | `/privacy` → `/privacy-policy` in `NewsletterSection.tsx` and `NewsletterModal.tsx` (deployed) |
+| Broken link open | `/products` (no index page) is linked from the home page (`page.tsx` CTA, locked), `FeaturedProducts.tsx`, `TierSystemRedesigned.tsx`, and `/newsletter/subscribed`. Needs an index page or a redirect; owner decision |
+
+### 11.9 New landmines
+
+**LM-018: Stale env value looks correct in the UI.** Vercel masks secret values, so a typo or a token from the wrong database is invisible. Symptoms: `ENOTFOUND` (wrong URL) or `WRONGPASS` (wrong token) in the function logs, while the site still works. **Fix:** check Vercel logs after every env change; never rely on the dashboard showing a value.
+
+**LM-019: Secrets shown in screenshots or chat.** An Upstash token was shown in a screenshot. **Fix:** rotate immediately (Upstash → Settings → Reset Credentials), then update Vercel. Never paste tokens into chat; if visible, rotate.
+
+**LM-020: Browser "Welcome" text can be cached.** After a deploy, an old JS bundle can keep showing the previous message. **Fix:** check the live bundle with `curl` for the new text, then hard-refresh (Ctrl+F5) or use a private window.
+
+**LM-021: Vercel CLI out of memory.** `vercel deploy` and `vercel env ls` crash with "Fatal process out of memory". **Fix:** `NODE_OPTIONS=--max-old-space-size=6144`, or use the dashboard.
+
+**LM-022: Rate limiter fails open silently.** With a broken Upstash connection, sign-ups are not limited and users see no error. **Fix:** a deliberate 6-request test (expect 429) is the only reliable check.
+
+**LM-023: UI that does not call the API.** The home-page newsletter form showed success without saving. **Fix:** check any form with a network request in the browser's Network tab, not just the on-screen message.
+
+**LM-024: Two login systems.** Admin auth ran on Supabase while accounts ran on NextAuth. Removing one required changing `withAuth` and the admin row mapping. **Fix:** a single auth system; the admin list lives in `admin_users`, keyed by the NextAuth user id.
+
+### 11.10 Later changes (same day)
+
+- **All-products page:** `/products` added (`src/app/products/page.tsx`). It fixes the broken `/products` links on the home page, the featured section, the tier section and the post-signup page. Category pages share the same filter component.
+- **Filter and sort:** `ProductFilter.tsx` gained a Category filter (all-products page only) and a Sort dropdown on every product list. Verified live: Kitchen filter 31 → 11; price high-to-low ordered correctly.
+- **Privacy links:** `/privacy` → `/privacy-policy` in `NewsletterSection.tsx` and `NewsletterModal.tsx`.
+- **Newsletter heading:** em dash removed from "seasonal finds, delivered weekly" (owner request).
+- **GitHub sign-in removed:** `src/auth.ts`, `OAuthButtons.tsx`, the signup page, and the `AuthProvider` type. Google sign-in stays optional.
+- **Cleanup:** `src/lib/storage.ts` (unused Supabase Storage helper) deleted. `tablesFilter` removed from `drizzle.config.ts`; `db:push` still needs a reviewed plan.
+- **Docs:** `WORKFLOW.md` updated to match (env vars, admin auth, newsletter, products).
+- **Verification:** `tsc` 0 errors; `npm test` 30/30.
+
+### 11.11 Open items
+
+See §7.4 status block. In short: owner supplies 31 product image URLs; social agent to be built once Pinterest/Meta approve; delete `src/lib/storage.ts` when the image-upload route is built; `drizzle.config.ts` `tablesFilter` trap still present.
+
+---
+
+**End of Master Replication Blueprint v1.3**  
+*Last Updated: 2026-10-14*  
+*Status: PRODUCTION — site live, admin auth on NextAuth, rate limiting verified*

@@ -1,0 +1,311 @@
+{
+  "advertiserId": 19976,
+  "unmatched": [],
+  "groups": [
+    {
+      "group": "tiny-travel-case",
+      "primary": "45243902078",
+      "items": [
+        {
+          "product_id": "45243902078",
+          "variant": "",
+          "price": 7.5
+        }
+      ]
+    },
+    {
+      "group": "travel-case-gift-set",
+      "primary": "45243902079",
+      "items": [
+        {
+          "product_id": "45243902079",
+          "variant": "",
+          "price": 12.5
+        }
+      ]
+    },
+    {
+      "group": "tiny-toothbrush-and-travel-case-set",
+      "primary": "45243902080",
+      "items": [
+        {
+          "product_id": "45243902080",
+          "variant": "",
+          "price": 12
+        }
+      ]
+    },
+    {
+      "group": "truthtabs-wild-mint-3-month",
+      "primary": "45243902081",
+      "items": [
+        {
+          "product_id": "45243902081",
+          "variant": "",
+          "price": 12
+        }
+      ]
+    },
+    {
+      "group": "adult-travel-case",
+      "primary": "45243902082",
+      "items": [
+        {
+          "product_id": "45243902082",
+          "variant": "",
+          "price": 8
+        }
+      ]
+    },
+    {
+      "group": "sustainable-journey-set",
+      "primary": "45243902083",
+      "items": [
+        {
+          "product_id": "45243902083",
+          "variant": "",
+          "price": 24
+        }
+      ]
+    },
+    {
+      "group": "keep-smiling-set",
+      "primary": "45243902084",
+      "items": [
+        {
+          "product_id": "45243902084",
+          "variant": "",
+          "price": 16
+        }
+      ]
+    },
+    {
+      "group": "apothecary-jar",
+      "primary": "45243902085",
+      "items": [
+        {
+          "product_id": "45243902085",
+          "variant": "",
+          "price": 12
+        }
+      ]
+    },
+    {
+      "group": "sonic-heads-2-pack",
+      "primary": "45243902086",
+      "items": [
+        {
+          "product_id": "45243902086",
+          "variant": "",
+          "price": 9
+        }
+      ]
+    },
+    {
+      "group": "sonic-heads-year-supply",
+      "primary": "45243902087",
+      "items": [
+        {
+          "product_id": "45243902087",
+          "variant": "",
+          "price": 16
+        }
+      ]
+    },
+    {
+      "group": "truthtabs-wild-mint-year-supply",
+      "primary": "45243902088",
+      "items": [
+        {
+          "product_id": "45243902088",
+          "variant": "",
+          "price": 40
+        }
+      ]
+    },
+    {
+      "group": "truthtabs-pure-white-limited",
+      "primary": "45243902089",
+      "items": [
+        {
+          "product_id": "45243902089",
+          "variant": "",
+          "price": 14
+        }
+      ]
+    },
+    {
+      "group": "tiny-toothbrush",
+      "primary": "45243902093",
+      "items": [
+        {
+          "product_id": "45243902092",
+          "variant": "1-year supply, Sunshine Yellow",
+          "price": 16
+        },
+        {
+          "product_id": "45243902093",
+          "variant": "Periwinkle Purple",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902099",
+          "variant": "1-year supply, Meadow Green",
+          "price": 16
+        },
+        {
+          "product_id": "45243902100",
+          "variant": "Sunshine Yellow",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902106",
+          "variant": "1-year supply, Periwinkle Purple",
+          "price": 16
+        },
+        {
+          "product_id": "45243902107",
+          "variant": "Cloud White",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902111",
+          "variant": "1-year supply, Cloud White",
+          "price": 16
+        },
+        {
+          "product_id": "45243902112",
+          "variant": "Meadow Green",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902115",
+          "variant": "1-year supply, Multi-colour",
+          "price": 16
+        }
+      ]
+    },
+    {
+      "group": "adult-toothbrush",
+      "primary": "45243902094",
+      "items": [
+        {
+          "product_id": "45243902090",
+          "variant": "1-year supply, Medium bristles",
+          "price": 16
+        },
+        {
+          "product_id": "45243902091",
+          "variant": "1-year supply, Soft bristles, Gorse Yellow",
+          "price": 16
+        },
+        {
+          "product_id": "45243902094",
+          "variant": "Medium bristles, Glacial Blue",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902096",
+          "variant": "Soft bristles, Gorse Yellow",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902097",
+          "variant": "1-year supply, Medium bristles, Sunrise",
+          "price": 16
+        },
+        {
+          "product_id": "45243902098",
+          "variant": "1-year supply, Soft bristles, Storm Grey",
+          "price": 16
+        },
+        {
+          "product_id": "45243902101",
+          "variant": "Medium bristles, Gorse Yellow",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902103",
+          "variant": "Soft bristles, Storm Grey",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902104",
+          "variant": "1-year supply, Medium bristles, Glacial Blue",
+          "price": 16
+        },
+        {
+          "product_id": "45243902105",
+          "variant": "1-year supply, Soft bristles, White",
+          "price": 16
+        },
+        {
+          "product_id": "45243902108",
+          "variant": "Medium bristles, Moss Green",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902109",
+          "variant": "Soft bristles",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902110",
+          "variant": "1-year supply, Medium bristles, Gorse Yellow",
+          "price": 16
+        },
+        {
+          "product_id": "45243902113",
+          "variant": "Medium bristles, Petal Pink",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902114",
+          "variant": "1-year supply, Medium bristles, Moss Green",
+          "price": 16
+        },
+        {
+          "product_id": "45243902116",
+          "variant": "Medium bristles, Storm Grey",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902117",
+          "variant": "1-year supply, Medium bristles, Petal Pink",
+          "price": 16
+        },
+        {
+          "product_id": "45243902118",
+          "variant": "Medium bristles, Cloud White",
+          "price": 4.5
+        },
+        {
+          "product_id": "45243902119",
+          "variant": "1-year supply, Medium bristles, Storm Grey",
+          "price": 16
+        },
+        {
+          "product_id": "45243902120",
+          "variant": "1-year supply, Medium bristles, White",
+          "price": 16
+        }
+      ]
+    },
+    {
+      "group": "interdental-brushes",
+      "primary": "45243902095",
+      "items": [
+        {
+          "product_id": "45243902095",
+          "variant": "",
+          "price": 4
+        },
+        {
+          "product_id": "45243902102",
+          "variant": "",
+          "price": 4
+        }
+      ]
+    }
+  ]
+}

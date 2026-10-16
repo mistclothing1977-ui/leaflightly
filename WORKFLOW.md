@@ -83,8 +83,10 @@
 - Set with Node, not PowerShell pipes (PowerShell adds a BOM): `spawnSync('npx', ['vercel','env','add',NAME,'production'], { input: value, shell: true })`.
 - Secret-type values can't be read back (`vercel env pull` shows `[encrypted]`) — verify behaviour instead.
 - New values only apply after a redeploy: `npx vercel redeploy <latest-prod-url> --target production`.
-- Required in production: `DATABASE_URL`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, `CRON_SECRET`, `NEWSLETTER_TOKEN_SECRET`, `NEXT_PUBLIC_BASE_URL`, `RESEND_API_KEY`, `EMAIL_FROM`. Missing `NEXTAUTH_SECRET` made every auth route 500.
+- Required in production: `DATABASE_URL`, `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, `CRON_SECRET`, `NEWSLETTER_TOKEN_SECRET`, `NEXT_PUBLIC_BASE_URL`, `RESEND_API_KEY`, `EMAIL_FROM`, `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`. Missing `NEXTAUTH_SECRET` made every auth route 500.
 - `NEXTAUTH_URL` and `NEXT_PUBLIC_BASE_URL` = `https://leaflightly.com` (live since 2026-10-14).
+- All `SUPABASE_*` / `NEXT_PUBLIC_SUPABASE_*` variables were removed on 2026-10-14. Nothing reads them.
+- Secrets never go into chat, screenshots or files. A token shown in a screenshot must be rotated (Upstash: Settings → Reset Credentials).
 
 ## Domains
 
@@ -96,7 +98,7 @@
 ## Database
 
 - One database client and schema: `src/lib/db/client.ts` / `src/lib/db/schema.ts` (Neon). Don't add a second.
-- Don't use `npm run db:push` until `tablesFilter` in `drizzle.config.ts` is fixed — it tries to recreate every table. Apply changes with explicit SQL inside a transaction and check table counts before/after.
+- `tablesFilter` was removed from `drizzle.config.ts` on 2026-10-14. `npm run db:push` still compares the whole schema against the live database, so review the plan before confirming anything. Prefer explicit SQL inside a transaction and check table counts before/after.
 - `src/lib/db/migrations/` is git-ignored.
 - Accounts: `users` table via `src/lib/users.ts` (emails lower-cased; `pgErrorCode()` unwraps Drizzle errors). Wishlists: `wishlist_items` via `src/lib/wishlist-store.ts`. Never reintroduce in-memory stores — Vercel runs multiple instances.
 - Production `DATABASE_URL` = Neon (since 2026-10-14). The Supabase direct host is IPv6-only and unreachable from Vercel — don't switch back without its IPv4 pooler URL.
@@ -114,23 +116,30 @@
 - `npm test` runs Vitest (`vitest.config.ts`, `tests/*.test.ts`): newsletter batching/cron config and security helpers. 30 tests; all must pass before pushing.
 - Vitest is pinned to v3 (v5 needs `@types/node` ≥22; the project uses 20). Don't force-install over peer conflicts.
 - HTML sanitising uses `sanitize-html` (`src/lib/validate.ts`). Never reintroduce `isomorphic-dompurify`/`jsdom` — they crash Vercel functions.
-- Admin product API (`/api/admin/products*`) requires a Supabase bearer token; unauthenticated calls return 401.
+- Admin product API (`/api/admin/products*`) uses the NextAuth session and requires an active row in `admin_users` (matched on the user's id). Signed out → 401; signed in but not in `admin_users` → 403. Add admins by inserting their `users.id` into `admin_users`.
 
 ## Accounts, Wishlist & Sharing
 
-- Sign-in: email/password (NextAuth credentials) against the `users` table; Google/GitHub need their keys in Vercel first.
+- Sign-in: email/password (NextAuth credentials) against the `users` table. Google sign-in needs `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in Vercel; the button stays hidden until then. GitHub sign-in was removed on 2026-10-14.
 - Wishlist: heart button → `/api/wishlist/*` → `wishlist_items`. The Wishlist page loads from the API (not localStorage).
 - Share: "Share wishlist" button → `/wishlist/shared?items=<product ids>` (native share sheet on mobile, copy link on desktop). The link holds only product ids; the page is `noindex` and ends with Browse / Start Your Wishlist CTAs.
 - Never log or return raw DB errors — use `DbError` (`src/lib/users.ts`) / `safeError()` (`src/lib/safe-error.ts`).
 - Public routes use `src/lib/validate-email.ts` for email checks (keeps the HTML sanitiser out of their bundle).
-- Rate limiter (`src/lib/rateLimit.ts`) fails open if Upstash is unreachable.
+- Rate limiter (`src/lib/rateLimit.ts`) fails open if Upstash is unreachable. Verified 2026-10-14: the 6th sign-up from one IP returns 429. Check the Vercel logs after any change to the Upstash variables.
+
+## Products & Browsing
+
+- `/products` is the all-products page (`src/app/products/page.tsx`). Category pages (`/products/kitchen` etc.) use the same component, `src/components/ProductFilter.tsx`.
+- Filters: category (all-products page only), tier, certification, price, minimum rating. Sort: recommended (catalogue order), price low/high, highest rated, most reviewed, name A–Z.
+- Adding a product: add it to `src/data/products.ts` with `imageUrl: PRODUCT_IMAGE_PLACEHOLDER` until its affiliate image URL is supplied. Update `Category` in that file if you add a category, and the `CATEGORIES` list in `ProductFilter.tsx`.
+- Verified live 2026-10-14: Kitchen filter 31 → 11 products; price high-to-low sort ordered correctly.
 
 ## Newsletter
 
 - Flow: subscribe → signed confirm link → `active` → Monday 08:00 UTC schedule (snapshots recipients into `newsletter_batches`) → daily 09:00 UTC send (one email per recipient, own signed unsubscribe link, `List-Unsubscribe` headers).
 - Cron routes accept GET with `Authorization: Bearer CRON_SECRET`; fail closed without it. `vercel.json` cron entries: only `path` + `schedule`.
 - Changing `NEWSLETTER_TOKEN_SECRET` invalidates all existing confirm/unsubscribe links.
-- Blocked on: `leaflightly.com` DNS + Resend domain verification.
+- Live since 2026-10-14: `leaflightly.com` DNS and Resend domain verification are done. The home-page signup form calls `/api/newsletter/subscribe` and shows the result under the button.
 
 ### References
 - Mock data location: `src/data/`

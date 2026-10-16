@@ -1,0 +1,112 @@
+[
+ {
+  "id": 77,
+  "name": "Bob's Red Mill",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 129,
+  "name": "Nutiva",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 368,
+  "name": "Alteya Organics",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 372,
+  "name": "Badger",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 387,
+  "name": "Dr. Bronner's",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 478,
+  "name": "Davidson's Organics",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 484,
+  "name": "Four Sigmatic",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 486,
+  "name": "Garden of Life",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 497,
+  "name": "HerbEra",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 500,
+  "name": "Host Defense (Fungi Perfecti)",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 512,
+  "name": "Mountain Rose Herbs",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 517,
+  "name": "Numi Organic Tea",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 521,
+  "name": "Ora Organic",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 522,
+  "name": "Oregon's Wild Harvest",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 523,
+  "name": "Orgain",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 528,
+  "name": "Pique",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 532,
+  "name": "Real Mushrooms",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 534,
+  "name": "Rishi Tea & Botanicals",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 541,
+  "name": "Starwest Botanicals",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 542,
+  "name": "Sunwarrior",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 549,
+  "name": "Traditional Medicinals",
+  "certification": "USDA Organic"
+ },
+ {
+  "id": 551,
+  "name": "Truvani",
+  "certification": "USDA Organic"
+ }
+]

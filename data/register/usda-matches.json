@@ -1,0 +1,56 @@
+[
+ {
+  "db": "Nutiva",
+  "usda_name": "Nutiva LLC",
+  "status": "Certified",
+  "certifier": "Quality Assurance International"
+ },
+ {
+  "db": "Alteya Organics",
+  "usda_name": "Alteya Organics LLC",
+  "status": "Certified",
+  "certifier": "CERES CERtification of Environmental Standards GmbH"
+ },
+ {
+  "db": "Garden of Life",
+  "usda_name": "Garden of Life, LLC",
+  "status": "Certified",
+  "certifier": "Quality Certification Services"
+ },
+ {
+  "db": "Mountain Rose Herbs",
+  "usda_name": "Mountain Rose Herbs",
+  "status": "Certified",
+  "certifier": "Oregon Tilth Certified Organic"
+ },
+ {
+  "db": "Oregon's Wild Harvest",
+  "usda_name": "Oregon's Wild Harvest, Inc.",
+  "status": "Certified",
+  "certifier": "Oregon Tilth Certified Organic"
+ },
+ {
+  "db": "Orgain",
+  "usda_name": "Orgain LLC",
+  "status": "Certified",
+  "certifier": "Quality Assurance International"
+ },
+ {
+  "db": "Pique",
+  "usda_name": "Pique, Inc.",
+  "status": "Certified",
+  "certifier": "Quality Assurance International"
+ },
+ {
+  "db": "Starwest Botanicals",
+  "usda_name": "Starwest Botanicals, LLC",
+  "status": "Certified",
+  "certifier": "Quality Assurance International"
+ },
+ {
+  "db": "Traditional Medicinals",
+  "usda_name": "Traditional Medicinals",
+  "status": "Certified",
+  "certifier": "CCOF Certification Services, LLC"
+ }
+]

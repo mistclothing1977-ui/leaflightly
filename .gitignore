@@ -48,3 +48,7 @@ src/lib/db/migrations/
 
 .vercel
 .env*
+
+# Awin feed downloads (advertiser product data; keep out of the repo)
+data/awin/*.csv
+data/awin/*.csv.gz

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "tata-harper-regenerating-cleanser",
+    "company": "Tata Harper",
+    "product": "Regenerating Cleanser",
+    "category": "beauty",
+    "tier": "B",
+    "certifications": [],
+    "certificationSources": [],
+    "amazonSearch": "Tata Harper Regenerating Cleanser",
+    "trackedLink": "https://www.amazon.co.uk/Tata-Harper-Regenerating-Cleanser-4-22oz/dp/B006QZ0EYK?tag=leaflightly-21",
+    "imageUrl": null,
+    "priceNote": null,
+    "evidence": [
+      "https://tataharperskincare.com/pages/press-awards"
+    ],
+    "dateChecked": "2026-10-14",
+    "status": "needs-amazon-check"
+  },
+  {
+    "id": "waterhaul-rescue-folding-knife",
+    "company": "Waterhaul",
+    "product": "Rescue Folding Knife (recycled)",
+    "category": "lifestyle",
+    "tier": "C",
+    "certifications": [],
+    "certificationSources": [],
+    "amazonSearch": "Waterhaul Rescue Folding Knife",
+    "trackedLink": "https://www.amazon.co.uk/Waterhaul-Rescue-Folding-Knife-Recycled/dp/B0BSXQNYRZ?dib=eyJ2IjoiMSJ9.9hWnwrSCuIo5P_h_Vo0HJw.oidbDLXOc9Ar3Hl4_V3G9J5r4vosH_mdK60x_H3XZKE&dib_tag=se&keywords=waterhaul&qid=1792067647&s=camping-hiking&sr=1-1&th=1&linkCode=ll2&tag=leaflightly-21&linkId=beaf4843adab384111c30df2db35be0c&ref_=as_li_ss_tl",
+    "imageUrl": null,
+    "priceNote": null,
+    "evidence": [
+      "https://www.amazon.co.uk/dp/B0BSXQNYRZ"
+    ],
+    "dateChecked": "2026-10-15",
+    "status": "cleared"
+  }
+]
