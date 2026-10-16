@@ -82,7 +82,7 @@ for (const r of table) {
     price: toNum(pick(r, ['search_price', 'price', 'display_price'])),
     currency: pick(r, ['currency']),
     product_url: pick(r, ['aw_deep_link', 'merchant_deep_link', 'product_url', 'link']),
-    image_url: pick(r, ['aw_image_url', 'merchant_image_url', 'image_url', 'image']),
+    image_url: pick(r, ['merchant_image_url', 'aw_image_url', 'image_url', 'image']), // merchant URL first: the Awin proxy URL carries a key
     in_stock: toBool(pick(r, ['in_stock', 'stock_status'])),
   });
 }
