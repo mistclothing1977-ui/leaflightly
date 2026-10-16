@@ -14,8 +14,8 @@
 }
 
 .wishlistButton:hover:not(:disabled) {
-  border-color: #FF6B35;
-  color: #FF6B35;
+  border-color: #0F3320;
+  color: #0F3320;
 }
 
 .wishlistButton.wishlisted {
@@ -25,7 +25,7 @@
 }
 
 .wishlistButton.wishlisted:hover {
-  background: #FF6B35;
+  background: #0F3320;
   color: white;
 }
 

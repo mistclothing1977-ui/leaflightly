@@ -80,7 +80,7 @@
 .submitButton:hover {
   background: #E55A24;
   transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 12px 28px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 12px 28px rgba(15, 51, 32, 0.4);
 }
 
 .submitButton:active {

@@ -70,7 +70,7 @@
 .heroCta:hover {
   background: var(--color-accent);
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 20px 40px rgba(15, 51, 32, 0.3);
 }
 
 .heroSecondary {
