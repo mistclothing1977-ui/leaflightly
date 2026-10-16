@@ -10,7 +10,7 @@ export async function POST(req: Request) {
 
   const { productId } = await req.json().catch(() => ({}));
 
-  if (typeof productId !== "string" || !isKnownProduct(productId)) {
+  if (typeof productId !== "string" || !(await isKnownProduct(productId))) {
     return Response.json({ error: "Valid product ID required" }, { status: 400 });
   }
 

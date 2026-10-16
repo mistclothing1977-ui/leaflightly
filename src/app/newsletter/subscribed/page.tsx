@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { products } from "@/data/products";
+import { getAllProducts } from '@/lib/catalogue';
 
 export const metadata: Metadata = {
   title: "You're subscribed — Leaf Lightly",
@@ -8,7 +8,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function SubscribedPage() {
+export default async function SubscribedPage() {
+  const products = await getAllProducts();
   const picks = products.filter((p) => p.featured).slice(0, 3);
 
   return (

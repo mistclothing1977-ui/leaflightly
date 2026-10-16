@@ -4,7 +4,7 @@ import { db } from '@/lib/db/client';
 import { newsletter_signups, newsletter_batches } from '@/lib/db/schema';
 import { calculateBatchSchedule } from '@/lib/email/batch-calculator';
 import { isAuthorizedCron } from '@/lib/newsletter/security';
-import { products } from '@/data/products';
+import { getAllProducts } from '@/lib/catalogue';
 import { safeError } from '@/lib/safe-error';
 
 export const dynamic = 'force-dynamic';
@@ -25,6 +25,7 @@ function currentWeekStartUtc(now = new Date()): Date {
  * Idempotent: does nothing if this week's batches already exist.
  */
 async function schedule(req: NextRequest) {
+  const products = await getAllProducts();
   if (!isAuthorizedCron(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }

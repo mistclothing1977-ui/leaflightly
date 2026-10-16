@@ -366,3 +366,72 @@ export const productsRelations = relations(products, ({ one, many }) => ({
   }),
   auditLogs: many(product_audit_logs),
 }));
+
+// ============================================
+// SOURCING (research pipeline, not the live catalogue)
+// Companies found in certification databases -> their products -> Amazon listings.
+// Records hold our own data only: names, certificate references, dates and links.
+// ============================================
+export const sourcing_companies = pgTable("sourcing_companies", {
+  id: serial("id").primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  slug: varchar("slug", { length: 255 }).notNull().unique(),
+  country: varchar("country", { length: 2 }).default("GB"),
+  website_url: text("website_url"),
+  // unverified | verified | excluded
+  status: varchar("status", { length: 20 }).notNull().default("unverified"),
+  notes: text("notes"),
+  created_at: timestamp("created_at").defaultNow().notNull(),
+  updated_at: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const sourcing_company_sectors = pgTable(
+  "sourcing_company_sectors",
+  {
+    company_id: integer("company_id").notNull().references(() => sourcing_companies.id, { onDelete: "cascade" }),
+    sector: varchar("sector", { length: 50 }).notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.company_id, t.sector] })]
+);
+
+export const sourcing_certifications = pgTable("sourcing_certifications", {
+  id: serial("id").primaryKey(),
+  company_id: integer("company_id").notNull().references(() => sourcing_companies.id, { onDelete: "cascade" }),
+  certification: varchar("certification", { length: 50 }).notNull(),
+  database_name: varchar("database_name", { length: 100 }).notNull(),
+  database_url: text("database_url"),
+  certificate_ref: varchar("certificate_ref", { length: 255 }),
+  // active | lapsed | unknown
+  status: varchar("status", { length: 20 }).notNull().default("unknown"),
+  date_checked: timestamp("date_checked").notNull(),
+});
+
+export const sourcing_products = pgTable(
+  "sourcing_products",
+  {
+    id: serial("id").primaryKey(),
+    company_id: integer("company_id").notNull().references(() => sourcing_companies.id, { onDelete: "cascade" }),
+    name: varchar("name", { length: 255 }).notNull(),
+    category: varchar("category", { length: 50 }),
+    product_url: text("product_url"),
+    // to_check | not_listed | cleared | approved | published
+    status: varchar("status", { length: 20 }).notNull().default("to_check"),
+    notes: text("notes"),
+    created_at: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("sourcing_products_company_idx").on(t.company_id)]
+);
+
+export const sourcing_listings = pgTable(
+  "sourcing_listings",
+  {
+    id: serial("id").primaryKey(),
+    product_id: integer("product_id").notNull().references(() => sourcing_products.id, { onDelete: "cascade" }),
+    channel: varchar("channel", { length: 20 }).notNull().default("amazon"),
+    tracked_link: text("tracked_link"),
+    tier: varchar("tier", { length: 1 }),
+    price_note: text("price_note"),
+    date_checked: timestamp("date_checked").notNull(),
+  },
+  (t) => [index("sourcing_listings_product_idx").on(t.product_id)]
+);

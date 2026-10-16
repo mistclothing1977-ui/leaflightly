@@ -1,12 +1,11 @@
 import { and, desc, eq } from 'drizzle-orm';
 import { db } from '@/lib/db/client';
 import { wishlist_items } from '@/lib/db/schema';
-import { products } from '@/data/products';
+import { getAllProducts } from '@/lib/catalogue';
 import { DbError, pgErrorCode } from '@/lib/users';
 
-const knownProductIds = new Set(products.map((p) => p.id));
-
-export const isKnownProduct = (productId: string) => knownProductIds.has(productId);
+export const isKnownProduct = async (productId: string) =>
+  (await getAllProducts()).some((p) => p.id === productId);
 
 /** Thrown when the session's user id has no account row (e.g. a session issued before accounts moved to the DB). */
 export class UnknownUserError extends Error {}
