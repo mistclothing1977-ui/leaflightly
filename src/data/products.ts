@@ -78,7 +78,7 @@ export const products: Product[] = [
     reviewCount: 1149,
     rating: 4.8,
     imageUrl: PRODUCT_IMAGE_PLACEHOLDER,
-    productUrl: 'https://www.amazon.co.uk/s?k=bees+wrap+beeswax',
+    productUrl: 'https://link.amazon/B07BjzTOL',
     affiliateLink: undefined,
     affiliateNetwork: 'awin',
   },
