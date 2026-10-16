@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
+import { getAllProducts } from '@/lib/catalogue';
 import Link from 'next/link';
-import { products } from '@/data/products';
 import styles from '../page.module.css';
 
 export const metadata: Metadata = {
@@ -17,6 +17,7 @@ export default async function SharedWishlistPage({
   searchParams: Promise<{ items?: string }>;
 }) {
   const { items = '' } = await searchParams;
+  const products = await getAllProducts();
   const ids = [...new Set(items.split(',').map((s) => s.trim()).filter(Boolean))].slice(0, MAX_ITEMS);
   const shared = ids
     .map((id) => products.find((p) => p.id === id))

@@ -314,3 +314,28 @@
     font-size: 0.8rem;
   }
 }
+
+.sortBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin: 0 0 1rem 0;
+  font-size: 0.95rem;
+  color: #4a4a42;
+}
+
+.sortSelect {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #c9c4b8;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #2a2a26;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.sortSelect:focus {
+  outline: 2px solid #1a472a;
+  outline-offset: 2px;
+}

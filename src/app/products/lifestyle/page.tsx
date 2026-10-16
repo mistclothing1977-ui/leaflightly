@@ -1,4 +1,6 @@
 import ProductFilter from '@/components/ProductFilter';
+import { getAllProducts } from '@/lib/catalogue';
+import AffiliateDisclosure from '@/components/AffiliateDisclosure';
 import styles from '../kitchen/page.module.css';
 
 export const metadata = {
@@ -6,7 +8,10 @@ export const metadata = {
   description: 'Sustainable lifestyle products for eco-conscious living',
 };
 
-export default function LifestylePage() {
+export const revalidate = 3600;
+
+export default async function LifestylePage() {
+  const items = await getAllProducts();
   return (
     <div className={styles.container}>
       {/* Hero */}
@@ -36,7 +41,8 @@ export default function LifestylePage() {
 
       {/* Products with Filtering */}
       <section className={styles.products}>
-        <ProductFilter category="lifestyle" categoryName="Lifestyle" />
+        <AffiliateDisclosure />
+        <ProductFilter items={items} category="lifestyle" categoryName="Lifestyle" />
       </section>
 
       {/* CTA */}

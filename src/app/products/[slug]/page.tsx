@@ -1,4 +1,4 @@
-import { products } from '@/data/products';
+import { getAllProducts } from '@/lib/catalogue';
 import { certificationLabels, tierLabels } from '@/lib/product-labels';
 import ReviewsSection from '@/components/ReviewsSection';
 import RelatedProductsCarousel from '@/components/RelatedProductsCarousel';
@@ -20,6 +20,7 @@ interface ProductDetailPageProps {
 
 export async function generateMetadata({ params }: ProductDetailPageProps) {
   const { slug } = await params;
+  const products = await getAllProducts();
   const product = products.find((p) => p.id === slug);
 
   if (!product) {
@@ -49,6 +50,7 @@ export async function generateMetadata({ params }: ProductDetailPageProps) {
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
   const { slug } = await params;
+  const products = await getAllProducts();
   const product = products.find((p) => p.id === slug);
 
   if (!product) {
@@ -135,13 +137,15 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
           <div className={styles.purchaseCard}>
             {/* Brand & Rating */}
             <p className={styles.brand}>{product.brand}</p>
-            <div className={styles.rating} aria-label={`${product.rating} out of 5 stars, ${product.reviewCount.toLocaleString()} reviews`}>
-              <span className={styles.stars} aria-hidden="true">★★★★★</span>
-              <span className={styles.ratingValue}>{product.rating}</span>
-              <span className={styles.reviewCount}>
-                ({product.reviewCount.toLocaleString()})
-              </span>
-            </div>
+            {product.reviewCount > 0 && (
+              <div className={styles.rating} aria-label={`${product.rating} out of 5 stars, ${product.reviewCount.toLocaleString()} reviews`}>
+                <span className={styles.stars} aria-hidden="true">★★★★★</span>
+                <span className={styles.ratingValue}>{product.rating}</span>
+                <span className={styles.reviewCount}>
+                  ({product.reviewCount.toLocaleString()})
+                </span>
+              </div>
+            )}
 
             {/* Tier Badge */}
             <div className={styles.tierBadge}>
@@ -165,18 +169,32 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
             <div className={styles.ctaButtons}>
               <BuyNowButton
                 retailers={[
-                  {
-                    retailer: 'Amazon',
-                    url: buildAmazonLink(product.name),
-                    icon: '🛒',
-                  },
+                  product.affiliateNetwork === 'awin'
+                    ? { retailer: product.brand, url: product.productUrl, icon: '🛒' }
+                    : { retailer: 'Amazon', url: buildAmazonLink(product.name), icon: '🛒' },
                 ]}
               />
               <WishlistButton productId={product.id} />
             </div>
 
+            {product.variants && product.variants.length > 1 && (
+              <div className={styles.options}>
+                <h3>Options</h3>
+                <ul>
+                  {product.variants.map((v) => (
+                    <li key={v.id}>
+                      <a href={v.productUrl} target="_blank" rel="noopener noreferrer sponsored">
+                        {v.label}
+                      </a>
+                      <span> £{v.price.toFixed(2)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {/* Affiliate Disclosure */}
-            <AffiliateDisclosure />
+            <AffiliateDisclosure amazon={product.affiliateNetwork !== 'awin'} />
           </div>
 
           {/* Certifications */}

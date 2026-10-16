@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { products } from '@/data/products';
+import { useCatalogue } from '@/lib/use-catalogue';
 import WishlistButton from '@/components/WishlistButton';
 import ShareWishlistButton from './ShareWishlistButton';
 import styles from './page.module.css';
 
 export default function WishlistPage() {
+  const products = useCatalogue();
   const [wishlistItems, setWishlistItems] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [signedOut, setSignedOut] = useState(false);

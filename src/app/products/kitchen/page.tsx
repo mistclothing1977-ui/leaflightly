@@ -1,4 +1,6 @@
 import ProductFilter from '@/components/ProductFilter';
+import { getAllProducts } from '@/lib/catalogue';
+import AffiliateDisclosure from '@/components/AffiliateDisclosure';
 import styles from './page.module.css';
 
 export const metadata = {
@@ -6,7 +8,10 @@ export const metadata = {
   description: 'Discover eco-friendly, plastic-free kitchen products. Certified sustainable brands with real reviews.',
 };
 
-export default function KitchenPage() {
+export const revalidate = 3600;
+
+export default async function KitchenPage() {
+  const items = await getAllProducts();
   return (
     <div className={styles.container}>
       {/* Hero */}
@@ -36,7 +41,8 @@ export default function KitchenPage() {
 
       {/* Filtered Products */}
       <section className={styles.gridSection}>
-        <ProductFilter category="kitchen" categoryName="Kitchen" />
+        <AffiliateDisclosure />
+        <ProductFilter items={items} category="kitchen" categoryName="Kitchen" />
       </section>
 
       {/* CTA */}

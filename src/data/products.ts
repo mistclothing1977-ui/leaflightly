@@ -4,7 +4,7 @@
 // 11 PASS Products (Tier A Certified Eco)
 
 export type Tier = 'A' | 'B' | 'C';
-export type Certification = 'b-corp' | 'fsc' | 'pefc' | 'organic' | 'compostable' | 'plastic-free' | 'fair-trade' | 'carbon-neutral' | 'vegan';
+export type Certification = 'b-corp' | 'fsc' | 'pefc' | 'organic' | 'compostable' | 'plastic-free' | 'fair-trade' | 'carbon-neutral' | 'vegan' | 'cosmos' | 'leaping-bunny';
 export type AffiliateNetwork = 'awin' | 'avantlink' | 'cj' | 'direct' | 'sharesale' | 'flexoffers' | null;
 export type Category = 'kitchen' | 'fashion' | 'lifestyle' | 'beauty' | 'wellness';
 
@@ -12,6 +12,14 @@ export type Category = 'kitchen' | 'fashion' | 'lifestyle' | 'beauty' | 'wellnes
 // image URL supplied by its affiliate programme (e.g. Amazon SiteStripe/PA-API, Awin feed).
 // Never use images copied from brand sites without usage rights.
 export const PRODUCT_IMAGE_PLACEHOLDER = '/assets/products/placeholder.svg';
+
+/** One option of a product, such as a colour or bristle type. Each has its own buy link. */
+export interface ProductVariant {
+  id: string;
+  label: string;
+  price: number;
+  productUrl: string;
+}
 
 export interface Product {
   id: string;
@@ -28,10 +36,14 @@ export interface Product {
   productUrl: string;
   affiliateLink?: string;
   affiliateNetwork?: AffiliateNetwork;
+  /** Hide the price on cards; the value still drives filters and sorting. */
+  priceHidden?: boolean;
   /** Shown in the home page "Handpicked Products We Love" grid. */
   featured?: boolean;
   /** One-line sustainability story used on featured cards. */
   story?: string;
+  /** Other options of the same product (colour, bristle, pack). Feed products only. */
+  variants?: ProductVariant[];
 }
 
 export const products: Product[] = [
@@ -376,6 +388,24 @@ export const products: Product[] = [
     affiliateLink: undefined,
     affiliateNetwork: 'avantlink',
   },
+  // HOME - Tier C
+  {
+    id: 'waterhaul-rescue-folding-knife',
+    brand: 'Waterhaul',
+    name: 'Rescue Folding Knife (Recycled)',
+    category: 'lifestyle',
+    price: 24.99,
+    priceHidden: true,
+    tier: 'C',
+    certifications: [],
+    reviewCount: 0,
+    rating: 0,
+    imageUrl: PRODUCT_IMAGE_PLACEHOLDER,
+    productUrl: 'https://www.amazon.co.uk/Waterhaul-Rescue-Folding-Knife-Recycled/dp/B0BSXQNYRZ?dib=eyJ2IjoiMSJ9.9hWnwrSCuIo5P_h_Vo0HJw.oidbDLXOc9Ar3Hl4_V3G9J5r4vosH_mdK60x_H3XZKE&dib_tag=se&keywords=waterhaul&qid=1792067647&s=camping-hiking&sr=1-1&th=1&linkCode=ll2&tag=leaflightly-21&linkId=beaf4843adab384111c30df2db35be0c&ref_=as_li_ss_tl',
+    affiliateLink: undefined,
+    affiliateNetwork: null,
+  },
+
   // BEAUTY - Tier A
   {
     id: 'beauty-counter-skincare',

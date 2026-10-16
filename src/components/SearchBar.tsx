@@ -2,13 +2,15 @@
 
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import { products } from '@/data/products';
+import { useCatalogue } from '@/lib/use-catalogue';
+import type { Product } from '@/data/products';
 import styles from './SearchBar.module.css';
 
 export default function SearchBar() {
+  const products = useCatalogue();
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [results, setResults] = useState<typeof products>([]);
+  const [results, setResults] = useState<Product[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Filter products by query

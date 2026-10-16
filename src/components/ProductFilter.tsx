@@ -1,14 +1,19 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { products } from '@/data/products';
-import { Tier, Certification } from '@/data/products';
+import { products as staticProducts } from '@/data/products';
+import { Tier, Certification, Category, Product } from '@/data/products';
 import ProductCard from './ProductCard';
 import styles from './ProductFilter.module.css';
 
 interface ProductFilterProps {
-  category: string;
-  categoryName: string;
+  /** Limit to one category (category pages). Omit for the all-products page. */
+  category?: string;
+  categoryName?: string;
+  /** Show the category filter (all-products page only). */
+  showCategories?: boolean;
+  /** Products to filter. Defaults to the curated static list. */
+  items?: Product[];
 }
 
 const CERTIFICATIONS: { value: Certification; label: string }[] = [
@@ -18,21 +23,46 @@ const CERTIFICATIONS: { value: Certification; label: string }[] = [
   { value: 'plastic-free', label: 'Plastic-Free' },
   { value: 'compostable', label: 'Compostable' },
   { value: 'fair-trade', label: 'Fair Trade' },
+  { value: 'vegan', label: 'Vegan' },
+  { value: 'cosmos', label: 'COSMOS' },
+  { value: 'leaping-bunny', label: 'Leaping Bunny' },
 ];
 
-export default function ProductFilter({ category, categoryName: _categoryName }: ProductFilterProps) {
+const CATEGORIES: { value: Category; label: string }[] = [
+  { value: 'kitchen', label: 'Kitchen' },
+  { value: 'fashion', label: 'Fashion' },
+  { value: 'lifestyle', label: 'Lifestyle' },
+  { value: 'beauty', label: 'Beauty' },
+  { value: 'wellness', label: 'Wellness' },
+];
+
+type SortKey = 'recommended' | 'price-asc' | 'price-desc' | 'rating' | 'reviews' | 'name';
+
+const SORT_OPTIONS: { value: SortKey; label: string }[] = [
+  { value: 'recommended', label: 'Recommended' },
+  { value: 'price-asc', label: 'Price: low to high' },
+  { value: 'price-desc', label: 'Price: high to low' },
+  { value: 'rating', label: 'Highest rated' },
+  { value: 'reviews', label: 'Most reviewed' },
+  { value: 'name', label: 'Name A–Z' },
+];
+
+export default function ProductFilter({ category, showCategories = false, items }: ProductFilterProps) {
+  const products = items ?? staticProducts;
   // Filter state
   const [selectedTiers, setSelectedTiers] = useState<Tier[]>([]);
   const [selectedCertifications, setSelectedCertifications] = useState<Certification[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(500);
   const [minRating, setMinRating] = useState<number>(0);
+  const [sortBy, setSortBy] = useState<SortKey>('recommended');
   const [showFilters, setShowFilters] = useState(true);
 
-  // Get category products
+  // Products in scope: one category, or everything
   const categoryProducts = useMemo(() => {
-    return products.filter((p) => p.category === category);
-  }, [category]);
+    return category ? products.filter((p) => p.category === category) : products;
+  }, [category, products]);
 
   // Calculate price range
   const priceRange = useMemo(() => {
@@ -44,9 +74,14 @@ export default function ProductFilter({ category, categoryName: _categoryName }:
     };
   }, [categoryProducts]);
 
-  // Filter products
+  // Filter and sort products
   const filteredProducts = useMemo(() => {
-    return categoryProducts.filter((product) => {
+    const filtered = categoryProducts.filter((product) => {
+      // Category filter (all-products page)
+      if (selectedCategories.length > 0 && !selectedCategories.includes(product.category)) {
+        return false;
+      }
+
       // Tier filter
       if (selectedTiers.length > 0 && !selectedTiers.includes(product.tier)) {
         return false;
@@ -72,7 +107,35 @@ export default function ProductFilter({ category, categoryName: _categoryName }:
 
       return true;
     });
-  }, [categoryProducts, selectedTiers, selectedCertifications, minPrice, maxPrice, minRating]);
+
+    const sorted = [...filtered];
+    switch (sortBy) {
+      case 'price-asc':
+        sorted.sort((a, b) => a.price - b.price);
+        break;
+      case 'price-desc':
+        sorted.sort((a, b) => b.price - a.price);
+        break;
+      case 'rating':
+        sorted.sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount);
+        break;
+      case 'reviews':
+        sorted.sort((a, b) => b.reviewCount - a.reviewCount);
+        break;
+      case 'name':
+        sorted.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      default:
+        break; // 'recommended' keeps catalogue order
+    }
+    return sorted;
+  }, [categoryProducts, selectedCategories, selectedTiers, selectedCertifications, minPrice, maxPrice, minRating, sortBy]);
+
+  const toggleCategory = (value: Category) => {
+    setSelectedCategories((prev) =>
+      prev.includes(value) ? prev.filter((c) => c !== value) : [...prev, value]
+    );
+  };
 
   const toggleTier = (tier: Tier) => {
     setSelectedTiers((prev) =>
@@ -87,6 +150,7 @@ export default function ProductFilter({ category, categoryName: _categoryName }:
   };
 
   const resetFilters = () => {
+    setSelectedCategories([]);
     setSelectedTiers([]);
     setSelectedCertifications([]);
     setMinPrice(priceRange.min);
@@ -95,6 +159,7 @@ export default function ProductFilter({ category, categoryName: _categoryName }:
   };
 
   const hasActiveFilters =
+    selectedCategories.length > 0 ||
     selectedTiers.length > 0 ||
     selectedCertifications.length > 0 ||
     minPrice > priceRange.min ||
@@ -122,6 +187,25 @@ export default function ProductFilter({ category, categoryName: _categoryName }:
             </button>
           )}
         </div>
+
+        {/* Category Filter (all-products page only) */}
+        {showCategories && (
+          <div className={styles.filterGroup}>
+            <h4>Category</h4>
+            <div className={styles.checkboxGroup}>
+              {CATEGORIES.map(({ value, label }) => (
+                <label key={value} className={styles.checkbox}>
+                  <input
+                    type="checkbox"
+                    checked={selectedCategories.includes(value)}
+                    onChange={() => toggleCategory(value)}
+                  />
+                  <span>{label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Tier Filter */}
         <div className={styles.filterGroup}>
@@ -214,6 +298,21 @@ export default function ProductFilter({ category, categoryName: _categoryName }:
 
       {/* Products Grid */}
       <div className={styles.productsSection}>
+        <div className={styles.sortBar}>
+          <label htmlFor="product-sort">Sort by</label>
+          <select
+            id="product-sort"
+            className={styles.sortSelect}
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value as SortKey)}
+          >
+            {SORT_OPTIONS.map(({ value, label }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </div>
         {filteredProducts.length > 0 ? (
           <div className={styles.grid}>
             {filteredProducts.map((product) => (

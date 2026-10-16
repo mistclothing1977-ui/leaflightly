@@ -1,4 +1,4 @@
-import { products } from '@/data/products';
+import { getAllProducts } from '@/lib/catalogue';
 import Link from 'next/link';
 import styles from './page.module.css';
 
@@ -12,6 +12,7 @@ interface SearchPageProps {
 
 export default async function SearchPage({ searchParams }: SearchPageProps) {
   const { q = '', sort = 'relevance', tier = 'all' } = await searchParams;
+  const products = await getAllProducts();
   const query = decodeURIComponent(q).toLowerCase();
 
   // Filter products

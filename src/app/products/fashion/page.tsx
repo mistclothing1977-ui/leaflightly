@@ -1,4 +1,6 @@
 import ProductFilter from '@/components/ProductFilter';
+import { getAllProducts } from '@/lib/catalogue';
+import AffiliateDisclosure from '@/components/AffiliateDisclosure';
 import styles from '../kitchen/page.module.css';
 
 export const metadata = {
@@ -6,7 +8,10 @@ export const metadata = {
   description: 'Sustainable, ethical fashion from brands that care',
 };
 
-export default function FashionPage() {
+export const revalidate = 3600;
+
+export default async function FashionPage() {
+  const items = await getAllProducts();
   return (
     <div className={styles.container}>
       {/* Hero */}
@@ -36,7 +41,8 @@ export default function FashionPage() {
 
       {/* Products with Filtering */}
       <section className={styles.products}>
-        <ProductFilter category="fashion" categoryName="Fashion" />
+        <AffiliateDisclosure />
+        <ProductFilter items={items} category="fashion" categoryName="Fashion" />
       </section>
 
       {/* CTA */}

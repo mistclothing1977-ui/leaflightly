@@ -1,15 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { products } from '@/data/products';
-import { Product } from '@/data/products';
+import { useCatalogue } from '@/lib/use-catalogue';
+import type { Product } from '@/data/products';
 import { certificationLabels, tierLabels } from '@/lib/product-labels';
 import Link from 'next/link';
 import styles from './page.module.css';
 
 export default function ComparePage() {
+  const products = useCatalogue();
   const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
-  const [allProducts] = useState(products);
+  const allProducts = products;
   const [mounted, setMounted] = useState(false);
 
   // Load from URL params and localStorage on mount

@@ -47,22 +47,30 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           {/* Price */}
           <div className={styles.price}>
-            <span className={styles.current}>£{product.price.toFixed(2)}</span>
-            {product.originalPrice && (
-              <span className={styles.original}>£{product.originalPrice.toFixed(2)}</span>
+            {product.priceHidden ? (
+              <span className={styles.current}>Check price on Amazon</span>
+            ) : (
+              <>
+                <span className={styles.current}>£{product.price.toFixed(2)}</span>
+                {product.originalPrice && (
+                  <span className={styles.original}>£{product.originalPrice.toFixed(2)}</span>
+                )}
+              </>
             )}
           </div>
 
           {/* Rating & Reviews */}
-          <div className={styles.rating} aria-label={`${product.rating} out of 5 stars, ${product.reviewCount} reviews`}>
-            <span className={styles.stars} aria-hidden="true">★★★★★</span>
-            <span className={styles.ratingText}>
-              {product.rating}
-            </span>
-            <span className={styles.reviews}>
-              ({product.reviewCount})
-            </span>
-          </div>
+          {product.reviewCount > 0 && (
+            <div className={styles.rating} aria-label={`${product.rating} out of 5 stars, ${product.reviewCount} reviews`}>
+              <span className={styles.stars} aria-hidden="true">★★★★★</span>
+              <span className={styles.ratingText}>
+                {product.rating}
+              </span>
+              <span className={styles.reviews}>
+                ({product.reviewCount})
+              </span>
+            </div>
+          )}
 
           {/* Certifications */}
           {product.certifications.length > 0 && (

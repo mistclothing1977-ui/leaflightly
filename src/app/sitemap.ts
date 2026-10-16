@@ -1,7 +1,9 @@
 import { MetadataRoute } from 'next';
-import { products } from '@/data/products';
+import { getAllProducts } from '@/lib/catalogue';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const revalidate = 3600;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://leaflightly.com';
 
   // Static pages
@@ -75,6 +77,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Product pages
+  const products = await getAllProducts();
   const productPages: MetadataRoute.Sitemap = products.map((product) => ({
     url: `${baseUrl}/products/${product.id}`,
     lastModified: new Date(),

@@ -1,0 +1,78 @@
+.container {
+  width: 100%;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.crumbs {
+  font-size: 0.9rem;
+  color: #8b8b7e;
+  margin-bottom: 1.5rem;
+}
+
+.crumbs a {
+  color: #1a472a;
+  text-decoration: none;
+}
+
+.hero {
+  margin-bottom: 2.5rem;
+}
+
+.hero h1 {
+  font-size: 2.4rem;
+  color: #1a472a;
+  margin: 0 0 1rem;
+  font-weight: 700;
+}
+
+.hero p {
+  color: #2a2a26;
+  line-height: 1.6;
+  max-width: 720px;
+  margin: 0 0 0.75rem;
+}
+
+.trust {
+  background: #f8f6f3;
+  border-left: 3px solid #1a472a;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.site {
+  font-size: 0.95rem;
+}
+
+.site a {
+  color: #1a472a;
+}
+
+.disclosure {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.products h2 {
+  color: #1a472a;
+  font-size: 1.5rem;
+  margin: 2rem 0 1rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.empty {
+  color: #555;
+  line-height: 1.6;
+}
+
+.empty a {
+  color: #1a472a;
+}
