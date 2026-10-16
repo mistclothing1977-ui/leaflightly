@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { products as allProducts } from '@/data/products';
+import { products as allProducts, type Product } from '@/data/products';
 import { tierLabels } from '@/lib/product-labels';
 import styles from './FeaturedProducts.module.css';
 
-export default function FeaturedProducts() {
-  const products = allProducts.filter((p) => p.featured);
+export default function FeaturedProducts({ extra = [] }: { extra?: Product[] }) {
+  const products = [...allProducts.filter((p) => p.featured), ...extra];
 
   return (
     <section className={styles.featuredSection}>

@@ -94,3 +94,8 @@ export async function getAllProducts(): Promise<Product[]> {
   const staticIds = new Set(staticProducts.map((p) => p.id));
   return [...staticProducts, ...feed.filter((p) => !staticIds.has(p.id))];
 }
+
+/** Feed products shown in the homepage "Handpicked" row, by slug. Owner decides this list. */
+export const HOMEPAGE_FEED_SLUGS = [
+  'truthbrush-a-years-supply-of-truthtabs-award-winning-wild-mint-toothpaste-tablets-45243902088',
+];
