@@ -32,3 +32,24 @@ Status: research only. Nothing is built.
 - Etsy Affiliates: https://www.etsy.com/affiliates
 - Affiliates policy: https://www.etsy.com/in-en/legal/affiliates/
 - Affiliate Programme help: https://help.etsy.com/hc/en-gb/articles/360000335987-The-Affiliate-Programme?segment=selling
+
+## Update: traffic from Etsy to our website (16 Oct 2026)
+
+Question: can a Leaf Lightly Etsy shop (planners or digital products) carry our website address in the shop name, shop info or files, to bring Etsy buyers to the site?
+
+Findings (Etsy's own pages where available, plus community posts that are old and not official):
+- **Off-Platform Transactions Policy** (Etsy, current): does not allow directing a member to buy through an off-platform destination such as a personal website. This is about selling the same items elsewhere, and the policy text is the authority.
+- **Fee avoidance** (community staff-style replies, old): linking to a website selling the same items is risky. Linking to a blog or to social pages is described as fine. Not official policy.
+- **Digital listings**: items must be made or designed by the seller. The rule on links to your own website inside digital files was not found; Etsy's Seller Policy and Prohibited Items pages (or seller support) must confirm.
+- **Share & Save** (Etsy seller handbook): says you can't save on fees by sharing links in messages or in shop or listing descriptions.
+
+Working position:
+- Planners and digital products that are NOT sold on our site are the lower-risk case. A site address as a brand mention (shop name, "more eco guides at leaflightly.com") is a grey area until confirmed.
+- Do not link the site from the About page or listings if the site sells the same items.
+- Confirm with Etsy seller support before launch, and get the answer in writing.
+
+Sources:
+- Off-Platform Transactions Policy: https://www.etsy.com/legal/policy/off-platform-transactions/1254654515806
+- Seller Policy: https://www.etsy.com/legal/sellers/
+- Share & Save: https://www.etsy.com/seller-handbook/article/1187231088945
+- Etsy Policies for Digital Download: https://www.etsy.com/market/etsy_policies_for_digital_download
