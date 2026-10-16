@@ -295,7 +295,7 @@ export const products: Product[] = [
     featured: true,
     story: 'Merino wool runner sneakers in ZQ-certified merino wool',
     brand: 'Allbirds',
-    name: 'Men's Wool Runner GoSneaker',
+    name: 'Men’s Wool Runner GoSneaker',
     category: 'fashion',
     price: 63.07,
     tier: 'B',
