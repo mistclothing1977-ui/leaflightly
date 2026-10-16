@@ -545,23 +545,6 @@ export const products: Product[] = [
     affiliateLink: undefined,
     affiliateNetwork: 'sharesale',
   },
-  {
-    id: 'bamboo-toothbrush-set',
-    featured: false,
-    story: 'Biodegradable handle with nylon bristles for zero waste',
-    brand: 'Humble Brush',
-    name: 'Bamboo Toothbrush Set (12-Pack)',
-    category: 'wellness',
-    price: 18.99,
-    tier: 'B',
-    certifications: ['organic', 'compostable', 'vegan'],
-    reviewCount: 412,
-    rating: 4.7,
-    imageUrl: PRODUCT_IMAGE_PLACEHOLDER,
-    productUrl: 'https://www.amazon.co.uk/s?k=humble+bamboo+toothbrush',
-    affiliateLink: undefined,
-    affiliateNetwork: 'awin',
-  },
 ];
 
 // Helper functions
