@@ -42,6 +42,17 @@ export default async function BrandPage({ params }: BrandPageProps) {
       <section className={styles.hero}>
         <h1>{brand.name}</h1>
         <p>{brand.description}</p>
+        {brand.brandClaims && brand.brandClaims.length > 0 && (
+          <div className={styles.trust}>
+            <strong>The brand states:</strong>
+            <ul>
+              {brand.brandClaims.map((c) => (
+                <li key={c}>{c}</li>
+              ))}
+            </ul>
+            <p>These are the brand&apos;s own claims. We have not verified them.</p>
+          </div>
+        )}
         <p className={styles.trust}>
           <strong>Our check:</strong> {brand.trustNote}
         </p>

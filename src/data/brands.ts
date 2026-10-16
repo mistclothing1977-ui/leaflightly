@@ -11,6 +11,8 @@ export interface Brand {
   description: string;
   /** Plain-English note on what we have checked. Shown on the brand page. */
   trustNote: string;
+  /** The brand's own claims, shown as the brand's statement, not our check. */
+  brandClaims?: string[];
   website?: string;
   /** Awin advertiser ID, when the brand is in an Awin programme. */
   awinAdvertiserId?: number;
@@ -26,7 +28,11 @@ export const brands: Brand[] = [
     description:
       'Bamboo electric toothbrush heads made in Devon. They fit Oral-B and Sonicare handles, use plant-based bristles, and are wrapped in biodegradable packaging.',
     trustNote:
-      'The brand describes itself as a B Corp. We have not yet confirmed this on the B Corp directory, so treat it as the brand\'s own claim.',
+      'B Corp certified at company level (B Lab profile checked, 16 Oct 2026). This covers the company, not each product.',
+    brandClaims: [
+      'Carbon / climate neutral (scheme not yet identified)',
+      'FSC on the bamboo handle (not the bristles)',
+    ],
     website: 'https://www.thetruthbrush.com/',
     awinAdvertiserId: 19976,
   },
