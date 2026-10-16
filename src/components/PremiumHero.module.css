@@ -52,6 +52,7 @@
   left: 0;
   width: 100%;
   height: 100%;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* Hero Content: Premium Spacing */
@@ -106,6 +107,8 @@
 
 /* Hero Title: Premium Typography */
 .heroTitle {
+  color: #ffffff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
   font-size: clamp(2.8rem, 7vw, 5rem);
   font-weight: 900;
   line-height: 1.1;

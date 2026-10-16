@@ -30,6 +30,7 @@ export default function FeaturedProducts({ extra = [] }: { extra?: Product[] }) 
               <div className={styles.productContent}>
                 <p className={styles.productBrand}>{product.brand}</p>
                 <h4 className={styles.productName}>{product.name}</h4>
+                <p className={styles.productPrice}>£{product.price.toFixed(2)}</p>
                 <p className={styles.productStory}>{product.story}</p>
               </div>
             </Link>
