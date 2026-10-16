@@ -18,8 +18,8 @@
 
 .singleButton:hover,
 .singleButton:active {
-  background: #B4410E;
-  border-color: #B4410E;
+  background: #0F3320;
+  border-color: #0F3320;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
 }
@@ -28,11 +28,6 @@
   font-size: 1.2rem;
 }
 
-.singleButton .leaves {
-  font-size: 0.8rem;
-  font-weight: 400;
-  opacity: 0.85;
-}
 
 /* Multiple retailers */
 .multipleOptions {
