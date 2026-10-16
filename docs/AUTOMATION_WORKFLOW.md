@@ -234,3 +234,7 @@ Read from Truthbrush's own product page (non-affiliate): Cloud White, Sunshine Y
 
 ### Brand websites are not linked (rule, 2026-10-16)
 Do not link to a brand's own website from our pages. A plain link is untracked, so a sale made through it earns no commission. Link only through Awin tracked links (product links from the feed). The brand record may keep the website for reference, but the site does not display it.
+
+### Brand claims vs verified certifications (rule, 2026-10-16)
+- **Verified certifications** (we have checked a register or certificate) are listed as badges. Only these count as ours.
+- **Brand claims** (for example "B Corp certified" or "carbon neutral" stated in a listing) are shown as the brand's own statement, under "The brand states", with a line saying we haven't verified them. We do not present them as our check, and the brand carries responsibility for its own claims.

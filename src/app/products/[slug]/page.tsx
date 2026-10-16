@@ -210,6 +210,17 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               </div>
             </div>
           )}
+          {product.brandClaims && product.brandClaims.length > 0 && (
+            <div className={styles.certificationsCard}>
+              <h3 className={styles.cardTitle}>The brand states</h3>
+              <ul>
+                {product.brandClaims.map((claim) => (
+                  <li key={claim}>{claim}</li>
+                ))}
+              </ul>
+              <p>These are the brand&apos;s own claims. We have not verified them.</p>
+            </div>
+          )}
         </aside>
       </div>
 

@@ -44,6 +44,8 @@ export interface Product {
   story?: string;
   /** Other options of the same product (colour, bristle, pack). Feed products only. */
   variants?: ProductVariant[];
+  /** Claims the brand makes about itself or the product (e.g. "B Corp certified"). Shown as the brand's statement, never as our verified certification. */
+  brandClaims?: string[];
 }
 
 export const products: Product[] = [
@@ -304,6 +306,7 @@ export const products: Product[] = [
     rating: 4.2,
     imageUrl: PRODUCT_IMAGE_PLACEHOLDER,
     productUrl: 'https://link.amazon/B02gyKDXT',
+    brandClaims: ['Certified Carbon Neutral', 'B Corp Certified'],
     affiliateLink: undefined,
     affiliateNetwork: null,
   },
