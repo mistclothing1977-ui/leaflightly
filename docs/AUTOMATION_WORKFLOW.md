@@ -150,7 +150,7 @@ Candidate record (example):
 - Nothing publishes without owner approval.
 - **Records hold our own data only.** Each database entry stores the company name, certification, date checked, and a link to the source. Do not copy a database's listing text, descriptions, product lists or images into our records.
 - **Ecocert: lookups only.** One company at a time, by hand. Ecocert's robots.txt is open and its general terms don't restrict automated access, but database rights still apply to bulk extraction. No bulk pulls from the Ecocert directory without written permission.
-- **Certification lookups are manual.** No bot, script or agent searches a certification database. The owner (or a person at the owner's direction) looks up each company by hand.
+- **Certification cross-checks are one company at a time.** The agent may open a certification body's public search and check a single company, as a person would. Each check records only our own findings: the company, the certification, the register entry or link, and the date checked. No bulk downloads, exports or scraping of a register. Where a register's terms forbid automated access, the check is done by hand.
 - **Amazon checks are manual.** The owner runs the Amazon search and generates the link with Get Link. No automated access to amazon.co.uk.
 - **Affiliate programme terms are read once approved, not before.** Applications go in with the approved message. When a programme shows as Joined (or accepted), the agent reads that programme's terms page and records the key points (commission, cookie length, validation period, product feed and image rules, disclosure wording) against the programme. Terms are not read for applications still pending, so no time is spent on programmes that may reject us.
 
