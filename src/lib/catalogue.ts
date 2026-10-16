@@ -95,7 +95,12 @@ export async function getAllProducts(): Promise<Product[]> {
   return [...staticProducts, ...feed.filter((p) => !staticIds.has(p.id))];
 }
 
-/** Feed products shown in the homepage "Handpicked" row, by slug. Owner decides this list. */
-export const HOMEPAGE_FEED_SLUGS = [
-  'truthbrush-a-years-supply-of-truthtabs-award-winning-wild-mint-toothpaste-tablets-45243902088',
+/** Feed products shown in the homepage "Handpicked" row. Owner decides this list. */
+export const HOMEPAGE_FEED_PRODUCTS: { slug: string; story: string }[] = [
+  {
+    slug: 'truthbrush-sustainable-journey-set-by-truthbrush-45243902083',
+    story: 'A bamboo toothbrush, travel case and Truthtabs in one set',
+  },
 ];
+
+export const HOMEPAGE_FEED_SLUGS = HOMEPAGE_FEED_PRODUCTS.map((p) => p.slug);

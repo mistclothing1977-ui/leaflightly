@@ -5,7 +5,7 @@ import ImpactCounter from '@/components/ImpactCounter';
 import OurApproach from '@/components/OurApproach';
 import TierSystemRedesigned from '@/components/TierSystemRedesigned';
 import FeaturedProducts from '@/components/FeaturedProducts';
-import { getAllProducts, HOMEPAGE_FEED_SLUGS } from '@/lib/catalogue';
+import { getAllProducts, HOMEPAGE_FEED_PRODUCTS, HOMEPAGE_FEED_SLUGS } from '@/lib/catalogue';
 import CustomerStories from '@/components/CustomerStories';
 import VideoBlock from '@/components/VideoBlock';
 import NewsletterSection from '@/components/NewsletterSection';
@@ -49,7 +49,9 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const feedFeatured = (await getAllProducts()).filter((p) => HOMEPAGE_FEED_SLUGS.includes(p.id));
+  const feedFeatured = (await getAllProducts())
+    .filter((p) => HOMEPAGE_FEED_SLUGS.includes(p.id))
+    .map((p) => ({ ...p, story: HOMEPAGE_FEED_PRODUCTS.find((h) => h.slug === p.id)?.story }));
   const organizationSchema = generateOrganizationSchema();
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: 'https://leaflightly.com' },
