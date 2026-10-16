@@ -299,7 +299,7 @@ export const products: Product[] = [
     category: 'fashion',
     price: 63.07,
     tier: 'B',
-    certifications: ['organic', 'carbon-neutral'],
+    certifications: [],
     reviewCount: 132,
     rating: 4.2,
     imageUrl: PRODUCT_IMAGE_PLACEHOLDER,
