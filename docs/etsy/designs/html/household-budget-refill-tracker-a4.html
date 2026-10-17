@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<title>Household Budget &amp; Refill Tracker (A4)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--paper:#FAF8F2;--white:#FFFFFF;--ink:#24352C;--forest:#355C46;--sage:#DDE7D8;--clay:#A7543F;--sand:#E9DDC9;--line:#87958A}
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;background:#ddd;font-family:"Source Sans 3",Arial,Helvetica,sans-serif;color:var(--ink)}
+.page{width:210mm;height:297mm;background:var(--white);padding:15mm;margin:0 auto 6mm;display:flex;flex-direction:column;position:relative;overflow:hidden;page-break-after:always}
+@media print{html,body{background:#fff}.page{margin:0}}
+h1,h2,h3,h4{font-family:Lora,Georgia,serif;color:var(--forest);margin:0}
+h1{font-size:30pt;line-height:1.1;font-weight:600}
+h2{font-size:21pt;font-weight:600}
+h4{font-size:12pt;margin:4mm 0 2mm}
+p,li,td,th{font-size:11pt;line-height:1.45}
+.kick{font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);font-weight:600}
+.ph{border-bottom:1.5px solid var(--forest);padding-bottom:3mm;margin-bottom:5mm}
+.pb{flex:1;display:flex;flex-direction:column;gap:4mm}
+.pf{display:flex;justify-content:space-between;align-items:center;font-size:8pt;color:var(--line);border-top:0.5px solid var(--line);padding-top:2mm}
+.mark{display:flex;align-items:center;gap:1.5mm;color:var(--forest);font-weight:600}
+.mark img{height:4.5mm}
+.field{border:1px solid var(--line);border-radius:2mm;padding:3mm 3.5mm;background:var(--white)}
+.flabel{font-size:9pt;font-weight:600;color:var(--forest);margin-bottom:1mm}
+.rule{border-bottom:0.6px dotted var(--line);height:7mm}
+table.grid{width:100%;border-collapse:collapse;font-size:9.5pt}
+table.grid th{background:var(--sage);color:var(--forest);text-align:left;padding:2mm;border:0.6px solid var(--line);font-weight:600}
+table.grid td{border:0.6px solid var(--line);height:7.5mm;padding:1mm}
+ul.checks,ol.steps{list-style:none;margin:0;padding:0}
+ul.checks li{display:flex;gap:3mm;align-items:flex-start;padding:1.6mm 0;border-bottom:0.5px dotted var(--line)}
+.cb{width:4mm;height:4mm;border:1.2px solid var(--forest);border-radius:1mm;flex:0 0 4mm;margin-top:.6mm}
+ol.steps{counter-reset:s}
+ol.steps li{counter-increment:s;padding:2mm 0 2mm 9mm;position:relative;border-bottom:0.5px dotted var(--line)}
+ol.steps li:before{content:counter(s);position:absolute;left:0;top:1.8mm;width:6mm;height:6mm;border-radius:50%;background:var(--forest);color:#fff;font-size:9pt;text-align:center;line-height:6mm;font-weight:700}
+.example{background:var(--paper);border:1px solid var(--sage);border-radius:2mm;padding:3mm 4mm}
+.ex-tag{display:inline-block;background:var(--clay);color:#fff;font-size:7.5pt;padding:.8mm 2mm;border-radius:1mm;letter-spacing:.08em;text-transform:uppercase}
+.note{font-size:9pt;color:#4a5a50;background:var(--sand);border-radius:2mm;padding:2.5mm 3.5mm;margin:0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.cover{background:var(--paper);justify-content:center;align-items:flex-start;padding:22mm}
+.cover-in{display:flex;flex-direction:column;gap:6mm;width:100%}
+.cover-mark{width:24mm}
+.cover h1{font-size:36pt}
+.cover .sub{font-size:14pt;color:var(--forest);margin:0;max-width:150mm}
+.cover-meta{margin-top:10mm;font-size:11pt;color:var(--ink);border-top:1.5px solid var(--clay);padding-top:3mm;max-width:150mm}
+.cover-foot{position:absolute;bottom:20mm;left:22mm;font-size:9pt;color:var(--line)}
+.band{background:var(--sage);border-radius:2mm;padding:3mm 4mm}
+</style></head>
+<body>
+<section class="page cover">
+  <div class="cover-in">
+    <img class="cover-mark" src="logo-mark.png" alt="Leaf Lightly">
+    <div class="kick">Low-Waste Home</div>
+    <h1>Household Budget &amp; Refill Tracker</h1>
+    <p class="sub">Track refill unit prices, utility bills and repair decisions in one simple workbook.</p>
+    <div class="cover-meta">Printable quick-start guide and worked example (the spreadsheet is built separately in Google Sheets)</div>
+    <div class="cover-foot">7 pages including cover<br>Digital download. Quick-start PDF; spreadsheet link follows in the listing.</div>
+  </div>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Quick start</div><h2>Set up your tracker</h2></header>
+  <div class="pb"><ol class="steps"><li>Open the Sheets copy from your link (make your own copy).</li><li>Enter your currency and the month.</li><li>Add your categories on the Settings tab.</li><li>Log five transactions to test it.</li><li>Review the Dashboard.</li></ol><p class="note">Estimated savings are shown as assumptions. Recorded spending is shown separately.</p></div>
+  <footer class="pf"><span>Household Budget &amp; Refill Tracker · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Tabs</div><h2>What each tab does</h2></header>
+  <div class="pb"><table class="grid"><thead><tr><th>Tab</th><th>What you enter</th><th>What it tells you</th></tr></thead><tbody><tr><td></td><td></td><td></td><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr></tbody></table></div>
+  <footer class="pf"><span>Household Budget &amp; Refill Tracker · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Refill maths</div><h2>Unit price</h2></header>
+  <div class="pb"><p>Unit price = pack price ÷ quantity in a comparable unit (e.g. price per 100 ml).</p><div class="example"><div class="ex-tag">Completed example</div><h4>Worked example</h4><p>Concentrate: £6.00 for 1 litre = 0.6p per ml. Ready-to-use: £3.50 for 750 ml = 0.47p per ml. The ready-to-use is cheaper per ml here.</p></div></div>
+  <footer class="pf"><span>Household Budget &amp; Refill Tracker · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Repairs</div><h2>Repair or replace?</h2></header>
+  <div class="pb"><table class="grid"><thead><tr><th>Item</th><th>Repair cost</th><th>Replacement cost</th><th>Expected extra use</th><th>Decision</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><td></td><tr><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+  <footer class="pf"><span>Household Budget &amp; Refill Tracker · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Reusables</div><h2>Break-even check</h2></header>
+  <div class="pb"><p>Break-even uses = upfront reusable cost ÷ (disposable cost per use − reusable running cost per use).</p><div class="example"><div class="ex-tag">Completed example</div><h4>Worked example</h4><p>Reusable bottle £12. Disposable £1.20 per use. Reusable running cost 10p per use. Break-even = 12 ÷ (1.20 − 0.10) = 11 uses.</p></div><p class="note">If the disposable cost per use is lower than the reusable running cost, the result is "no break-even under these assumptions".</p></div>
+  <footer class="pf"><span>Household Budget &amp; Refill Tracker · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Monthly review</div><h2>Monthly review</h2></header>
+  <div class="pb"><div class="field"><div class="flabel">What changed this month?</div><div class="rule"></div><div class="rule"></div><div class="rule"></div></div><div class="field"><div class="flabel">What surprised me?</div><div class="rule"></div><div class="rule"></div><div class="rule"></div></div><div class="field"><div class="flabel">My next action</div><div class="rule"></div><div class="rule"></div></div></div>
+  <footer class="pf"><span>Household Budget &amp; Refill Tracker · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Your download</div><h2>What is in your download</h2></header>
+  <div class="pb"><ul class="checks"><li><span class="cb"></span>household-budget-refill-tracker-a4.pdf: Household Budget &amp; Refill Tracker, A4 print edition</li><li><span class="cb"></span>household-budget-refill-tracker-low-ink.pdf: low-ink edition (same layout, lighter panels)</li><li><span class="cb"></span>START_HERE.pdf: this page and the instructions</li></ul><div class="cols"><div class="band"><h4>Licence</h4><p>For personal household use. Files may not be resold, shared or redistributed.</p></div><div class="band"><h4>Support</h4><p>Questions about access or printing: contact the shop through Etsy Messages.</p></div></div><p>Download in a web browser on a computer. Choose A4 and print the pages you need. Print at 100% to keep sizes correct.</p><p class="note">Version 1.0. Check the shop for the latest version number before printing new copies.</p></div>
+  <footer class="pf"><span>Household Budget &amp; Refill Tracker · A4 · Version 1.0</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+</body></html>

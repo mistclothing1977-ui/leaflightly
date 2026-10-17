@@ -1,0 +1,215 @@
+{
+  "built": [
+    {
+      "name": "pantry-first-meal-planner-a4",
+      "size": "A4",
+      "product": "Pantry-First Meal Planner",
+      "collection": "Low-Waste Home",
+      "pages": 13
+    },
+    {
+      "name": "pantry-first-meal-planner-letter",
+      "size": "Letter",
+      "product": "Pantry-First Meal Planner",
+      "collection": "Low-Waste Home",
+      "pages": 13
+    },
+    {
+      "name": "room-by-room-home-audit-a4",
+      "size": "A4",
+      "product": "Room-by-Room Home Audit",
+      "collection": "Low-Waste Home",
+      "pages": 13
+    },
+    {
+      "name": "room-by-room-home-audit-letter",
+      "size": "Letter",
+      "product": "Room-by-Room Home Audit",
+      "collection": "Low-Waste Home",
+      "pages": 13
+    },
+    {
+      "name": "buy-repair-borrow-or-wait-a4",
+      "size": "A4",
+      "product": "Buy, Repair, Borrow or Wait",
+      "collection": "Low-Waste Home",
+      "pages": 7
+    },
+    {
+      "name": "buy-repair-borrow-or-wait-letter",
+      "size": "Letter",
+      "product": "Buy, Repair, Borrow or Wait",
+      "collection": "Low-Waste Home",
+      "pages": 7
+    },
+    {
+      "name": "30-day-low-waste-challenge-a4",
+      "size": "A4",
+      "product": "30-Day Low-Waste Challenge",
+      "collection": "Low-Waste Home",
+      "pages": 11
+    },
+    {
+      "name": "30-day-low-waste-challenge-letter",
+      "size": "Letter",
+      "product": "30-Day Low-Waste Challenge",
+      "collection": "Low-Waste Home",
+      "pages": 11
+    },
+    {
+      "name": "household-budget-refill-tracker-a4",
+      "size": "A4",
+      "product": "Household Budget & Refill Tracker",
+      "collection": "Low-Waste Home",
+      "pages": 7
+    },
+    {
+      "name": "household-budget-refill-tracker-letter",
+      "size": "Letter",
+      "product": "Household Budget & Refill Tracker",
+      "collection": "Low-Waste Home",
+      "pages": 7
+    },
+    {
+      "name": "social-post-kit-a4",
+      "size": "A4",
+      "product": "Eco Social Post Kit",
+      "collection": "Eco Creator Studio",
+      "pages": 9
+    },
+    {
+      "name": "social-post-kit-letter",
+      "size": "Letter",
+      "product": "Eco Social Post Kit",
+      "collection": "Eco Creator Studio",
+      "pages": 9
+    },
+    {
+      "name": "eco-media-kit-a4",
+      "size": "A4",
+      "product": "Eco Media Kit",
+      "collection": "Eco Creator Studio",
+      "pages": 6
+    },
+    {
+      "name": "eco-media-kit-letter",
+      "size": "Letter",
+      "product": "Eco Media Kit",
+      "collection": "Eco Creator Studio",
+      "pages": 6
+    },
+    {
+      "name": "sustainable-product-guide-layout-a4",
+      "size": "A4",
+      "product": "Sustainable Product Guide Layout",
+      "collection": "Eco Creator Studio",
+      "pages": 8
+    },
+    {
+      "name": "sustainable-product-guide-layout-letter",
+      "size": "Letter",
+      "product": "Sustainable Product Guide Layout",
+      "collection": "Eco Creator Studio",
+      "pages": 8
+    },
+    {
+      "name": "partnership-pitch-pack-a4",
+      "size": "A4",
+      "product": "Partnership Pitch Pack",
+      "collection": "Eco Creator Studio",
+      "pages": 6
+    },
+    {
+      "name": "partnership-pitch-pack-letter",
+      "size": "Letter",
+      "product": "Partnership Pitch Pack",
+      "collection": "Eco Creator Studio",
+      "pages": 6
+    },
+    {
+      "name": "pinterest-pin-kit-a4",
+      "size": "A4",
+      "product": "Pinterest Pin and Carousel Kit",
+      "collection": "Eco Creator Studio",
+      "pages": 5
+    },
+    {
+      "name": "pinterest-pin-kit-letter",
+      "size": "Letter",
+      "product": "Pinterest Pin and Carousel Kit",
+      "collection": "Eco Creator Studio",
+      "pages": 5
+    },
+    {
+      "name": "family-nature-journal-a4",
+      "size": "A4",
+      "product": "Family Nature Journal",
+      "collection": "Nature & Learning",
+      "pages": 11
+    },
+    {
+      "name": "family-nature-journal-letter",
+      "size": "Letter",
+      "product": "Family Nature Journal",
+      "collection": "Nature & Learning",
+      "pages": 11
+    },
+    {
+      "name": "composting-guide-poster-a4",
+      "size": "A4",
+      "product": "Composting Guide Poster",
+      "collection": "Nature & Learning",
+      "pages": 5
+    },
+    {
+      "name": "composting-guide-poster-letter",
+      "size": "Letter",
+      "product": "Composting Guide Poster",
+      "collection": "Nature & Learning",
+      "pages": 5
+    },
+    {
+      "name": "seasonal-produce-guide-a4",
+      "size": "A4",
+      "product": "Seasonal Produce Guide (UK)",
+      "collection": "Nature & Learning",
+      "pages": 3
+    },
+    {
+      "name": "seasonal-produce-guide-letter",
+      "size": "Letter",
+      "product": "Seasonal Produce Guide (UK)",
+      "collection": "Nature & Learning",
+      "pages": 3
+    },
+    {
+      "name": "recycling-symbols-guide-a4",
+      "size": "A4",
+      "product": "Recycling Symbols Guide",
+      "collection": "Nature & Learning",
+      "pages": 4
+    },
+    {
+      "name": "recycling-symbols-guide-letter",
+      "size": "Letter",
+      "product": "Recycling Symbols Guide",
+      "collection": "Nature & Learning",
+      "pages": 4
+    },
+    {
+      "name": "botanical-wall-art-trio-a4",
+      "size": "A4",
+      "product": "Botanical Wall Art Trio",
+      "collection": "Nature & Learning",
+      "pages": 4
+    },
+    {
+      "name": "botanical-wall-art-trio-letter",
+      "size": "Letter",
+      "product": "Botanical Wall Art Trio",
+      "collection": "Nature & Learning",
+      "pages": 4
+    }
+  ],
+  "failures": []
+}

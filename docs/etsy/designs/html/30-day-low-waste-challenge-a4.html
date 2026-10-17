@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8">
+<title>30-Day Low-Waste Challenge (A4)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--paper:#FAF8F2;--white:#FFFFFF;--ink:#24352C;--forest:#355C46;--sage:#DDE7D8;--clay:#A7543F;--sand:#E9DDC9;--line:#87958A}
+@page{size:A4;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;background:#ddd;font-family:"Source Sans 3",Arial,Helvetica,sans-serif;color:var(--ink)}
+.page{width:210mm;height:297mm;background:var(--white);padding:15mm;margin:0 auto 6mm;display:flex;flex-direction:column;position:relative;overflow:hidden;page-break-after:always}
+@media print{html,body{background:#fff}.page{margin:0}}
+h1,h2,h3,h4{font-family:Lora,Georgia,serif;color:var(--forest);margin:0}
+h1{font-size:30pt;line-height:1.1;font-weight:600}
+h2{font-size:21pt;font-weight:600}
+h4{font-size:12pt;margin:4mm 0 2mm}
+p,li,td,th{font-size:11pt;line-height:1.45}
+.kick{font-size:8.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--clay);font-weight:600}
+.ph{border-bottom:1.5px solid var(--forest);padding-bottom:3mm;margin-bottom:5mm}
+.pb{flex:1;display:flex;flex-direction:column;gap:4mm}
+.pf{display:flex;justify-content:space-between;align-items:center;font-size:8pt;color:var(--line);border-top:0.5px solid var(--line);padding-top:2mm}
+.mark{display:flex;align-items:center;gap:1.5mm;color:var(--forest);font-weight:600}
+.mark img{height:4.5mm}
+.field{border:1px solid var(--line);border-radius:2mm;padding:3mm 3.5mm;background:var(--white)}
+.flabel{font-size:9pt;font-weight:600;color:var(--forest);margin-bottom:1mm}
+.rule{border-bottom:0.6px dotted var(--line);height:7mm}
+table.grid{width:100%;border-collapse:collapse;font-size:9.5pt}
+table.grid th{background:var(--sage);color:var(--forest);text-align:left;padding:2mm;border:0.6px solid var(--line);font-weight:600}
+table.grid td{border:0.6px solid var(--line);height:7.5mm;padding:1mm}
+ul.checks,ol.steps{list-style:none;margin:0;padding:0}
+ul.checks li{display:flex;gap:3mm;align-items:flex-start;padding:1.6mm 0;border-bottom:0.5px dotted var(--line)}
+.cb{width:4mm;height:4mm;border:1.2px solid var(--forest);border-radius:1mm;flex:0 0 4mm;margin-top:.6mm}
+ol.steps{counter-reset:s}
+ol.steps li{counter-increment:s;padding:2mm 0 2mm 9mm;position:relative;border-bottom:0.5px dotted var(--line)}
+ol.steps li:before{content:counter(s);position:absolute;left:0;top:1.8mm;width:6mm;height:6mm;border-radius:50%;background:var(--forest);color:#fff;font-size:9pt;text-align:center;line-height:6mm;font-weight:700}
+.example{background:var(--paper);border:1px solid var(--sage);border-radius:2mm;padding:3mm 4mm}
+.ex-tag{display:inline-block;background:var(--clay);color:#fff;font-size:7.5pt;padding:.8mm 2mm;border-radius:1mm;letter-spacing:.08em;text-transform:uppercase}
+.note{font-size:9pt;color:#4a5a50;background:var(--sand);border-radius:2mm;padding:2.5mm 3.5mm;margin:0}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.cover{background:var(--paper);justify-content:center;align-items:flex-start;padding:22mm}
+.cover-in{display:flex;flex-direction:column;gap:6mm;width:100%}
+.cover-mark{width:24mm}
+.cover h1{font-size:36pt}
+.cover .sub{font-size:14pt;color:var(--forest);margin:0;max-width:150mm}
+.cover-meta{margin-top:10mm;font-size:11pt;color:var(--ink);border-top:1.5px solid var(--clay);padding-top:3mm;max-width:150mm}
+.cover-foot{position:absolute;bottom:20mm;left:22mm;font-size:9pt;color:var(--line)}
+.band{background:var(--sage);border-radius:2mm;padding:3mm 4mm}
+</style></head>
+<body>
+<section class="page cover">
+  <div class="cover-in">
+    <img class="cover-mark" src="logo-mark.png" alt="Leaf Lightly">
+    <div class="kick">Low-Waste Home</div>
+    <h1>30-Day Low-Waste Challenge</h1>
+    <p class="sub">One small action a day, sequenced to use up first, repair and decide later.</p>
+    <div class="cover-meta">Printable PDF · A4 and US Letter · low-ink edition</div>
+    <div class="cover-foot">11 pages including cover<br>Digital download. Printable PDF. Not editable.</div>
+  </div>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Start here</div><h2>What this challenge is</h2></header>
+  <div class="pb"><p>Thirty small actions. Each one takes a few minutes. Missing a day is fine. Adapting an action is fine. Skipping one that does not suit your home is fine.</p><p class="note">There is no perfect version of this challenge. The aim is to notice patterns and change a few of them.</p></div>
+  <footer class="pf"><span>30-Day Low-Waste Challenge · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Set up</div><h2>My starting point</h2></header>
+  <div class="pb"><div class="field"><div class="flabel">What we throw away most</div><div class="rule"></div><div class="rule"></div><div class="rule"></div></div><div class="field"><div class="flabel">Budget and access (shops nearby, bulk options, etc.)</div><div class="rule"></div><div class="rule"></div><div class="rule"></div></div><div class="field"><div class="flabel">Three priorities for this month</div><div class="rule"></div><div class="rule"></div><div class="rule"></div></div></div>
+  <footer class="pf"><span>30-Day Low-Waste Challenge · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Days 1 to 7</div><h2>Observe and use up</h2></header>
+  <div class="pb"><table class="grid"><thead><tr><th>Day</th><th>Action</th><th>Time</th><th>Done / adapted / not relevant</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+  <footer class="pf"><span>30-Day Low-Waste Challenge · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Days 8 to 14</div><h2>Kitchen routines</h2></header>
+  <div class="pb"><table class="grid"><thead><tr><th>Day</th><th>Action</th><th>Time</th><th>Done / adapted / not relevant</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+  <footer class="pf"><span>30-Day Low-Waste Challenge · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Days 15 to 21</div><h2>Bathroom and laundry</h2></header>
+  <div class="pb"><table class="grid"><thead><tr><th>Day</th><th>Action</th><th>Time</th><th>Done / adapted / not relevant</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+  <footer class="pf"><span>30-Day Low-Waste Challenge · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Days 22 to 28</div><h2>Repair, borrow and wait</h2></header>
+  <div class="pb"><table class="grid"><thead><tr><th>Day</th><th>Action</th><th>Time</th><th>Done / adapted / not relevant</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table></div>
+  <footer class="pf"><span>30-Day Low-Waste Challenge · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Days 29 and 30</div><h2>Compare and choose</h2></header>
+  <div class="pb"><table class="grid"><thead><tr><th>Day</th><th>Action</th><th>Time</th><th>Done / adapted / not relevant</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table><div class="field"><div class="flabel">Three habits I will keep</div><div class="rule"></div><div class="rule"></div><div class="rule"></div></div></div>
+  <footer class="pf"><span>30-Day Low-Waste Challenge · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Weekly</div><h2>Weekly reflection</h2></header>
+  <div class="pb"><ul class="checks"><li><span class="cb"></span>Easy</li><li><span class="cb"></span>Difficult</li><li><span class="cb"></span>Skipped</li><li><span class="cb"></span>Adapted</li><li><span class="cb"></span>Money spent</li></ul><div class="field"><div class="flabel">What got in the way?</div><div class="rule"></div><div class="rule"></div><div class="rule"></div></div><div class="field"><div class="flabel">What helped?</div><div class="rule"></div><div class="rule"></div><div class="rule"></div></div></div>
+  <footer class="pf"><span>30-Day Low-Waste Challenge · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Example</div><h2>Completed example: week one</h2></header>
+  <div class="pb"><div class="example"><div class="ex-tag">Completed example</div><h4>Days 1 to 7</h4><table class="grid"><thead><tr><th>Day</th><th>Action</th><th>Time</th><th>Done / adapted / not relevant</th></tr></thead><tbody><tr><td></td><td></td><td></td><td></td><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody></table><p>Example: Day 2 checked the cupboard and found three open packets of rice. Day 4 used them up in four meals.</p></div></div>
+  <footer class="pf"><span>30-Day Low-Waste Challenge · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Monthly</div><h2>Keep going</h2></header>
+  <div class="pb"><ul class="checks"><li><span class="cb"></span>Repeat the weekly check</li><li><span class="cb"></span>Refill one product from a larger pack</li><li><span class="cb"></span>Choose one repair to keep up</li></ul><div class="field"><div class="flabel">Next month’s actions</div><div class="rule"></div><div class="rule"></div><div class="rule"></div><div class="rule"></div></div></div>
+  <footer class="pf"><span>30-Day Low-Waste Challenge · A4</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+<section class="page">
+  <header class="ph"><div class="kick">Your download</div><h2>What is in your download</h2></header>
+  <div class="pb"><ul class="checks"><li><span class="cb"></span>30-day-low-waste-challenge-a4.pdf: 30-Day Low-Waste Challenge, A4 print edition</li><li><span class="cb"></span>30-day-low-waste-challenge-low-ink.pdf: low-ink edition (same layout, lighter panels)</li><li><span class="cb"></span>START_HERE.pdf: this page and the instructions</li></ul><div class="cols"><div class="band"><h4>Licence</h4><p>For personal household use. Files may not be resold, shared or redistributed.</p></div><div class="band"><h4>Support</h4><p>Questions about access or printing: contact the shop through Etsy Messages.</p></div></div><p>Download in a web browser on a computer. Choose A4 and print the pages you need. Print at 100% to keep sizes correct.</p><p class="note">Version 1.0. Check the shop for the latest version number before printing new copies.</p></div>
+  <footer class="pf"><span>30-Day Low-Waste Challenge · A4 · Version 1.0</span><span class="mark"><img src="logo-mark.png" alt=""> Leaf Lightly</span></footer>
+</section>
+</body></html>
